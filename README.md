@@ -23,16 +23,21 @@ This is the repository for the course 'Introduction to Computational Social Scie
 
 ## Literature
 
+- ...
 
 
-
-# Session overview
+# Sessions
 
 ## 2022-10-XX Session 1: This and that
 
-### Description
+### Short description
 
+This sessions ...
 
 ### Literature
 
-## ...
+- Author (2022) Title.
+- Author (2022) Title.
+
+
+## 2022-11-XX Session 2: ...
