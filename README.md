@@ -1,5 +1,6 @@
 ---
 title: Syllabus
+course: Introduction to Computational Social Science
 authors:
     - Maximilian Haag
     - Constantin Kaplaner
