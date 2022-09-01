@@ -9,6 +9,12 @@ term: Winter 2022
 
 # Introduction to Computational Social Science - Syllabus
 
+**Instructors**
+
+- Maximilian Haag ([maximilian.haag@gsi.uni-muenchen.de](mailto:maximilian.haag@gsi.uni-muenchen.de))
+- Constantin Kaplaner ([constantin.kaplaner@gsi.uni-muenchen.de](mailto:constantin.kaplaner@gsi.uni-muenchen.de))
+
+
 ## Course overview
 
 This is the repository for the course 'Introduction to Computational Social Science' held at LMU Munich, Winter term 2022-23. The course is held in double sessions (2 x 90 minutes) every other week. Session are structured as follows: The first part of a session will include a presentation of the session's topic by the lecturers to set the theoretical foundation. In the second part of the sessions, students will be able to explore the topic themselves using structured coding exercises. The material provided will be written in the `R` programming language. While students are encouraged to engage with the provided `R` material, they can also choose to follow the course in a programming language they are familiar with.
@@ -42,7 +48,6 @@ If you cannot attend a session, please inform one of the lecturers beforehand. T
 
 Students are encouraged to visit the instructors' office hours for help with understanding the theoretical and practical course materials.
 
-</br>
 
 **Offline**
 
@@ -52,9 +57,9 @@ If possible, please write an e-mail beforehand if you plan to attend the office 
 - M. Haag: Room XYZ, Wed X-Y and by arrangement (via e-mail)
 
 
-**Online**
+**Online (via Zoom)**
 
-Please schedule a date via e-mail.
+Please schedule a meeting via e-mail.
 
 
 ### Literature
