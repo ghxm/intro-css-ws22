@@ -11,7 +11,7 @@ term: Winter 2022
 
 ## Course overview
 
-This is the repository for the course 'Introduction to Computational Social Science' held at LMU Munich, Winter term 2022-23. The course is held in double sessions every other week. Session are structured as follows:
+This is the repository for the course 'Introduction to Computational Social Science' held at LMU Munich, Winter term 2022-23. The course is held in double sessions (2 x 90 minutes) every other week. Session are structured as follows:
 
 ### Abstract
 
@@ -21,6 +21,14 @@ This is the repository for the course 'Introduction to Computational Social Scie
 
 
 ### Additional information
+
+If you cannot
+
+
+### Office hours
+
+- Offline
+- Online
 
 
 ### Literature
