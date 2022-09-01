@@ -29,3 +29,10 @@ This is the repository for the course 'Introduction to Computational Social Scie
 # Session overview
 
 ## 2022-10-XX Session 1: This and that
+
+### Description
+
+
+### Literature
+
+## ...
