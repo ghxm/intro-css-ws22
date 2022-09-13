@@ -62,6 +62,17 @@ If possible, please write an e-mail beforehand if you plan to attend the office 
 Please schedule a meeting via e-mail.
 
 
+### Access to resources
+
+To follow the course, you will need to have access to an RStudio installation. You can either install RStudio on your own computer or use the university computers. Your personal workspace on university computers is available via [Remote Desktop](https://www.it.ifkw.uni-muenchen.de/web/remotedesktop/index.html).
+
+Additionally, we offer a RStudio Cloud workspace for working for thorugh the session the course and in your own time. This is an external service offered by XYZ Company. You will need to register for a free account in order to be able to work on the course materials on your own. The usage of the service within the free tier and for work in the seminar workspace is free to course participants.
+
+Please chose a method of access to an RStudio Cloud installation and familiarize yourself with the access to your RStudio instalaltion.
+
+Please note: We will not be able to provide access to our RStudio Cloud workspace during the seminar paper preparation phase due to time and cost constrains on our end. However, you will have ample time to work through the course materials during the sessions or in your own time on the RStudio Cloud.
+
+
 ### Literature
 
 - ...
