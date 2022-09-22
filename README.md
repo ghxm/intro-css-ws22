@@ -80,16 +80,144 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 ## Sessions
 
-### 2022-10-XX Session 1: This and that
+### 2022-10-17 Session 1: This and that
 
-#### Short description
+#### Description
 
-This sessions ...
+**Learning objectives**
+
+....
+
+
+**Lab**
+
+...
 
 #### Literature
 
-- Author (2022) Title.
-- Author (2022) Title.
+- *Lazer et al. (2009) Computational Social Science. Science  323 (5915), 721-723. DOI: 10.1126/science.1167742.*
 
 
-### 2022-11-XX Session 2: ...
+
+
+### 2022-10-31 Session 2: Reasearch in CSS, data structures and data collection
+
+#### Description
+
+- Research Design & reproducibility
+- Explorative, descriptive, inference, ...
+- Types of data & sources
+- Datasets
+    - Example: available popular datasets
+- Databases
+    - Example: available databases
+
+Lab:
+- Working with XYZ dataset/database
+- Position calculation from Manifesto data
+- Web scraping
+- Example: scraping text and metadata of e.g. news websites, parliamentary speeches etcetc
+- Example: using an API (e.g. Open German API Dings)
+
+
+
+
+
+### 2022-11-14 Session 3: Text analysis for political texts
+#### Description
+
+**Learning objectives**
+
+....
+
+
+**Lab**
+
+...
+
+
+
+#### Literature
+
+- *Grimmer, J. (2013). Text as data: The promise and pitfalls of automatic content analysis methods for political texts. Political Analysis, 21(3), 267-297. DOI: 10.1093/pan/mps020*
+
+
+
+
+### 2022-11-28 Session 4: Supervised machine learning for text analyis
+
+#### Description
+
+**Learning objectives**
+
+....
+
+
+**Lab**
+
+...
+
+
+
+#### Literature
+
+
+
+
+
+### 2023-01-09 Session 5: Network data and analysis
+
+#### Description
+
+**Learning objectives**
+
+....
+
+
+**Lab**
+
+...
+
+
+#### Literature
+
+
+
+
+
+
+### 2023-01-09 Session 6: Geo-spatial data
+
+#### Description
+
+**Learning objectives**
+
+....
+
+
+**Lab**
+
+...
+
+
+#### Literature
+
+
+
+
+
+
+### 2023-01-09 Session 7: ?
+
+- Choose your own adventure
+
+
+
+### 2023-01-09 Session 8: Research design / term paper presentations and wrap up
+
+#### Description
+
+
+#### Literature
+
+
