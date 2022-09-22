@@ -82,14 +82,13 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 ### 2022-10-17 Session 1: This and that
 
-#### Description
+#### Learning objectives
 
-**Learning objectives**
 
 ....
 
 
-**Lab**
+#### Lab
 
 ...
 
@@ -102,7 +101,7 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 ### 2022-10-31 Session 2: Reasearch in CSS, data structures and data collection
 
-#### Description
+#### Learning objectives
 
 - Research Design & reproducibility
 - Explorative, descriptive, inference, ...
@@ -112,7 +111,8 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 - Databases
     - Example: available databases
 
-Lab:
+#### Lab
+
 - Working with XYZ dataset/database
 - Position calculation from Manifesto data
 - Web scraping
@@ -124,18 +124,15 @@ Lab:
 
 
 ### 2022-11-14 Session 3: Text analysis for political texts
-#### Description
+#### Learning objectives
 
-**Learning objectives**
 
 ....
 
 
-**Lab**
+#### Lab
 
 ...
-
-
 
 #### Literature
 
@@ -145,21 +142,15 @@ Lab:
 
 
 ### 2022-11-28 Session 4: Supervised machine learning for text analyis
+#### Learning objectives
 
-#### Description
-
-**Learning objectives**
 
 ....
 
 
-**Lab**
+#### Lab
 
 ...
-
-
-
-#### Literature
 
 
 
@@ -167,14 +158,13 @@ Lab:
 
 ### 2023-12-12 Session 5: Network data and analysis
 
-#### Description
+#### Learning objectives
 
-**Learning objectives**
 
 ....
 
 
-**Lab**
+#### Lab
 
 ...
 
@@ -188,17 +178,15 @@ Lab:
 
 ### 2023-01-09 Session 6: Geo-spatial data
 
-#### Description
+#### Learning objectives
 
-**Learning objectives**
 
 ....
 
 
-**Lab**
+#### Lab
 
 ...
-
 
 #### Literature
 
