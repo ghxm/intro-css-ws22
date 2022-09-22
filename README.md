@@ -165,7 +165,7 @@ Lab:
 
 
 
-### 2023-01-09 Session 5: Network data and analysis
+### 2023-12-12 Session 5: Network data and analysis
 
 #### Description
 
@@ -207,13 +207,13 @@ Lab:
 
 
 
-### 2023-01-09 Session 7: ?
+### 2023-01-23 Session 7: ?
 
 - Choose your own adventure
 
 
 
-### 2023-01-09 Session 8: Research design / term paper presentations and wrap up
+### 2023-02-06 Session 8: Research design / term paper presentations and wrap up
 
 #### Description
 
