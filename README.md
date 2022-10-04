@@ -1,6 +1,6 @@
 ---
 title: Syllabus
-course: Introduction to Computational Social Science
+course: Introduction to Computational Social Science [WP 7.1]
 authors:
     - Maximilian Haag
     - Constantin Kaplaner
@@ -73,24 +73,45 @@ Please chose a method of access to an RStudio Cloud installation and familiarize
 Please note: We will not be able to provide access to our RStudio Cloud workspace during the seminar paper preparation phase due to time and cost constrains on our end. However, you will have ample time to work through the course materials during the sessions or in your own time on the RStudio Cloud.
 
 
-### Literature
+### Literature & resources
 
-- ...
+#### Learn R
+
+- [YaRrr! The Pirate’s Guide to R](https://bookdown.org/ndphillips/YaRrr/)
+- [R for Data Science](https://r4ds.had.co.nz/introduction.html)
+- [An introduction to R](https://intro2r.com/)
+- [W3 Schools R Tutorial](https://www.w3schools.com/r/default.asp)
+
+#### CSS resources
+
+- [Hertie School Data Science Lab](https://www.hertie-school.org/en/datasciencelab)
+- [Text-as-Data Initiative](https://sites.google.com/view/polsci-ml-initiative)
+- [MZES Method Bites](https://www.mzes.uni-mannheim.de/socialsciencedatalab/)
+- Twitter
+
+#### Computer powered tools for research
+
+- [Elicit](https://elicit.org/)
+- Sci-Hub
 
 
 ## Sessions
 
-### 2022-10-17 Session 1: This and that
+### 2022-10-17 Session 1: Introduction to the introduction to CSS
 
 #### Learning objectives
 
+- Getting to know each other
+- Course overview
+- Terminology
+- Tools
 
-....
 
 
 #### Lab
 
-...
+- Introduction to RStudio & R
+
 
 #### Literature
 
@@ -124,6 +145,7 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 
 ### 2022-11-14 Session 3: Text analysis for political texts
+
 #### Learning objectives
 
 
