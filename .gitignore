@@ -1,3 +1,5 @@
+*neu_vb_mhck.xlsx
+
 *.html
 
 
@@ -6,6 +8,8 @@
 *.RData
 *.Ruserdata
 *.Rproj
+
+.DS*
 
 # History files
 .Rhistory
