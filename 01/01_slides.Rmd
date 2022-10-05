@@ -59,10 +59,13 @@ header-includes:
 
 # Introduction {.centered}
 
+\begin{centering}
 
-**Who are we?**
+\Large\textbf{Who are we?}
 
-**Who are you?**
+\Large\textbf{Who are you?}
+
+\end{centering}
 
 
 
@@ -98,7 +101,7 @@ header-includes:
 
 **Session 6** Introduction to geo-spatial data + guest lecture!
 
-**Session 7** ?
+**Session 7** ? (See syllabus)
 
 **Session 8** Term paper presentations, closing discussion
 
@@ -119,7 +122,7 @@ Details will be provided throughout the course / in the next session.
 
 # Office hours et al.
 
-See syllabus.
+See syllabus. @TODO: LINK
 
 Don't hesitate to make use of the office hours! (Just write an e-mail beforehand)
 
