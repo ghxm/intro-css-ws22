@@ -1,3 +1,9 @@
+*.bib
+
+*.log
+
+*.tex
+
 *neu_vb_mhck.xlsx
 
 *.html

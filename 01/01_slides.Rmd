@@ -1,0 +1,219 @@
+---
+knit: (function(input, ...) {
+    rmarkdown::render(
+      '01_slides.Rmd',
+      envir = globalenv()
+    )
+  })
+output:
+    beamer_presentation:
+        keep_tex: yes
+        latex_engine: xelatex
+        template: '../pandoc/templates/slides_template.latex'
+title: "Introduction to Computational Social Science"
+subtitle: "Session 1: What is CSS?"
+author:
+    - Maximilian Haag
+    - Constantin Kaplaner
+date: "17.10.2022"
+event: "Room B U103, Tue 14:00--18:00 (bi-weekly)"
+contact: (maximilian.haag@gsi.uni-muenchen.de; constantin.kaplaner@gsi.uni-muenchen.de)
+institute: "Geschwister-Scholl-Institut for Political Science \\newline LMU Munich"
+titlegraphic: null
+fundinggraphic: null
+theme: metropolis
+beamer: yes
+themeoptions: null
+outerheme: null
+innertheme: circles
+colortheme: dove
+fonttheme: structurebold
+fontthemeoptions: onlylarge
+fontfamily: sourcesanspro
+fontfamilyoptions: null
+mainfont: null
+fontsize: 10
+bibliography: ../pandoc/css-intro-ba.bib
+csl: ../pandoc/apa.csl
+handout: no
+beamercovered:  ''
+link-citations: yes
+citecolor: blue
+colorlinks: yes
+section-titles: yes
+tables: yes
+classoption:
+  #- notes=only
+  - notes=hide
+nocite:
+header-includes:
+- \setbeamertemplate{frame footer}{\insertshortauthor \hspace{1em} -- \hspace{1em}\insertshorttitle \hspace{0.5em} \insertsubtitle}
+- \setbeamerfont{page number in head/foot}{size=\tiny}
+- \setbeamercolor{footline}{fg=darkgray, bg = alabaster}
+- \setbeamercolor{frametitle}{fg=black, bg = alabaster}
+- \setbeamercolor{block title}{bg=alabaster,fg=black}
+- \setbeamercolor{block body}{fg=black, bg=magnolia}
+- \setlength\belowcaptionskip{-0.8em}
+---
+
+
+# Introduction {.centered}
+
+
+**Who are we?**
+
+**Who are you?**
+
+
+
+# What is this course about?
+
+- *Introduction* to *Computational Social Science*
+
+- We want to provide an overview of current computational techniques used in Political Science research
+
+- You might not be able to perform each and every one of these techniques (but we will provide examples!) after the course, but you (hopefully) will have a better understanding of the logic behind them and their limitations as well as the tools used.
+
+- Examples and coding!
+
+
+# Course overview i
+
+**Why double sessions?**
+
+1. Presentation / background
+2. Lab
+
+# Course overview ii {.shrink}
+
+**Session 1 (today)** Introduction, What is CSS, R?
+
+**Session 2** Data structures, data collection and research design
+
+**Session 3** Introduction to text analysis
+
+**Session 4** Supervised machine learning for text analysis
+
+**Session 5** Introduction to network data
+
+**Session 6** Introduction to geo-spatial data + guest lecture!
+
+**Session 7** ?
+
+**Session 8** Term paper presentations, closing discussion
+
+
+# Course requirements
+
+
+**Requirements**
+
+1. **Presentation of your paper idea for the term paper** \newline
+To get feedback from students and instructors.
+
+Presentations will be held in the final session.
+
+2. **Term paper** \newline
+Details will be provided throughout the course / in the next session.
+
+
+# Office hours et al.
+
+See syllabus.
+
+Don't hesitate to make use of the office hours! (Just write an e-mail beforehand)
+
+# Questions? {.c}
+
+
+\LARGE ... any questions so far?
+
+<!---- CONTENT START ----->
+
+
+# What is Computational Social Science? {.allowframebreaks}
+
+>The new field of Computational Social Science can be defined as the interdisciplinary investigation of the social universe on many scales, ranging from individual actors to the largest groupings, through the medium of computation.
+[@intro_css_book_2017]
+
+>Computational social science is the academic sub-discipline concerned with computational approaches to the social sciences. This means that computers are used to model, simulate, and analyze social phenomena. Fields include computational economics, computational sociology, cliodynamics, culturomics, and the automated analysis of contents, in social and traditional media. It focuses on investigating social and behavioral relationships and interactions through social simulation, modeling, network analysis, and media analysis.
+(https://en.wikipedia.org/wiki/Computational_social_science)
+
+
+\framebreak
+
+- No clear definition! (This does not need to be a bad thing!)
+
+- vs. Data Science? Data Engineering? Programming? AI? Statistics? Big data? Algorithms?
+
+
+# Example: What do we do? {.c}
+
+**EUPLEX dataset**
+
+- contains information on all legislative procedures in the EU 1994 -- present and
+- information on the complexity of their proposal texts
+- information is automatically downloaded, analyzed and packaged as a dataset
+
+# What CSS might be {.allowframebreaks}
+
+**Some examples of CSS techniques in action**
+
+- [Explore the social dynamics of COVID-19 transmission](https://www.nature.com/articles/s41586-021-03694-x) and [evaluate policy responses](https://www.google.com/covid19/mobility/)
+- [Investigate the strategies firms use to undermine anti-pollution laws](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3915247)
+- Examine the communication styles of Members of the Bundestag on Twitter
+- Google Search / Siri / etc.
+- [Find out which Spiegel Online authors like to flirt in the workplace](https://www.youtube.com/watch?v=-YpwsdRKt8Q)
+    
+
+\framebreak
+
+**Examples from the CSS toolkit**
+
+- Programming languages
+- Scientific writing
+    - Reproducible reports
+    - Interactive research papers
+- Literature research
+    - [Elicit](www.elicit.org)
+- Version control
+
+
+\framebreak
+
+
+## Working definition of 'Computational Social Science'
+    
+All kinds of computer-aided methods and techniques of data analysis and inference in the Social Sciences that go beyond pure statistics.
+
+
+# Programming in the Social Sciences
+
+**Languages**
+
+- Python
+- JavaScript
+- **R** (Why?)
+
+
+
+# Next: Lab
+
+1. Setting up a development environment
+2. Introduction to R and RStudio
+3. How to find help
+
+
+# References {.allowframebreaks}
+
+\begingroup
+
+\footnotesize
+::: {#refs}
+:::
+\endgroup
+
+
+
+# Appendix {.allowframebreaks}
+
