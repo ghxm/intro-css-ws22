@@ -233,7 +233,7 @@ All kinds of computer-aided methods and techniques of data collection, analysis 
 - Don't hesitate to ask!
 
 
-\framebreak
+# Learning `R`: it's not just you! {.allowframebreaks}
 
 \begin{centering}
 
