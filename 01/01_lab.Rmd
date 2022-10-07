@@ -65,7 +65,7 @@ That's pretty basic. How about something a little more wild?
 
 ```
 
-Note that, just as your regulator calculator, `R` respects brackets when evaluating a term. And, just as your regular calculator, it gets a little lost when you don't properly specify your mathematical expression. Can you spot what went wron here?
+Note that, just as your regulator calculator, `R` respects brackets when evaluating a term. And, just as your regular calculator, it gets a little lost when you don't properly specify your mathematical expression. Can you spot what went wrong here?
 
 ```{r}
 
