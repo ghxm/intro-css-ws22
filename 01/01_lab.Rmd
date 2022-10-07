@@ -368,16 +368,28 @@ say('I wrote this without specifying a packagename!', by="cat")
 # Where can I get help if I'm stuck?
 
 At this point, you may think you have no idea what you're doing or what this is good for.
-Lucky for us, programmers and researchers also often have no idea what they're doing. This is where online forums come into play, specifically *Stack Overflow*. *Stack Overflow*
+Lucky for us, programmers and researchers also often have no idea what they're doing. This is where online forums come into play, specifically *Stack Overflow*.
 
-@TODO Error msg as example for Googling
+But let's start from the beginning. In the best case scenario, you will run into an error. Errors are `R` signal that you're doing something wrong. Let's say we wanted to calculate our mean from above, but something just ain't quite right.
 
+```{r}
 
+avg_height <- mean(c(height_constantin, height_ma))
 
-@TODO RStudio R Help
+print(avg_height)
 
+```
 
+In this case, `R` tells us that there's a problem with our call to `mean()` in the first line of the error message (`Error in mean(c(height_constantin, height_ma)) : 
+`). The second line then tells what appears to be the problem. Can you figure out what's wrong?
 
+Unfortunately, error messages are not always this straightforward. Fortunately, help is often near. For a lot of errors it's sufficient to simply type 'r' followed by your wrror message, e.g., 'object 'height_ma' not found' into your search engine of choice and you will find a solution quickly^[Note that sometimes you might need to remove the parts of the error messages that are specific to your code from your search query ('height_ma' in this case).] Amongst the first results you will usually find a site called [*StackOverflow*](https://stackoverflow.com/). *StackOverflow* is a platform where developers (and students and statisticians and social scientists and mathematicians et al.!) ask other developers for help. Answers can then be up- and downvoted by the community and the asker can finally accept and answer as the 'correct' solution that worked for them. Take some time to familiarize yourself with a StackOverflow question, e.g. The first *SO* result that comes for our error above: https://stackoverflow.com/questions/27886839/what-does-error-object-myvariable-not-found-mean
+
+Because developers make a lot of mistakes, there's almost always someone who has faced the same problem you are facing and in a lot of cases someone already posted a solution for that problem. If not, you can also ask a question yourself.
+
+*StackOverflow* and search engines also come in handy when we don't have an error message but our script still doesn't produce the output we expect. If, for example, we have our range of numbers from above (`c(2,2,2,2,10,9)`) but we don't know how to calculate a mean for those numbers, we can anngain just type 'r' + our problem, maybe 'calculate mean of numbers' into our search engine of choice and we will most likely find a solution for our problem. It takes some time figure out the right way to search for a programming problem but once you get the hang of it, you can  learn a lot from this trial and error search engine method.
+
+If we already know what we're looking for but we just can't seem to get the hang of it, we can also take a look at the `R` documentation. In RStudio, you can find the documentation in the lower right hand corner under 'Help' tab. Try to look up the `mean` function in the documentation to find out more about it.
 
 
 
@@ -441,7 +453,12 @@ Note: You may stumble across another type of pipe operator: `|>`. This is `R`'s 
 
 ## Data-wrangling operations
 
-The `tidyverse` offers five main operations to work with your data: `mutate()`, `select()`, `filter()`, `summarise()` and `arrange()`
+The `tidyverse` offers five main operations to work with your data: `mutate()`, `select()`, `filter()`, `summarise()` and `arrange()`. We will explore each of them in detail below:
+
+```{r}
+
+```
+
 
 
 
