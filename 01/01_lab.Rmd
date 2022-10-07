@@ -5,32 +5,36 @@ author:
     - Constantin Kaplaner
 date: "17.10.2022"
 output:
-  html_notebook:
-    toc: yes
   html_document:
+    toc: yes
+  html_notebook:
     toc: yes
   pdf_document:
     toc: yes
 ---
 
 
+
 # What is this?
 
 This is an `Rmarkdown` notebook document. It can be used to combine regular text, like this, and `R` code. This means, that you can, e.g. take your own notes right here in the editor while working through the lab. We will go into detail on this in the next session. For now, here is all you need to know to work with this document:
 
-@TODO
-- code chunks
-- output
-- formatting
-- html
+- Save your scripts with the file extension `.R`
+- While this file is not a pure `.R`-Script but a combination of markdown formatted text and `R` code you don't have to mind for now.
+- The code in this notebook is contained in the grey boxes that start with "```{r}"" and end with "```". The code goes right in between.
+
+(The following only applies if you open the `.Rmd` file notebook  in RStudio, not to the compiled `.pdf` version)
+
+- To execute these "code chunks" you can either click the little green 'play' button in the upper right hand corner of every chunk
+- or you can select the code you want to execute and press Ctrl+Enter (Windows/Linux) or cmd+Enter (Mac)
+- If you put your cursor in a line of code without selecting anything, the commands above will simply execute that line of code
 
 
-If you want to know more about markdown and its formatting options, you take a look at the [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
+If you want to know more about markdown and its formatting options, you can take a look at the [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
 
 
-# Gettig started with RStudio and R
-
+# Getting started with RStudio and R
 
 ## R as a fancy, complicated calculator
 
@@ -62,12 +66,11 @@ That's pretty basic. How about something a little more wild?
 ((2 + 2) * 8) / 4
 
 
-
 ```
 
 Note that, just as your regulator calculator, `R` respects brackets when evaluating a term. And, just as your regular calculator, it gets a little lost when you don't properly specify your mathematical expression. Can you spot what went wrong here?
 
-```{r}
+```{r, error=TRUE}
 
 ((2 + 2) * 8 / 4
 
@@ -117,8 +120,39 @@ first_mean <- mean(c(2,2,2,2,10,9))
 
 Can you see what's different here? First of all, we're not getting any output from out code chunk. Second, we're using `first_mean <-`. This expression tells `R` to store (`<-`) our mean in a *variable* called `first_mean`.
 
-@TODO: RStudio environment upper right corner.
-@TODO: rm() objects
+A handy feature of RStudio is that we don't need to remember all the variables we already created. We can see all of them in the little window pane in the upper right hand corner of the RStudio window. This is called the "Environment". You can think of it as the "memory" of your `R` session. Everything listed in there exists in your `R` memory and you can access is by simply typing its name. Try it out:
+
+```{r}
+
+first_mean
+
+
+```
+
+
+If you want to remove an object from your `R` memory, you  can just type `rm()` and insert the name of the variable you want to erase from memory:
+
+```{r}
+
+rm(first_mean)
+
+
+```
+
+
+Luckily, we don't need to go this route if we just want to give our variable a new value. In this case, we can just overwrite it in the same way we did when we created it:
+
+```{r}
+
+first_mean <- 4.5
+
+first_mean <- 10
+
+```
+
+
+The variable will always hold the value that it was assigned last, so in this case `10`.
+
 
 Note that we can choose any name we would like as long as it does not contain spaces or special characters (or start with a number). So, if we feel like it, we can also store our mean in a variable called `tiger`. And we can store the value of `tiger` in `lion`. Simple as that.
 
@@ -130,7 +164,7 @@ lion <- tiger
 
 ```
 
-A trick we can use in RStudio to save us some typeing when we're re-using our variables is code completion. Try it out for yourself, type `t` in the code chunk below and press the `Tab` key:
+A trick we can use in RStudio to save us some typing when we're re-using our variables is code completion. Try it out for yourself, type `t` in the code chunk below and press the `Tab` key:
 
 ```{r}
 
@@ -164,6 +198,33 @@ A *function* is like a little program on its own that usually takes some input, 
 - sums up the numbers 
 - divides them by the number of numbers in the series
 - returns the result
+
+
+If we translate this into `R` it would look this:
+
+```{r}
+
+my_own_mean <- function(numbers){
+  
+  calc_mean <- sum(numbers) / length(numbers)
+  
+  return(calc_mean)
+  
+}
+
+```
+
+We can call this function just like `R`'s own `mean`-function:
+
+```{r}
+
+my_own_mean(c(height_constantin, height_max))
+
+mean(c(height_constantin, height_max))
+
+
+```
+
 
 There are many functions that are already integrated into `R`, like the `mean`- and `print`-functions we used above, but you can also write your own function that do what you tell them to (we might get to that later on in the course).
 
@@ -233,7 +294,7 @@ print(avg_height)
 
 Naming conventions, i.e. how we name our variables, function or files, are just as useful when it comes to documenting code. We've already seen some naming conventions above (descriptive names, `tiger` vs. `avg_height`). Others are imposed on us by the language. E.g., names can't contain spaces:
 
-```{r}
+```{r, error=TRUE}
 
 height max <- 183
 
@@ -246,7 +307,7 @@ So far, we've used an underscore, `_`, to replace spaces in our names. There's o
 
 ## Some examples of doing (familiar) things in `R`
 
-@TODO
+@TODO plot
 
 
 ## Packages
@@ -255,7 +316,7 @@ What's cool about using a programming language instead of your calculator to do 
 
 I, for example, am really bad at remembering jokes when I need to tell one, so I'm glad that someone took it upon themselves to solve that problem for me. First, install the `dadjoke` package:
 
-```{r}
+```{r, eval=FALSE}
 
 install.packages('dadjoke')
 
@@ -273,7 +334,7 @@ dadjoke::dadjoke()
 
 Note that here we specify the package name, `dadjoke` followed by `::` and then the function name. This tells `R` 'out of the `dadjoke` package, use the function `dadjoke()`'. Note that in case of the `dadjoke` package the package and the function carry the same name. Bad example. Here's another one:
 
-```{r}
+```{r, eval=FALSE}
 
 install.packages('cowsay')
 
@@ -333,6 +394,7 @@ In this course, we will rely on packages associated with the tidyverse for a lot
 ## Working with data
 
 
+
 @TODO Excursion, dataset, dataframe (dataframes erst nächste session)
 @TODO show easy example datasets
 @TODO View function etcetc
@@ -347,7 +409,7 @@ For now, it is suffcicient that you have a rough understanding of how our data i
 
 To install all of the `tidyverse` packages, run (this may take a while)
 
-```{r}
+```{r, eval=FALSE}
 
 install.packages("tidyverse")
 
@@ -356,7 +418,7 @@ install.packages("tidyverse")
 
 As an alternative, it is sufficient for now if you just install the `dplyr` package:
 
-```{r}
+```{r, eval=FALSE}
 
 install.packages('dplyr')
 
