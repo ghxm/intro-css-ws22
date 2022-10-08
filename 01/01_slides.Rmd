@@ -87,7 +87,7 @@ header-includes:
 # Syllabus {.c}
 
 
-**The syllabus and all course materials can be found on https://github.com/ghxm/intro-css-ws22**
+\textbf{The syllabus and all course materials can be found on https://github.com/ghxm/intro-css-ws22}
 
 
 
@@ -150,8 +150,13 @@ Don't hesitate to make use of the office hours! (Just write an e-mail beforehand
 >The new field of Computational Social Science can be defined as the interdisciplinary investigation of the social universe on many scales, ranging from individual actors to the largest groupings, through the medium of computation.
 [@intro_css_book_2017]
 
->Computational social science is the academic sub-discipline concerned with computational approaches to the social sciences. This means that computers are used to model, simulate, and analyze social phenomena. Fields include computational economics, computational sociology, cliodynamics, culturomics, and the automated analysis of contents, in social and traditional media. It focuses on investigating social and behavioral relationships and interactions through social simulation, modeling, network analysis, and media analysis.
-(https://en.wikipedia.org/wiki/Computational_social_science)
+\framebreak
+
+>We define CSS as the development and application of computational methods to complex, typically large-scale, human (sometimes simulated) behavioral data. [@lazer_computational_20207]
+
+\framebreak
+
+>Computational Social Science (CSS) is the science that investigates social and behavioral dynamics through social simulation, social network analysis, and social media analysis. (Computational Social Science Society of the Americas)
 
 
 \framebreak
@@ -237,12 +242,13 @@ All kinds of computer-aided methods and techniques of data collection, analysis 
 
 \begin{centering}
 
-\includegraphics[height=0.8\textheight]{res/learn_r.jpeg}
+\includegraphics[height=0.7\textheight]{res/learn_r.jpeg}
 
 
 \smaller
+\smaller
 
-\vspace{-1em}
+\vspace{-1.2em}
 
 Source: https://twitter.com/chrisbeeley/status/727945556128059396
 
