@@ -152,7 +152,7 @@ Don't hesitate to make use of the office hours! (Just write an e-mail beforehand
 
 \framebreak
 
->We define CSS as the development and application of computational methods to complex, typically large-scale, human (sometimes simulated) behavioral data. [@lazer_computational_20207]
+>We define CSS as the development and application of computational methods to complex, typically large-scale, human (sometimes simulated) behavioral data. [@lazer_computational_2020]
 
 \framebreak
 
@@ -248,7 +248,7 @@ All kinds of computer-aided methods and techniques of data collection, analysis 
 \smaller
 \smaller
 
-\vspace{-1.2em}
+\vspace{-1.8em}
 
 Source: https://twitter.com/chrisbeeley/status/727945556128059396
 
