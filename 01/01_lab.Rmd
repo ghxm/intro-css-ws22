@@ -5,9 +5,9 @@ author:
     - Constantin Kaplaner
 date: "17.10.2022"
 output:
-  html_document:
-    toc: yes
   html_notebook:
+    toc: yes
+  html_document:
     toc: yes
   pdf_document:
     toc: yes
@@ -305,10 +305,6 @@ So far, we've used an underscore, `_`, to replace spaces in our names. There's o
 *TIP*: There's multiple naming conventions and style guides for code, e.g. [Google's R Style Guide](https://web.stanford.edu/class/cs109l/unrestricted/resources/google-style.html) or [Hadley Wickham's Style Guide](http://adv-r.had.co.nz/Style.html). It's that necessary that you follow any of them to the bone, but it's often helpful to choose a naming conventions, like `_`, and stick to it.
 
 
-## Some examples of doing (familiar) things in `R`
-
-@TODO plot
-
 
 ## Packages
 
@@ -440,7 +436,19 @@ install.packages('dplyr')
 
 ## The pipe operator
 
-@TODO
+When using the tidyverse, function calls are often 'chained' together. This means, that the output of one function is used as input for the next one. In order to 'transfer' the output of the first function we use the so called *pipe operator* `%>%`:
+
+```{r}
+
+library(dplyr)
+
+mean(c(height_constantin, height_max)) %>%
+  say()
+
+
+```
+
+Here, we first calculate the average height of Constantin and Max but instead of saving or displaying this value we immediately pass it to `say()`, which then display its output.
 
 
 Note: If this is confusing to you, don't worry! With practice you will become more and more used to thinking about data in this way
@@ -457,6 +465,8 @@ The `tidyverse` offers five main operations to work with your data: `mutate()`, 
 
 ```{r}
 
+#@TODO
+
 ```
 
 
@@ -465,6 +475,7 @@ The `tidyverse` offers five main operations to work with your data: `mutate()`, 
 
 ## Some more examples using the `tidyverse`
 
+@TODO
 
 
 *TIP*: If you are looking for a more comprehensive introduction to the `tidyverse`, take a look at Hadley Wickham's free book '[R for Data Science](https://r4ds.had.co.nz/)'
