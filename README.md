@@ -53,7 +53,7 @@ Students are encouraged to visit the instructors' office hours for help with und
 
 If possible, please write an e-mail beforehand if you plan to attend the office hours to allow for better scheduling.
 
-- C. Kaplaner: Room XYZ, Wed X-Y
+- C. Kaplaner: Room GU105, Tue 15:00 - 16:00 or by arrangement (via e-mail)
 - M. Haag: Room XYZ, Wed X-Y and by arrangement (via e-mail)
 
 
@@ -148,86 +148,65 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 #### Learning objectives
 
-
-....
+  - How can we use text as data?
+  - Which methods can be used to answer political science question?
+  - What are the limitations of text data?
 
 
 #### Lab
 
-...
+ - Working with text data on the example of legislative speeches
+ - Dictionary approaches
+ - Scaling models (Wordfish / Wordscores) 
+ - Topic modelling 
+ 
+ Examples:
+ 
+ - How often do MPs in the Bundestag talk about environment?
+ - How do parties position themselves in speeches?
+ - What are the main topics of debate?
 
 #### Literature
 
 - *Grimmer, J. (2013). Text as data: The promise and pitfalls of automatic content analysis methods for political texts. Political Analysis, 21(3), 267-297. DOI: 10.1093/pan/mps020*
 
 
-
-
 ### 2022-11-28 Session 4: Supervised machine learning for text analyis
 #### Learning objectives
 
-
-....
-
+  - What is the basic idea behind machine learning approaches?
+  - What does a typical machine learning workflow look like?
+  - How do we assess prediction error?
 
 #### Lab
+  - Basic machine learning workflow in R
+  - Using machine learning for (text) classification
+  
+   Examples: 
+  - How polarized are MPs in the german Bundestag?
 
-...
-
-
-
-
+#### Literature
+- *Peterson, A., & Spirling, A. (2018). Classification Accuracy as a Substantive Quantity of Interest: Measuring Polarization in Westminster Systems. Political Analysis, 26(1), 120-128. doi:10.1017/pan.2017.39*
 
 ### 2023-12-12 Session 5: Network data and analysis
 
-#### Learning objectives
-
-
-....
-
-
-#### Lab
-
-...
-
-
-#### Literature
-
-
-
+TBA
 
 
 
 ### 2023-01-09 Session 6: Geo-spatial data
 
-#### Learning objectives
-
-
-....
-
-
-#### Lab
-
-...
-
-#### Literature
+TBA
 
 
 
+### 2023-01-23 Session 7: Based on interest of class
 
-
-
-### 2023-01-23 Session 7: ?
-
-- Choose your own adventure
+TBA
 
 
 
 ### 2023-02-06 Session 8: Research design / term paper presentations and wrap up
 
-#### Description
-
-
-#### Literature
 
 
