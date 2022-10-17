@@ -364,11 +364,6 @@ The `tidyverse` is collection of packages that has become quite popular among `R
 
 In this course, we will rely on packages associated with the tidyverse for a lot of exercises. While the `tidyverse` makes a lot of stuff easier for us, it also has some particularities and rules that we will examine below.
 
-## Working with data
-
-@TODO Excursion, dataset, dataframe (dataframes erst nächste session) @TODO show easy example datasets @TODO View function etcetc
-
-For now, it is suffcicient that you have a rough understanding of how our data is strucutred here. In the next session, we will take a closer look at data(sets) in `R`.
 
 ## Installing the `tidyverse`
 
