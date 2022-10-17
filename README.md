@@ -62,7 +62,7 @@ Students are encouraged to visit the instructors' office hours for help with und
 If possible, please write an e-mail beforehand if you plan to attend the office hours to allow for better scheduling.
 
 - C. Kaplaner: Room GU105, Tue 15:00 - 16:00 or by arrangement (via e-mail)
-- M. Haag: Room XYZ, Wed X-Y and by arrangement (via e-mail)
+- M. Haag: Room XYZ, Wed 12:00-13:00 and by arrangement (via e-mail)
 
 
 **Online (via Zoom)**
@@ -74,9 +74,9 @@ Please schedule a meeting via e-mail.
 
 To follow the course, you will need to have access to an RStudio installation. You can either install RStudio on your own computer or use the university computers. Your personal workspace on university computers is available via [Remote Desktop](https://www.it.ifkw.uni-muenchen.de/web/remotedesktop/index.html).
 
-Additionally, we offer a RStudio Cloud workspace for working for thorugh the session the course and in your own time. This is an external service offered by XYZ Company. You will need to register for a free account in order to be able to work on the course materials on your own. The usage of the service within the free tier and for work in the seminar workspace is free to course participants.
+Additionally, we offer a RStudio Cloud workspace for working for through the session the course and in your own time. This is an external service offered by RStudio. You will need to register for a free account in order to be able to work on the course materials on your own. The usage of the service within the free tier and for work in the seminar workspace is free to course participants.
 
-Please chose a method of access to an RStudio Cloud installation and familiarize yourself with the access to your RStudio instalaltion.
+Please chose a method of access to an RStudio Cloud installation and familiarize yourself with the access to your RStudio installation.
 
 Please note: We will not be able to provide access to our RStudio Cloud workspace during the seminar paper preparation phase due to time and cost constrains on our end. However, you will have ample time to work through the course materials during the sessions or in your own time on the RStudio Cloud.
 
@@ -100,8 +100,7 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 #### Computer powered tools for research
 
 - [Elicit](https://elicit.org/)
-- Sci-Hub
-
+- ...
 
 ## Sessions
 
@@ -123,7 +122,7 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 #### Literature
 
-- *Lazer et al. (2009) Computational Social Science. Science  323 (5915), 721-723. DOI: 10.1126/science.1167742.*
+- *Lazer et al. (2009) Computational Social Science. Science 323 (5915), 721-723. DOI: 10.1126/science.1167742.*
 
 
 
@@ -133,20 +132,23 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 #### Learning objectives
 
 - Research Design & reproducibility
-- Explorative, descriptive, inference, ...
+- Explorative, descriptive, inferential research
 - Types of data & sources
 - Datasets
-    - Example: available popular datasets
-- Databases
-    - Example: available databases
+
 
 #### Lab
 
-- Working with XYZ dataset/database
-- Position calculation from Manifesto data
-- Web scraping
-- Example: scraping text and metadata of e.g. news websites, parliamentary speeches etcetc
-- Example: using an API (e.g. Open German API Dings)
+- Working with different data structures
+- Working with datasets
+- Web scraping / data collection
+  - Example: scraping text and metadata of e.g. news websites, parliamentary speeches etcetc
+  - Example: using an API
+
+
+#### Literature
+
+- *Hox, J. J. (2017). Computational Social Science Methodology, Anyone? Methodology, 13(Supplement 1), 3–12. https://doi.org/10.1027/1614-2241/a000127*
 
 
 
