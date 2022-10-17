@@ -227,6 +227,16 @@ All kinds of computer-aided methods and techniques of data collection, analysis 
 - **R** (Why?)
 - *Do you have any experience with any programming language?*
 
+# Why `R` {.allowframebreaks}
+
+
+- `R` is a programming language for statistical computing
+- Widely used in science
+- Almost 30 years old
+- Can be easily integrated into a paper writing workflow
+
+
+
 # Learning `R` {.allowframebreaks}
 
 
