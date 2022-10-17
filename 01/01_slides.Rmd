@@ -190,10 +190,9 @@ Don't hesitate to make use of the office hours! (Just write an e-mail beforehand
 
 **Some examples from Political Science**
 
-- Explore how polarized MPs are in the German Bundestag (we will do this in the course!)
-- Analyse who politicians talk to on Twitter
-- Automate your media analysis
-- @TODO
+- [Explore how polarized MPs are in the German Bundestag (we will do this in the course!)](https://www.cambridge.org/core/journals/political-analysis/article/classification-accuracy-as-a-substantive-quantity-of-interest-measuring-polarization-in-westminster)
+- [See how censorship works in Chinese social media](https://www.science.org/doi/10.1126/science.1251722)
+- [Predict war by analyzing news paper articles](https://journals.sagepub.com/doi/abs/10.1177/0022343313507302)
 
 
 \framebreak
@@ -269,7 +268,7 @@ Source: https://twitter.com/chrisbeeley/status/727945556128059396
 
 You can download the lab file from the [course repository on GitHub](https://github.com/ghxm/intro-css-ws22)
 
-1. Setting up a development environment
+1. Setting up a development environment (XUHDnl)
 2. Introduction to R and RStudio
 3. How to find help
 

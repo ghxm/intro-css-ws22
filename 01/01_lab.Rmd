@@ -504,6 +504,5 @@ data_seop_reduced %>%
   geom_density()
 ```
 
-@TODO
 
 *TIP*: If you are looking for a more comprehensive introduction to the `tidyverse`, take a look at Hadley Wickham's free book '[R for Data Science](https://r4ds.had.co.nz/)'
