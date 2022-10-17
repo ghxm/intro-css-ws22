@@ -5,11 +5,11 @@ author:
     - Constantin Kaplaner
 date: "17.10.2022"
 output:
-  html_notebook:
+  pdf_document:
     toc: yes
   html_document:
     toc: yes
-  pdf_document:
+  html_notebook:
     toc: yes
 ---
 
@@ -338,7 +338,7 @@ But let's start from the beginning. In the best case scenario, you will run into
 
 ```{r}
 
-avg_height <- mean(c(height_constantin, height_ma))
+avg_height <- mean(c(height_constantin, height_max))
 
 print(avg_height)
 
@@ -372,6 +372,7 @@ To install all of the `tidyverse` packages, run (this may take a while)
 
 install.packages("tidyverse")
 
+
 ```
 
 As an alternative, it is sufficient for now if you just install the `dplyr` package:
@@ -388,7 +389,7 @@ When using the tidyverse, function calls are often 'chained' together. This mean
 
 ```{r}
 
-library(dplyr)
+library(tidyverse)
 
 mean(c(height_constantin, height_max)) %>%
   say()
@@ -404,18 +405,26 @@ Note: You may stumble across another type of pipe operator: `|>`. This is `R`'s 
 
 ## Data-wrangling operations
 
-The `tidyverse` offers five main operations to work with your data: `mutate()`, `select()`, `filter()`, `summarise()` and `arrange()`. We will explore each of them in detail below. For this we will use a data set containing information on income from the german social survey.
+The `tidyverse` offers five main operations to work with your data: `mutate()`, `select()`, `filter()`, `summarise()` and `arrange()`. We will explore each of them in detail below. For this we will use a data set containing information on income from the German Social Survey.
+
 
 ```{r}
-load("data_seop.Rdata")
+load("01/data_seop.Rdata")
 ```
 
 A data set consists of rows and columns. Usually each row represents one observation. In the seop data set each row contains the information of one individual person. One columnn usually contains one variable for this observation. Here for example the income, educational status, or sex of a person. We can use `View()` or `head()` to get a quick glance at the data.
 
+
 ```{r}
 head(data_seop)
+
+```
+
+```{r, eval=FALSE}
 View(data_seop)
 ```
+
+
 
 ## Filter and select
 
@@ -454,7 +463,7 @@ data_seop_reduced %>%
 
 ```{r}
 data_seop_reduced %>% 
-  summarize(mean_income = mean(income, na.rm=T))
+  summarize(mean_income = mean(income, na.rm=TRUE))
 ```
 
 By itself this does not sound super useful, since we can simply call the mean function directly on the income variable. The strength of the tidyverse comes into play if you want to combine multiple steps. For example you could be interested not in the overall mean income but instead in the mean income depending on the sex of a person.
@@ -462,7 +471,7 @@ By itself this does not sound super useful, since we can simply call the mean fu
 ```{r}
 data_seop_reduced %>% 
   group_by(sex) %>% 
-  summarize(mean_income = mean(income, na.rm=T))
+  summarize(mean_income = mean(income, na.rm=TRUE))
 
 ```
 
