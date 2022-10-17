@@ -364,7 +364,6 @@ The `tidyverse` is collection of packages that has become quite popular among `R
 
 In this course, we will rely on packages associated with the tidyverse for a lot of exercises. While the `tidyverse` makes a lot of stuff easier for us, it also has some particularities and rules that we will examine below.
 
-
 ## Installing the `tidyverse`
 
 To install all of the `tidyverse` packages, run (this may take a while)
@@ -495,9 +494,8 @@ The resulting graph gives us better insight on the distribution of income. For n
 data_seop_reduced %>%
   filter(income > 5000) %>%
   filter(income < 150000) %>%
-  ggplot(aes(x = income, color = factor(sex))) +
+  ggplot(aes(x = income, color = sex)) +
   geom_density()
 ```
-
 
 *TIP*: If you are looking for a more comprehensive introduction to the `tidyverse`, take a look at Hadley Wickham's free book '[R for Data Science](https://r4ds.had.co.nz/)'
