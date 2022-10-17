@@ -1,0 +1,510 @@
+---
+title: "Lab 01: Introduction to RStudio and R"
+author:
+    - Maximilian Haag
+    - Constantin Kaplaner
+date: "17.10.2022"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+---
+
+# What is this?
+
+This is an `Rmarkdown` notebook document. It can be used to combine regular text, like this, and `R` code. This means, that you can, e.g. take your own notes right here in the editor while working through the lab. We will go into detail on this in the next session. For now, here is all you need to know to work with this document:
+
+-   Save your scripts with the file extension `.R`
+-   While this file is not a pure `.R`-Script but a combination of markdown formatted text and `R` code you don't have to mind for now.
+-   The code in this notebook is contained in the grey boxes that start with "`{r}"" and end with "`". The code goes right in between.
+
+(The following only applies if you open the `.Rmd` file notebook in RStudio, not to the compiled `.pdf` version)
+
+-   To execute these "code chunks" you can either click the little green 'play' button in the upper right hand corner of every chunk
+-   or you can select the code you want to execute and press Ctrl+Enter (Windows/Linux) or cmd+Enter (Mac)
+-   If you put your cursor in a line of code without selecting anything, the commands above will simply execute that line of code
+
+If you want to know more about markdown and its formatting options, you can take a look at the [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
+
+# Getting started with RStudio and R
+
+## R as a fancy, complicated calculator
+
+Since R is a statistical programming language first and foremost, it can do a lot of maths and statistics right out of the box. Let's try some.
+
+Press the little green 'play' icon in the upper right corner of the code chunks below and examine the outputs:
+
+```{r, warning=FALSE}
+
+1 + 1
+
+2 - 3
+
+4 * 5
+
+2 ^ 2
+
+4 / 2
+
+2 ^ (1 / 2)
+
+```
+
+That's pretty basic. How about something a little more wild?
+
+```{r}
+
+((2 + 2) * 8) / 4
+
+
+```
+
+Note that, just as your regulator calculator, `R` respects brackets when evaluating a term. And, just as your regular calculator, it gets a little lost when you don't properly specify your mathematical expression. Can you spot what went wrong here?
+
+```{r, error=TRUE}
+
+((2 + 2) * 8 / 4
+
+
+```
+
+Ok, now for some more maths:
+
+```{r}
+
+sqrt(2)  
+
+log(10) 
+
+sum(c(2,2))
+
+```
+
+and some statistics:
+
+```{r}
+
+mean(c(2,2,2,2,10,9))
+
+mean(c(1+1,2,2,2,10,9))
+
+
+```
+
+Here, we're calculating the mean of a series of numbers (2,2,2,2,10 and 9). Note that we can also replace a number with a mathematical term (2nd expression) and `R` will automatically evaluate the term first before it calculates the mean.
+
+## Variables and functions
+
+So now, that we've seen that `R` can do maths (wow!), you might ask yourself, whether all this fuzz is really necessary just to use a calculator. Of course, `R` can do more than that! For example, it can remember stuff.
+
+Say, we wanted to take our mean from above and use it at a later point in time (e.g. to compare it to another mean). For that, we need to tell `R` to store it for us:
+
+```{r}
+
+first_mean <- mean(c(2,2,2,2,10,9))
+
+```
+
+Can you see what's different here? First of all, we're not getting any output from out code chunk. Second, we're using `first_mean <-`. This expression tells `R` to store (`<-`) our mean in a *variable* called `first_mean`.
+
+A handy feature of RStudio is that we don't need to remember all the variables we already created. We can see all of them in the little window pane in the upper right hand corner of the RStudio window. This is called the "Environment". You can think of it as the "memory" of your `R` session. Everything listed in there exists in your `R` memory and you can access is by simply typing its name. Try it out:
+
+```{r}
+
+first_mean
+
+
+```
+
+If you want to remove an object from your `R` memory, you can just type `rm()` and insert the name of the variable you want to erase from memory:
+
+```{r}
+
+rm(first_mean)
+
+
+```
+
+Luckily, we don't need to go this route if we just want to give our variable a new value. In this case, we can just overwrite it in the same way we did when we created it:
+
+```{r}
+
+first_mean <- 4.5
+
+first_mean <- 10
+
+```
+
+The variable will always hold the value that it was assigned last, so in this case `10`.
+
+Note that we can choose any name we would like as long as it does not contain spaces or special characters (or start with a number). So, if we feel like it, we can also store our mean in a variable called `tiger`. And we can store the value of `tiger` in `lion`. Simple as that.
+
+```{r}
+
+tiger <- mean(c(2,2,2,2,10,9))
+
+lion <- tiger
+
+```
+
+A trick we can use in RStudio to save us some typing when we're re-using our variables is code completion. Try it out for yourself, type `t` in the code chunk below and press the `Tab` key:
+
+```{r}
+
+
+
+```
+
+While cool variable names are fun and you certainly will find them in the wild, it's usually good to choose a descriptive and informative variable name. This will help others (and future you!) understand your code. So here, using `first_mean` for our first mean is an acceptable choice. If, e.g., we wanted to calculate the avg. height between Constantin and Max, we could name our variables like this:
+
+```{r}
+
+height_constantin <- 184
+    
+height_max <- 183
+
+avg_height <- mean(c(height_constantin, height_max))
+
+print(avg_height)
+
+```
+
+We've additionally done two new things here: We gave two variables to `mean` and we printed out the result.
+
+Note that we can't just name our mean of heights `mean`[^1]. Why? Because the name 'mean' is already taken by the *function* we use to calculate our mean of heights, the `mean`-*function*.
+
+[^1]: Actually, we can but we really should not!
+
+A *function* is like a little program on its own that usually takes some input, does something with it, and returns the results. Take, e.g., the `mean`-function, it
+
+-   takes a series of numbers as an input[^2]
+-   sums up the numbers
+-   divides them by the number of numbers in the series
+-   returns the result
+
+[^2]: Note that these numbers are themselves wrapped in the `c`-function that can be used to combine variables. We'll cover that in the next session.
+
+If we translate this into `R` it would look this:
+
+```{r}
+
+my_own_mean <- function(numbers){
+  
+  calc_mean <- sum(numbers) / length(numbers)
+  
+  return(calc_mean)
+  
+}
+
+```
+
+We can call this function just like `R`'s own `mean`-function:
+
+```{r}
+
+my_own_mean(c(height_constantin, height_max))
+
+mean(c(height_constantin, height_max))
+
+
+```
+
+There are many functions that are already integrated into `R`, like the `mean`- and `print`-functions we used above, but you can also write your own function that do what you tell them to (we might get to that later on in the course).
+
+## Commenting and naming
+
+When you're writing your own code or you're reviewing somebody else's code, it's often not clear from the beginning *why* your're doing certain things the way you're doing them. Take our example from above:
+
+```{r}
+
+height_constantin <- 184
+    
+height_max <- 183
+
+avg_height <- mean(c(height_constantin, height_max))
+
+print(avg_height)
+
+```
+
+We already established that this code creates two variables with Constantin's and Max' height, calculates the mean, stores in another variable and then prints out the result to us. However, if you've never heard of `R` or you don't know programming languages at all, that might not be obvious to you. So to remedy that we can *comment* code. In `R`, comments always start with `#`. When you type `#` in an `R` script everything after dash until the end of the line will be ignored by `R` and only be visible in the code itself but not in the output.
+
+So let's take another look at our height calculation and make it accessible to others:
+
+```{r}
+
+# store Constantin's height
+height_constantin <- 184
+
+# store Max' height
+height_max <- 183+1 # this was after I grew another cm
+
+# calculate the mean of both
+avg_height <- mean(c(height_constantin, height_max))
+
+# print out the result
+print(avg_height)
+
+```
+
+Note that there's two types of comments in here: Those that take up the whole line and one that's in the same line as some code. Both of these types can be used interchangeably in your code.
+
+We can use comments to document our code for ourselves and others. Or, we can store any other information that we'd like to remember in there like a ToDo list for our coding project.
+
+```{r}
+
+# TODO
+# - add another cm for Max
+# - remove one cm from Constantin
+
+# store Constantin's height
+height_constantin <- 183
+
+# store Max' height
+height_max <- 183+1 # this was after I grew another cm
+
+# calculate the mean of both
+avg_height <- mean(c(height_constantin, height_max))
+
+# print out the result
+print(avg_height)
+
+```
+
+Naming conventions, i.e. how we name our variables, function or files, are just as useful when it comes to documenting code. We've already seen some naming conventions above (descriptive names, `tiger` vs. `avg_height`). Others are imposed on us by the language. E.g., names can't contain spaces:
+
+```{r, error=TRUE}
+
+height max <- 183
+
+```
+
+So far, we've used an underscore, `_`, to replace spaces in our names. There's other ways of doing this like CamelCase naming. In CamelCase, we would name our variable `HeightMax`. From a functional perspective, this does not change the way our code works or performs, but it helps us read and understand our code. For this reason it's usually best to stick to either of the two and avoid things like `heightmax` to maintain readability.
+
+*TIP*: There's multiple naming conventions and style guides for code, e.g. [Google's R Style Guide](https://web.stanford.edu/class/cs109l/unrestricted/resources/google-style.html) or [Hadley Wickham's Style Guide](http://adv-r.had.co.nz/Style.html). It's that necessary that you follow any of them to the bone, but it's often helpful to choose a naming conventions, like `_`, and stick to it.
+
+## Packages
+
+What's cool about using a programming language instead of your calculator to do things for you is that you're usually not the first person to solve a given problem. For that reason, developers take their proven solutions and sets of function for a certain problem and pack them in to a 'package', which other can the download and use for their problems.
+
+I, for example, am really bad at remembering jokes when I need to tell one, so I'm glad that someone took it upon themselves to solve that problem for me. First, install the `dadjoke` package:
+
+```{r, eval=FALSE}
+
+install.packages('dadjoke')
+
+
+```
+
+Now, get it to tell you a joke:
+
+```{r}
+
+dadjoke::dadjoke()
+
+```
+
+Note that here we specify the package name, `dadjoke` followed by `::` and then the function name. This tells `R` 'out of the `dadjoke` package, use the function `dadjoke()`'. Note that in case of the `dadjoke` package the package and the function carry the same name. Bad example. Here's another one:
+
+```{r, eval=FALSE}
+
+install.packages('cowsay')
+
+cowsay::say('Hello, I am learning R!', by='cow')
+
+
+```
+
+Writing `packagename::` can be useful when we're using a lot of different packages and functions and we want to avoid any confusion with regard to which function is used. Additionally we may use it if we just want to use a single function out of a very big package. In any other case, we can simply *load* the package into our environment using the `library`-function. Then, we don't need to specify the packagename when calling one of it's functions:
+
+```{r}
+
+library(cowsay)
+
+say('I wrote this without specifying a packagename!', by="cat")
+
+```
+
+*TIP*: When you type the name of the package followed by `::` you can again make use of RStudio's code completion feature to get an overview of the functions contained in a package.
+
+# Where can I get help if I'm stuck?
+
+At this point, you may think you have no idea what you're doing or what this is good for. Lucky for us, programmers and researchers also often have no idea what they're doing. This is where online forums come into play, specifically *Stack Overflow*.
+
+But let's start from the beginning. In the best case scenario, you will run into an error. Errors are `R` signal that you're doing something wrong. Let's say we wanted to calculate our mean from above, but something just ain't quite right.
+
+```{r}
+
+avg_height <- mean(c(height_constantin, height_max))
+
+print(avg_height)
+
+```
+
+In this case, `R` tells us that there's a problem with our call to `mean()` in the first line of the error message (`Error in mean(c(height_constantin, height_ma)) :`). The second line then tells what appears to be the problem. Can you figure out what's wrong?
+
+Unfortunately, error messages are not always this straightforward. Fortunately, help is often near. For a lot of errors it's sufficient to simply type 'r' followed by your wrror message, e.g., 'object 'height_ma' not found' into your search engine of choice and you will find a solution quickly[^3] Amongst the first results you will usually find a site called [*StackOverflow*](https://stackoverflow.com/). *StackOverflow* is a platform where developers (and students and statisticians and social scientists and mathematicians et al.!) ask other developers for help. Answers can then be up- and downvoted by the community and the asker can finally accept and answer as the 'correct' solution that worked for them. Take some time to familiarize yourself with a StackOverflow question, e.g. The first *SO* result that comes for our error above: <https://stackoverflow.com/questions/27886839/what-does-error-object-myvariable-not-found-mean>
+
+[^3]: Note that sometimes you might need to remove the parts of the error messages that are specific to your code from your search query ('height_ma' in this case).
+
+Because developers make a lot of mistakes, there's almost always someone who has faced the same problem you are facing and in a lot of cases someone already posted a solution for that problem. If not, you can also ask a question yourself.
+
+*StackOverflow* and search engines also come in handy when we don't have an error message but our script still doesn't produce the output we expect. If, for example, we have our range of numbers from above (`c(2,2,2,2,10,9)`) but we don't know how to calculate a mean for those numbers, we can anngain just type 'r' + our problem, maybe 'calculate mean of numbers' into our search engine of choice and we will most likely find a solution for our problem. It takes some time figure out the right way to search for a programming problem but once you get the hang of it, you can learn a lot from this trial and error search engine method.
+
+If we already know what we're looking for but we just can't seem to get the hang of it, we can also take a look at the `R` documentation. In RStudio, you can find the documentation in the lower right hand corner under 'Help' tab. Try to look up the `mean` function in the documentation to find out more about it.
+
+# 'Data' in `R` and the `tidyverse`
+
+The `tidyverse` is collection of packages that has become quite popular among `R` users because it simplifies a lot of operations and code when working with data, which makes it particularly suitable to new `R` users:
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. (<https://www.tidyverse.org/>)
+
+In this course, we will rely on packages associated with the tidyverse for a lot of exercises. While the `tidyverse` makes a lot of stuff easier for us, it also has some particularities and rules that we will examine below.
+
+## Installing the `tidyverse`
+
+To install all of the `tidyverse` packages, run (this may take a while)
+
+```{r, eval=FALSE}
+
+install.packages("tidyverse")
+
+
+```
+
+As an alternative, it is sufficient for now if you just install the `dplyr` package:
+
+```{r, eval=FALSE}
+
+install.packages('dplyr')
+
+```
+
+## The pipe operator
+
+When using the tidyverse, function calls are often 'chained' together. This means, that the output of one function is used as input for the next one. In order to 'transfer' the output of the first function we use the so called *pipe operator* `%>%`:
+
+```{r}
+
+library(tidyverse)
+
+mean(c(height_constantin, height_max)) %>%
+  say()
+
+
+```
+
+Here, we first calculate the average height of Constantin and Max but instead of saving or displaying this value we immediately pass it to `say()`, which then display its output.
+
+Note: If this is confusing to you, don't worry! With practice you will become more and more used to thinking about data in this way
+
+Note: You may stumble across another type of pipe operator: `|>`. This is `R`'s own pipe operator, which has recently been introduced. A lot of times you can use both interchangeably, but there are some differences in how they work, so for now it's best to stick to `%>%`.
+
+## Data-wrangling operations
+
+The `tidyverse` offers five main operations to work with your data: `mutate()`, `select()`, `filter()`, `summarise()` and `arrange()`. We will explore each of them in detail below. For this we will use a data set containing information on income from the German Social Survey.
+
+
+```{r}
+load("01/data_seop.Rdata")
+```
+
+A data set consists of rows and columns. Usually each row represents one observation. In the seop data set each row contains the information of one individual person. One columnn usually contains one variable for this observation. Here for example the income, educational status, or sex of a person. We can use `View()` or `head()` to get a quick glance at the data.
+
+
+```{r}
+head(data_seop)
+
+```
+
+```{r, eval=FALSE}
+View(data_seop)
+```
+
+
+
+## Filter and select
+
+The seop data set is rather large with 65 variables. We can use `select()` to subset columns. We talk about subsets when we take just parts of the total data. We use it here to only select a handful of variables we are interested in:
+
+```{r}
+data_seop_reduced <- data_seop %>% 
+  select(income, ybirth, sex, edu, yedu, hhinc, hhsize)
+```
+
+We can use the `filter()` function to subset rows (observations) from the data set according to certain criteria. For example, we could be interested how many people earn more than 50.000.
+
+```{r}
+data_seop_reduced %>% 
+  filter(income > 50000) 
+```
+
+We can also count this by adding the `count()` function:
+
+```{r}
+data_seop_reduced %>% 
+  filter(income > 50000) %>% 
+  count()
+```
+
+## Mutate and summarize
+
+`mutate()` and `summarize()` are used to manipulate or summarize the data. `mutate()` allows us to create, manipulate, or delete columns. For example, this data set contains information on the household income and the household size. We could be interested what the per capita household income is:
+
+```{r}
+data_seop_reduced %>% 
+  mutate(hhinc_per_capita = hhinc / hhsize)
+```
+
+`summarize` is used to summarize the information contained in rows. Similar to the mean function before, summarize takes multiple values and returns a singular value:
+
+```{r}
+data_seop_reduced %>% 
+  summarize(mean_income = mean(income, na.rm=TRUE))
+```
+
+By itself this does not sound super useful, since we can simply call the mean function directly on the income variable. The strength of the tidyverse comes into play if you want to combine multiple steps. For example you could be interested not in the overall mean income but instead in the mean income depending on the sex of a person.
+
+```{r}
+data_seop_reduced %>% 
+  group_by(sex) %>% 
+  summarize(mean_income = mean(income, na.rm=TRUE))
+
+```
+
+Here we tell R to first group our data with the `group_by()` function according to the values contained in the sex column and then to calculate the mean. The results show a stark income disparity between groups.
+
+## Some more examples using the `tidyverse`
+
+As an outlook we can look at some other stuff we can do with the tidyverse. One big part is for example data visualization. For this we can use the ggplot2 package contained in tidyverse. We just found out that there is a stark income disparity depending on gender. We try to visualize this now:
+
+```{r}
+data_seop_reduced %>% 
+ggplot(aes(x=income)) +
+         geom_density()
+```
+
+This graph does not show us much. We have many observations around 0, those are probably people without income, and we have a few people with very high incomes that explode the scale to the right. We can try filtering these observations out:
+
+```{r}
+data_seop_reduced %>%
+  filter(income > 5000) %>%
+  filter(income < 150000) %>%
+  ggplot(aes(x = income)) +
+  geom_density()
+```
+
+The resulting graph gives us better insight on the distribution of income. For now, we looked at the overall income distribution, but we want to look at the differences depending on the sex of a person. We can do that by coloring the graph depending on the sex variable
+
+```{r}
+data_seop_reduced %>%
+  filter(income > 5000) %>%
+  filter(income < 150000) %>%
+  ggplot(aes(x = income, color = sex)) +
+  geom_density()
+```
+
+*TIP*: If you are looking for a more comprehensive introduction to the `tidyverse`, take a look at Hadley Wickham's free book '[R for Data Science](https://r4ds.had.co.nz/)'
