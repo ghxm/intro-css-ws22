@@ -31,9 +31,17 @@ Participants of the course are welcome to develop and work on their own research
 
 ### Course requirements
 
-TBA
+Students will have to fulfill the following requirements:
 
+- Read the required readings assigned for each week 
+- Participate at the sessions of the seminar
+- Prepare and present (~10 min) a short research idea/design that outlines the research question and planned approach for the research paper
+- Write a research paper (~ 20.000 characters) on your chosen topic (in agreement with the instructor).
 
+Grades for the seminar will consist of the following elements:
+
+- 50 % term paper
+- 50 % presentation in class
 
 ### Additional information
 
