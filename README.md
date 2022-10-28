@@ -127,14 +127,13 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 
 
-### 2022-10-31 Session 2: Reasearch in CSS, data structures and data collection
+### 2022-11-07 Session 2: Reasearch in CSS, data structures and data collection
 
 #### Learning objectives
 
-- Research Design & reproducibility
-- Explorative, descriptive, inferential research
+- Data & working with data
+- Explorative, descriptive, confirmative research
 - Types of data & sources
-- Datasets
 
 
 #### Lab
