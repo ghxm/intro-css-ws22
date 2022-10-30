@@ -1,0 +1,350 @@
+---
+title: "Lab 02: Types of data, working with data & collecting data"
+author:
+    - Maximilian Haag
+    - Constantin Kaplaner
+date: "07.11.2022"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+---
+
+# Recap
+
+In the last lab session we covered the basics of assigning values to variables, how to use functions, install and use packages, how to document your code using comments and how to find help within RStudio and online. Additionally, we've covered basics functions for filtering and manipulating data. All of these form the basis of today's lab, so let's quickly recap what we've learned so far.
+
+Do you remember how to assign a value to a variable?
+
+```{r}
+
+my_variable <- 10
+
+```
+
+
+Remember what a function is and how to use it? For example, can you calculate the average height of the people in this room?
+
+```{r}
+
+mean(c(183,184,180,168,179))
+
+```
+
+
+What if we wanted to re-use the heights of individual people? How could we combine variables and the `mean` function to calculate the average student height in the room?
+
+```{r}
+
+# assign the heights
+
+height_max <- 183
+
+height_constanting <- 184
+
+
+# calculate the mean
+
+mean(c(height_max, height_constantin))
+
+```
+
+Do you remember comments? Go ahead and add some to the example above!
+
+
+In the last session, we introduced some basic functions to work with *data*. Let's load up the dataset from last session.
+
+```{r}
+
+load("./../01/data_seop.Rdata")
+
+```
+
+
+Remember what this data looked like? Let's see:
+
+```{r}
+
+head(data_seop)
+
+```
+
+The data is an anonymized version of German Socio-Economic Panel (SEOP) dataset. Each row contains the information of one individual person. One columnn usually contains one 'variable' or category for this observation. Here for example the income, educational status, or sex of a person.
+
+Remember that if we cant to get a complete view of our dataset, we can also call
+
+```{r}
+
+View(data_seop)
+
+```
+
+
+Let's play around with data for a bit so that we get back into it. For this, we are again using the `tidyverse` collection of packages; so we will need to load that up first:
+
+```{r}
+
+library(tidyverse)
+
+```
+
+Ok, that seems to have worked out well!
+
+Do you remember how to select only a handful of columns from the dataset? Say we are only interested in the sex and income of the people in our dataset.
+
+```{r}
+
+data_seop %>%
+  select(sex, hhinc)
+
+```
+
+Here, we used the pipe operator `%>%`. Remember what it does? It "transports" the output of one function to use as input for another.
+
+We can also 'subset' or filter our data by certain criteria, e.g. only respondents who identify as male and summarize their income, and summarize it:
+
+```{r}
+
+data_seop %>%
+  filter(sex == 'M')
+  
+
+
+# same for female
+data_seop %>%
+  filter(sex == 'F')
+
+```
+
+Note that here, we are using `==` to tell the function to include only observations where the `sex` category equals `'M'`. We will get into this in today's session!
+
+Instead of filtering our dataset by male and female respondents, we can also `group_by` and get (`summarize`) their average income
+
+```{r}
+
+data_seop %>%
+  group_by(sex) %>%
+  summarize(mean_income = mean(income, na.rm=TRUE))
+
+```
+
+
+... and we can create new variables or categories like this:
+
+```{r}
+
+data_seop %>%
+  mutate(sex_long = ifelse(sex=='M', 'male', 'female'))
+
+```
+
+
+Note that if we want to 'save' our new dataset, we need to assign it to a name. Here, we can just overwrite our original dataset:
+
+```{r}
+
+data_seop <- data_seop %>%
+  mutate(sex_long = ifelse(sex=='M', 'male', 'female'))
+
+```
+
+or save it in a new one:
+
+```{r}
+
+data_seop2 <- data_seop %>%
+  mutate(sex_long = ifelse(sex=='M', 'male', 'female'))
+
+```
+
+
+
+
+# Today's lab session
+
+In today's session we will take our knowledge from the last session a bit further. We will learn how to @TODO and @TODO. On top of that, we will learn how we can store or represent data in R and outside of R.
+
+Finally, we will look into two possible ways of collecting data: APIs and webscraping.
+
+
+# Data types
+
+Let's start off with a few key differences in variables and the types of values we can assign to them
+
+## Integer and float values
+
+
+## String values
+
+
+## Boolean values
+
+
+
+
+# Data structures
+
+Now that we know the different types of data we can store in variables, how can we work with a great amount of them and combine them? Let's, e.g., say we wanted to ...
+
+## Vector
+
+
+
+## Dataframe
+
+Note that we call both a value assgined to a name a variable as well as a category in our dataset.
+
+### Types of variables
+
+
+## List
+
+
+
+
+Now you know about three key data structurs in `R`. There are some other ones, but these will suffice for now and give us plenty of opportunities to store and work with data.
+
+
+
+# Data collection
+
+
+## APIs
+
+@TODO intro
+
+Say we wanted to analyze Elon Musk's posts over the last 5 years @TODO
+
+You can use APIs through a variety of means. For convenience, we'll use a package that someone has coded up specifically for using the Twitter API: `rtweet`. First, of course, we need to install it:
+
+```{r}
+
+install.packages("rtweet")
+
+```
+
+
+While you can access some APIs just by making a request to a specific *URI*, you need to create an account with many other services in order to use their API. For Twitter we need a so-called devloper account if we wan't to collect a lot of data or do things like tweet, like or follow. Fortunately, to do some basic data collection, we only need a regular Twitter account.
+
+So let's load up the package and authorize ourselves.
+
+```{r}
+
+library(rtweet)
+
+auth_setup_default()
+
+
+```
+
+Now, we can get started, let's look at Elon Musk's last $2000$ tweets.
+
+```{r}
+
+musk_tweets <- search_tweets("@elonmusk", n = 2000, include_rts = FALSE)
+
+
+```
+
+We can also exclude replies:
+
+```{r}
+
+musk_tweets_no_replies <- search_tweets("@elonmusk -filter:replies", n = 1000, include_rts = FALSE)
+
+
+```
+
+
+Now we can work with these tweets. E.g., we can look at how many of Musk's Tweets mention 'Trump' (we will do  much more fun things with text in Session 3!):
+
+```{r}
+
+musk_tweets %>%
+  filter(str_detect(full_text, 'Trump')) %>%
+  count()
+
+
+```
+
+or 'censorship':
+
+```{r}
+
+musk_tweets %>%
+  filter(str_detect(full_text, 'censorship')) %>%
+  count()
+
+
+```
+
+or, we can create a so-called wordcloud:
+
+```{r}
+
+install.packages("tm")
+library(tm)
+
+install.packages("wordcloud2")
+library(wordcloud2)
+
+# create a corpus without stopwords containing all tweets in lowercase
+
+tweets <- Corpus(VectorSource(musk_tweets_no_replies$full_text)) %>%
+  tm_map(content_transformer(tolower)) %>%
+  tm_map(removeWords, stopwords("english"))
+
+
+# create a document-term matrix
+tweets_dtm <- TermDocumentMatrix(tweets)
+tweets_matrix <- as.matrix(tweets_dtm) 
+
+# take the row sums of the matrix to get the frequency of each word
+tweets_m_summed <- rowSums(tweets_matrix)
+
+df_tweet_words <- data.frame(word = names(tweets_m_summed),freq=tweets_m_summed)
+
+wordcloud2(data=df_tweet_words, size=1.6, color='random-dark')
+
+
+```
+
+Note that we combine a few steps here to save some time. We will go into steps like these in the next session.
+
+@TODO https://towardsdatascience.com/create-a-word-cloud-with-r-bde3e7422e8a
+
+
+
+So far, so good, but now @TODO https://docs.ropensci.org/rtweet/ exmaples
+
+@TODO **Note:** There's a variety of packages for specific APIs out there, e.g. RFacebook or @TODO.
+
+
+
+## Web scraping
+
+@TODO https://github.com/yusuzech/r-web-scraping-cheat-sheet
+
+@TODO https://rvest.tidyverse.org/articles/rvest.html
+
+@TODO start with own webpage and scrpae quickly to demonstrate logic
+
+@TODO https://github.com/adam3smith/web-scraping/blob/master/web-structure-basics.md
+
+
+@TODO RVEST as part of tidyverse + cheatsheet
+
+@TODO loop https://www.youtube.com/watch?v=k0xgjUhEG3U
+
+https://members.parliament.uk/ number of written questions
+
+
+
+
+# Exercises
+
+
+https://bbc.github.io/rcookbook/

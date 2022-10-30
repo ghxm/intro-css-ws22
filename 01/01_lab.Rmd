@@ -405,7 +405,7 @@ Note: You may stumble across another type of pipe operator: `|>`. This is `R`'s 
 
 ## Data-wrangling operations
 
-The `tidyverse` offers five main operations to work with your data: `mutate()`, `select()`, `filter()`, `summarise()` and `arrange()`. We will explore each of them in detail below. For this we will use a data set containing information on income from the German Social Survey.
+The `tidyverse` offers five main operations to work with your data: `mutate()`, `select()`, `filter()`, `summarise()` and `arrange()`. We will explore each of them in detail below. For this we will use a data set containing information on income from the German Socio-Economic Panel (SEOP).
 
 
 ```{r}
@@ -428,7 +428,7 @@ View(data_seop)
 
 ## Filter and select
 
-The seop data set is rather large with 65 variables. We can use `select()` to subset columns. We talk about subsets when we take just parts of the total data. We use it here to only select a handful of variables we are interested in:
+The SOEP dataset is rather large with 65 variables. We can use `select()` to subset columns. We talk about subsets when we take just parts of the total data. We use it here to only select a handful of variables we are interested in:
 
 ```{r}
 data_seop_reduced <- data_seop %>% 
