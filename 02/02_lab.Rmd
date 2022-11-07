@@ -352,7 +352,7 @@ students <- data.frame(student_names, student_has_pet, student_height)
 
 If we look at our new `dataframe` using *RStudio's* `View` we'll see the resemblance to an *Excel* table:
 
-```{r}
+```{r eval=FALSE}
 
 View(students)
 
@@ -475,7 +475,7 @@ Say we wanted to analyze Elon Musk's tweets over the past few days.
 
 You can use APIs through a variety of means. For convenience, we'll use a package that someone has coded up specifically for using the Twitter API: `rtweet`. First, of course, we need to install it:
 
-```{r}
+```{r eval=FALSE}
 
 install.packages("rtweet")
 
@@ -489,6 +489,12 @@ So let's load up the package and authorize ourselves.
 ```{r}
 
 library(rtweet)
+
+
+```
+
+
+```{r eval=FALSE}
 
 auth_setup_default()
 
@@ -540,7 +546,7 @@ musk_tweets %>%
 
 or, we can create a so-called wordcloud:
 
-```{r}
+```{r eval=FALSE}
 
 install.packages("tm")
 install.packages("SnowballC")
@@ -550,6 +556,11 @@ library(tm)
 install.packages("wordcloud2")
 library(wordcloud2)
 
+
+```
+
+
+```{r}
 # create a corpus without stopwords containing all tweets in lowercase
 
 tweets <- Corpus(VectorSource(musk_tweets_no_replies$full_text)) %>%
@@ -613,23 +624,23 @@ ggplot(musk_tweets, aes(x=date, y=hour)) +
 
 So far, so good, but now let's explore some more examples of what we can do using `rtweet` + Twitter API:
 
-```{r}
+```{r eval=FALSE}
 
 # get a random sample of all tweets sent right now
 # random_stream <- stream_tweets("")
 
-# get all tweets sent from munich
-stream_ldn <- stream_tweets(lookup_coords("new york city"), timeout = 60)
+# get all tweets sent from nyc
+stream_nyc <- stream_tweets(lookup_coords("london"), timeout = 30, verbose=TRUE)
 
 # get number of tweets
-stream_ldn %>% 
+stream_nyc %>% 
   count()
 
-coord <- do.call(rbind,stream_ldn$coordinates)
+# coord <- do.call(rbind,stream_ldn$coordinates)
 
 
 # plot it
-stream_ldn %>%
+stream_nyc %>%
   group_by(lang) %>%
   ggplot(aes(x=lang)) +
   geom_bar(stat = "count")
@@ -638,7 +649,6 @@ stream_ldn %>%
 
 ```
 
-<!---- TODO: rm Google API KEY from memory --->
 
 
 Obviously, there's lots more we can do using these functions. We could, e.g. look at tweets that were sent in a specific location during a particular event and display them on a map (maybe we'll look into this in our session of geo-spatial data!) or look at who uses what hashtags etc.
@@ -787,6 +797,11 @@ We're going to rely on a package called `rvest`.
 ```{r eval = FALSE}
 
 install.packages('rvest')
+
+```
+
+```{r }
+
 
 library(rvest)
 
@@ -997,7 +1012,7 @@ Individually, the `mp_url_full` variable is a vector of URLs. There fore we are 
 
 **Note:** In order to avoid getting banned by the parliament website, we might need to use a random sample of the data, we can obtain that by using `using the sample_n` function or we can add a 1 second wait by including `Sys.sleep(1)`. in our loop.
 
-```{r}
+```{r eval=FALSE}
 
 count <- 0
 
@@ -1049,7 +1064,7 @@ View(mps)
 
 This concludes our data collection file. As a last step, we are going to save the data we collected in a *csv* file so that we can use it for analysis later:
 
-```{r}
+```{r eval=FALSE}
 
 write.csv(mps, 'mps.csv')
 
@@ -1077,7 +1092,7 @@ head(mps$interventions_com)
 
 ```
 
-As you can see, the number of interventions are stored in a string. That's unfortunate if we want to sum up interventions by party. What we need to do now is to extract the numbers from the string and subsequently conert them to *numeric* values.
+As you can see, the number of interventions are stored in a string. That's unfortunate if we want to sum up interventions by party. What we need to do now is to extract the numbers from the string and subsequently convert them to *numeric* values.
 
 ```{r}
 
@@ -1117,13 +1132,13 @@ mps %>%
 
 Looks like we've got a problem with the Conservatives. Let's take a look:
 
-```{r}
+```{r eval=FALSE}
 
 View(mps)
 
 ```
 
-We need to correct out code from above and replace the `NA`s from our number extraction with `0`:
+We need to correct our code from above and replace the `NA`s from our number extraction with `0`. This is because some MPs have 'None in the current session' which we did not by our number extraction above.
 
 ```{r}
 
@@ -1146,7 +1161,7 @@ mps %>%
 
 ```
 
-Now, we can plot the averages asabar plot.
+Now, we can plot the averages as a bar plot.
 
 ```{r}
 
@@ -1193,7 +1208,7 @@ mps %>%
 
 ```
 
-Wow that looks a lot different. Either the liberals have a lot more members than the greens or there's some real overperformers there. Let's investigate.
+Wow that looks a lot different. Either the liberals have a lot more members than the Greens or there's some real over-performers there. Let's investigate.
 
 ```{r}
 
@@ -1227,7 +1242,7 @@ mps %>%
 
 ```
 
-*
+
 Lastly, we want to save our plots. We can do this using `ggplot`'s as *png* files. Here's an example:
 
 ```{r}
@@ -1246,43 +1261,7 @@ ggsave('intervention_point.png')
 
 
 
-**Bonus**
-
-If we want to plot chamber and committee interventions together, we will need to do some data transformation from *wide* to *long.* You don't need to understand what this mean exactly but it's good to keep this in mind in case you might need to plot something like this.
-
-```{r}
-
-library(reshape2)
-
-mps_long <- mps %>%
-  select(-X) %>% # exclude the X variable as we dont need it
-  melt() # transform mps to long format
-
-# plot them stacked
-mps_long %>%
-  ggplot(aes(x = mp_parties, fill = variable)) +
-  geom_bar(fun='mean')
-
-
-```
-
-
-
-```{r}
-
-# Plot them next to each other
-mps_long %>%
-  ggplot(aes(x = mp_parties, fill = variable)) +
-  geom_bar(position = 'dodge')
-
-```
-
-
-
 # Additional exercises
 
-@TODO
-
-https://adam3smith.github.io/web-scraping/
-
-https://bbc.github.io/rcookbook/
+1. See what other R packages that make use of an API you can find!
+2. If you want dive into web-scraping a bit more, you can check out https://adam3smith.github.io/web-scraping/ and try to follow the steps.
