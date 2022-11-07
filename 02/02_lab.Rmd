@@ -1215,12 +1215,12 @@ mps %>%
 
 Let's look at top 5 MPs from each party and see who those over-performers are.
 
-```{r}
+```{r eval=FALSE}
 
 mps %>%
+  select(mp_names, mp_parties, interventions_num, interventions_com_num) %>%
   arrange(desc(interventions_num)) %>%
   group_by(mp_parties) %>%
-  select(mp_names, mp_parties, interventions_num, interventions_com_num) %>%
   slice(1:5) %>%
   View()
 
@@ -1254,7 +1254,9 @@ If we want to plot chamber and committee interventions together, we will need to
 
 library(reshape2)
 
-mps_long <- melt(mps %>% select(-X)) # transform mps to long format (without X variable as we do not need it)
+mps_long <- mps %>%
+  select(-X) %>% # exclude the X variable as we dont need it
+  melt() # transform mps to long format
 
 # plot them stacked
 mps_long %>%
