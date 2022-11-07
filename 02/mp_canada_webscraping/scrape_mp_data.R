@@ -78,5 +78,3 @@ for (url in mps$mp_url_full) {
 }
 
 write.csv(mps, './02/mp_canada_webscraping/mps.csv')
-
-mps <- read.csv('mps.csv', as.is = TRUE)

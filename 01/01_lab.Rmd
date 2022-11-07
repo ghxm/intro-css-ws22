@@ -5,11 +5,11 @@ author:
     - Constantin Kaplaner
 date: "17.10.2022"
 output:
-  pdf_document:
+  html_notebook:
     toc: yes
   html_document:
     toc: yes
-  html_notebook:
+  pdf_document:
     toc: yes
 ---
 

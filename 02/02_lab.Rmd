@@ -626,20 +626,18 @@ So far, so good, but now let's explore some more examples of what we can do usin
 
 ```{r eval=FALSE}
 
-# get a random sample of all tweets sent right now
+# get a sample of all tweets sent right now
 # random_stream <- stream_tweets("")
 
-# get all tweets sent from nyc
-stream_nyc <- stream_tweets(lookup_coords("london"), timeout = 30, verbose=TRUE)
+# get all tweets sent from nyc, note this will run for 100 seconds
+stream_nyc <- stream_tweets(lookup_coords("new york ny"), timeout = 100, verbose=TRUE)
 
 # get number of tweets
 stream_nyc %>% 
   count()
 
-# coord <- do.call(rbind,stream_ldn$coordinates)
 
-
-# plot it
+# plot number of tweets by language
 stream_nyc %>%
   group_by(lang) %>%
   ggplot(aes(x=lang)) +

@@ -41,10 +41,10 @@ mps <- mps %>%
 mps <- mps %>%
     mutate(interventions = NA)
 
-mp_urls <- mps %>%
-    pull(mp_url_full)
+#mp_urls <- mps %>%
+#    pull(mp_url_full)
 
-for (url in mp_urls) {
+for (url in mps$mp_url_full) {
 
     mp_interventions <- read_html(url) %>%
         html_element('#chamber-intervention-heading > div > p') %>%
