@@ -67,15 +67,15 @@ header-includes:
 
 **Lab**
 
-1. Data types in `R`
-2. API
-3. Web-scraping
+1. Value types and data structures in `R`
+2. API example
+3. Web-scraping example
 
 
 #
 
 <!--- DATA ---->
-\section{Data}
+\section{Data types}
 
 # "Data"
 
@@ -405,6 +405,9 @@ Many types of data are often combined, e.g.
 *A subset of a population, e.g. the students in a particular course, the students you met at the last uni party*
 
 
+#
+
+\section{Data collection \& storage}
 
 
 # Ways to collect / obtain "data"?
