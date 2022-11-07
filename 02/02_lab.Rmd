@@ -5,11 +5,11 @@ author:
     - Constantin Kaplaner
 date: "07.11.2022"
 output:
-  pdf_document:
+  html_notebook:
     toc: yes
   html_document:
     toc: yes
-  html_notebook:
+  pdf_document:
     toc: yes
 ---
 
@@ -43,7 +43,7 @@ What if we wanted to re-use the heights of individual people? How could we combi
 
 height_max <- 183
 
-height_constanting <- 184
+height_constantin <- 184
 
 
 # calculate the mean
@@ -76,7 +76,7 @@ The data is an anonymized version of German Socio-Economic Panel (SEOP) dataset.
 
 Remember that if we cant to get a complete view of our dataset, we can also call
 
-```{r}
+```{r eval=FALSE}
 
 View(data_seop)
 
@@ -165,58 +165,313 @@ data_seop2 <- data_seop %>%
 
 # Today's lab session
 
-In today's session we will take our knowledge from the last session a bit further. We will learn how to @TODO and @TODO. On top of that, we will learn how we can store or represent data in R and outside of R.
+In today's session we will take our knowledge from the last session a bit further. We will learn how to different types of data are represented in `R`. On top of that, we will learn how we can store data in and outside of `R`.
 
 Finally, we will look into two possible ways of collecting data: APIs and webscraping.
 
 
 # Data types
 
-Let's start off with a few key differences in variables and the types of values we can assign to them
+Let's start off with a few key differences in variables and the types of values we can assign to them.
 
-## Integer and float values
+## `numeric` values
+
+We've already seen and used `numeric` values. ``numeric` values are simply all real numbers with and without decimals, e.g. `100`, `3.14`, `0`, `-12342.56` are all numeric values. We confirm this by 
+
+```{r}
+
+class(100)
+
+class(100.5)
+
+```
 
 
-## String values
+
+## `character` values
+
+Just like numeric values, we've also seen already `character` values, also called *strings*, which are essentially text. Each string starts and ends with a quote^[It doesn't matter whether u use single or double quotes, you just need to close with the same type of quotes ypi opened]. Remember when we made the cow say things? We used strings to tell the `cowsay::say` function what to say!
+
+Within the editor, you can easily discern strings as they are colored green in RStudio (this is called syntax highlighting). Try it out:
+
+```{r}
+
+"This is a string"
+
+55
+
+100.2
+
+```
+
+You might also have noticed that numbers are colored blue and variables names are colored in normal black (depending on your system darkmode settings).
+
+Note that strings and numeric values have different properties. For example, we can't
+
+```{r, eval=FALSE}
+
+"2" + "3"
+
+```
+
+but
+
+```{r}
+
+2+3
+
+```
 
 
-## Boolean values
+Sometimes, we end up with `numeric` values as *strings* and vice versa. In this case, we can use the `as.numeric` and `as.character` functions to switch between the value types:
 
+```{r}
+
+as.numeric('2') + 3
+
+class(as.character(3))
+
+
+```
+
+
+
+
+
+## `logical` values
+
+The last value type of `R` we are going to look at are `logical`, also called *boolean*, values. While they might not be as intuitive as `numeric` and `character` values, they have great importance in programming. The *logical* type only has two possible values: `TRUE` and `FALSE`
+
+Let's confirm:
+
+```{r}
+
+class(TRUE)
+class(FALSE)
+
+boolean_value <- TRUE
+
+class(boolean_value)
+
+
+```
+
+We will come across `logical` values later on in the course. For now, it's sufficient to remember their two values, `TRUE` and `FALSE`.
+
+
+## `NA` values
+
+Lastly, we've got a special type of value: `NA`. `NA` indicates that a value is *not available* meaning it does not exist. You will find this in datasets a lot if the data is incomplete. `NA` can be mixed with other types, e.g.:
+
+```{r}
+
+names <- c('Max', 'Constantin', NA)
+
+```
 
 
 
 # Data structures
 
-Now that we know the different types of data we can store in variables, how can we work with a great amount of them and combine them? Let's, e.g., say we wanted to ...
+Now that we know the different types of data we can store in variables, how can we work with a great amount of them and combine them? We'll now explore some options we have in `R` to do so.
 
 ## Vector
 
+*Vectors* are a basic data structure that allow us to combine values of the same type. We have already used them in the course. Remember when we calculated the average student height? In order to pass a multiple values to the `mean` function, we wrapped them in `c()`:
+
+```{r}
+
+mean(c(165,185,198))
+
+```
+
+We can also create vectors of `character` or `logcial` values: 
+
+```{r}
+
+student_names <- c('Lisa', 'Laura', 'Leonie')
+
+student_has_pet <- c(TRUE, FALSE, FALSE)
+
+student_height <- c(165,185,198)
 
 
-## Dataframe
+```
 
-Note that we call both a value assgined to a name a variable as well as a category in our dataset.
+A great way to remember the `c` function and its purpose is that it is short for *combine*.
 
-### Types of variables
+Vectors have some properties that make working with them easier, e.g. we can ask how many items there are combined in our *vector*:
+
+```{r}
+
+length(student_names)
+
+```
+
+If we are only interested in a value in a particular position in our *vector* we can access that specific value using the *vector index*:
+
+```{r}
+
+student_names[1]
+student_names[2]
+student_names[3]
+
+```
+
+Additionally, we can not only access a single values but a range:
+
+```{r}
+
+# get first and second value
+student_names[1:2]
+
+# get second and third value
+student_names[2:3]
+
+# get first and third value using another vector(!)
+student_names[c(1,3)]
+
+# using a variable to get a specific value in a vector
+val_of_interest <- 2
+
+student_names[val_of_interest]
+
+```
 
 
-## List
+## `dataframe`
+
+If we intend to store multiple attributes of a subject, as in the student example above, it's convenient to use a `dataframe`. You can think of a `dataframe` like an *Excel* table. Let's say we want to get our student information from above into a single table:
+
+```{r}
+
+students <- data.frame(student_names, student_has_pet, student_height)
+
+```
 
 
+If we look at our new `dataframe` using *RStudio's* `View` we'll see the resemblance to an *Excel* table:
+
+```{r}
+
+View(students)
+
+```
+
+Check out our new `dataframe` in the environment in the upper right. We now have `students` data containing 3 observations (rows) and 3 variables (columns).
+
+Note that we call both a value assigned to a name a *variable* as well as a category/column in our `dataframe`. So in `R` a *variable* can either be a stored value or a column in a `dataframe`. Similar as with the values, *variables* in `dataframe`s can have different types. We've already seen most of them:
+
+**Types of variables**
+
+- `character`
+- `numeric`
+- `logical`
+- `factor`
+
+So far, we've already seen `character`, `numeric` and `logical` values. In `dataframe`s, a *variable* always has a type, i.e. all values within that `dataframe`-variable have that specific type of value (are all, e.g. `numeric` or `character` values).
+
+`factor` variables are essentially categorical variables, they have different categories that we can classify our observations in. A good example is, e.g. students' favorite color. They are similar to `character` variables in that they assign certain text properties to an observation, but they retain a category structure that can come in handy for certain use cases. However, we will try avoiding `factor` variables in this class in order to keep thinks simple.
+
+Within our `dataframe`, variables are named. To see the names we can
+
+```{r}
+
+names(students)
+
+```
 
 
-Now you know about three key data structurs in `R`. There are some other ones, but these will suffice for now and give us plenty of opportunities to store and work with data.
+As you can see, our `dataframe` variables have the same names as the vectors we created earlier. We can also rename them
+
+```{r}
+
+names(students) <- c('name', 'has_pet', 'height')
+
+```
+
+
+Any idea how could change the name of the `has_pet` variable to `pet` without typing out all of the other names?
+
+```{r}
+
+names(students)[2] <- 'pet'
+
+names(students)
+
+```
+
+
+`dataframe`s are one of the most common way to represent a dataset in `R`. Luckily, we already know how to work with a dataset! Remember the `tidyverse` and its `%>%`-operator?
+
+```{r}
+
+library(tidyverse)
+
+# get the name and height of studnets
+students %>%
+  select(name, height)
+
+
+# get the mean student height
+students %>%
+  summarize(mean_height = mean(height))
+
+# are students with pets different from those without?
+students %>%
+  group_by(pet) %>%
+  summarize(mean_height = mean(height))
+
+```
+
+
+Note that when using the `tidyverse`, we use `select()` to get individual variables out of our dataframe. In the base verison of `R`, there are a couple of other ways to do this that you might come across when you read other people's code. The most popular is using the `$` operator like this:
+
+```{r}
+
+# get the name variable
+students$name
+
+```
+
+Another method works similar to selecting a value from a *vector*:
+
+```{r}
+
+students[, c('name')]
+
+students[, c('name', 'height')]
+
+
+```
+We can also select rows:
+
+```{r}
+# we can also select rows
+students[1, c('name', 'height')]
+
+students[c(1,3), c('name', 'height')]
+
+
+```
+
+Using `[ ]` with `dataframe`s we can select rows and columns at the same time by specifying (or leaving it empty so select all) the rows first comma columns. A great way to remember the order is **Ray Charles**, **R**ows then **C**olumns.
+
+
+Now you know about three key data structures in `R`. There are some other ones, but these will suffice for now and give us plenty of opportunities to store and work with data.
 
 
 
 # Data collection
 
+Now that you know about the ways to store data, let's see how we can collect some!
+
 
 ## APIs
 
-@TODO intro
+We've already heard about APIs in today's lecture. Now we'll explore how to interact with one using the *Twitter* API as an example!
 
-Say we wanted to analyze Elon Musk's posts over the last 5 years @TODO
+Say we wanted to analyze Elon Musk's tweets over the past few days.
 
 You can use APIs through a variety of means. For convenience, we'll use a package that someone has coded up specifically for using the Twitter API: `rtweet`. First, of course, we need to install it:
 
@@ -240,11 +495,11 @@ auth_setup_default()
 
 ```
 
-Now, we can get started, let's look at Elon Musk's last $2000$ tweets.
+Now, we can get started, let's look at Elon Musk's last $500$ tweets.
 
 ```{r}
 
-musk_tweets <- search_tweets("@elonmusk", n = 2000, include_rts = FALSE)
+musk_tweets <- search_tweets("from:elonmusk", n = 500, include_rts = FALSE)
 
 
 ```
@@ -253,11 +508,13 @@ We can also exclude replies:
 
 ```{r}
 
-musk_tweets_no_replies <- search_tweets("@elonmusk -filter:replies", n = 1000, include_rts = FALSE)
+musk_tweets_no_replies <- search_tweets("from:elonmusk -filter:replies", n = 500, include_rts = FALSE)
 
 
 ```
 
+
+If you check the number of observations, you will find that we only found `r NROW(musk_tweets)` resp. `r NROW(musk_tweets_no_replies)` tweets. This is because without properly authenticating with the API we are only able to get data from the last 6 to 9 days. But this will do for now.
 
 Now we can work with these tweets. E.g., we can look at how many of Musk's Tweets mention 'Trump' (we will do  much more fun things with text in Session 3!):
 
@@ -286,6 +543,8 @@ or, we can create a so-called wordcloud:
 ```{r}
 
 install.packages("tm")
+install.packages("SnowballC")
+
 library(tm)
 
 install.packages("wordcloud2")
@@ -295,7 +554,8 @@ library(wordcloud2)
 
 tweets <- Corpus(VectorSource(musk_tweets_no_replies$full_text)) %>%
   tm_map(content_transformer(tolower)) %>%
-  tm_map(removeWords, stopwords("english"))
+  tm_map(removeWords, stopwords("english")) %>%
+  tm_map(stemDocument, language="english")
 
 
 # create a document-term matrix
@@ -314,37 +574,713 @@ wordcloud2(data=df_tweet_words, size=1.6, color='random-dark')
 
 Note that we combine a few steps here to save some time. We will go into steps like these in the next session.
 
-@TODO https://towardsdatascience.com/create-a-word-cloud-with-r-bde3e7422e8a
+
+Let's see what other information we can pull from these tweets...
+
+```{r}
+
+names(musk_tweets)
+
+```
 
 
 
-So far, so good, but now @TODO https://docs.ropensci.org/rtweet/ exmaples
+Plenty of interesting stuff in there. We could, e.g., look at when Elon Musk typically sends tweets:
 
-@TODO **Note:** There's a variety of packages for specific APIs out there, e.g. RFacebook or @TODO.
+```{r}
+
+# load the lubridate package so that working with dates is a bit easier
+library(lubridate)
+
+# get the time diff between here and California, note: there's probably a more elegant solution to this
+tdiff <- as.integer(format(lubridate::with_tz(Sys.time(),"America/Los_Angeles"), '%H')) - as.integer(format(lubridate::with_tz(Sys.time()), '%H'))
+
+
+# create a date and time of day variable
+musk_tweets <- musk_tweets %>%
+  mutate(created_at_tz = created_at+hours(tdiff)) %>% # subtract the hour difference from the created_at var. again: this is not the prettiest solution!
+  mutate(date = as.Date(format(created_at_tz, "%Y-%m-%d"))) %>%
+  mutate(hour = as.numeric(format(created_at_tz, "%H"))) %>%
+  mutate(minute = as.numeric('0.', paste0(format(created_at_tz, "%M")))) %>%
+  mutate(time = hour + minute)
+
+# plot it
+ggplot(musk_tweets, aes(x=date, y=hour)) +
+  geom_point()
+
+```
+
+
+So far, so good, but now let's explore some more examples of what we can do using `rtweet` + Twitter API:
+
+```{r}
+
+# get a random sample of all tweets sent right now
+# random_stream <- stream_tweets("")
+
+# get all tweets sent from munich
+stream_ldn <- stream_tweets(lookup_coords("new york city"), timeout = 60)
+
+# get number of tweets
+stream_ldn %>% 
+  count()
+
+coord <- do.call(rbind,stream_ldn$coordinates)
+
+
+# plot it
+stream_ldn %>%
+  group_by(lang) %>%
+  ggplot(aes(x=lang)) +
+  geom_bar(stat = "count")
+
+
+
+```
+
+<!---- TODO: rm Google API KEY from memory --->
+
+
+Obviously, there's lots more we can do using these functions. We could, e.g. look at tweets that were sent in a specific location during a particular event and display them on a map (maybe we'll look into this in our session of geo-spatial data!) or look at who uses what hashtags etc.
+
+
+**Note:** There's a variety of packages for specific APIs out there, e.g. `RFacebook` or `eurlex` for EU legislative processes.
 
 
 
 ## Web scraping
 
-@TODO https://github.com/yusuzech/r-web-scraping-cheat-sheet
 
-@TODO https://rvest.tidyverse.org/articles/rvest.html
+The second technique of data collection we want too look at today is web-scraping, i.e. collecting data from websites. 
 
-@TODO start with own webpage and scrpae quickly to demonstrate logic
+In order to better understand web-scraping it's helpful to have a basic knowledge of how websites are built. In almost all cases, the frontend of a website (what we see when we visit it using our browser) is written in a so-called 'markup language' called *HTML*. *HTML* can be interpreted by your web browser to display websites.
 
-@TODO https://github.com/adam3smith/web-scraping/blob/master/web-structure-basics.md
-
-
-@TODO RVEST as part of tidyverse + cheatsheet
-
-@TODO loop https://www.youtube.com/watch?v=k0xgjUhEG3U
-
-https://members.parliament.uk/ number of written questions
+Fortunately, the basics of *HTML* can summarized rather quickly. In fact, let's do so by building our own quick test website!
 
 
 
 
-# Exercises
+### Basics
 
+Create up a new *HTML* file in *RStudio*, by clicking *File > New File > HTML File* and save it as `test.html`. Now, we can start building our webpage. Every *HTML* document starts with an `<html>` tag. You can think of tags as little container or sections that contain some kind of content. You can start a section, i.e. open a tag, by using, e.g. `<html>` and close it with `</html>`
+
+```
+
+<html>
+
+
+</html>
+
+```
+
+
+Next to `<html></html>` every *HTML* site has two more essential sections: `<head></head>` and `<body></body>`. Both of them are located *inbetween* the `html` tags:
+
+```
+
+<html>
+
+  <head>
+  
+  
+  </head>
+
+
+  <body>
+  
+  
+  </body>
+
+
+</html>
+
+```
+
+The `head` section contians all kinds of information about our website that we can't see in our browser window, whereas the `body` contains everything you can see in the browser.
+
+Note that we can use indentation to make *HTML* a bit easier to read. Indentation does not influence what our website looks like.
+
+We can now start filling our `body` with content:
+
+
+**Note:** We're going to move a bit quick from here on to get to the actual web-scraping part. For a more fine-grained introduction to *HTML* see [w3schools.com](https://www.w3schools.com/).
+
+
+```
+
+<html>
+
+  <head>
+  
+  
+  </head>
+
+
+  <body>
+    
+    
+    <p>Hello world!</p>
+  
+  
+  </body>
+
+
+</html>
+
+```
+
+To see what our webpage looks like now, click on 'Preview' in the bar right above the editor!
+
+We're now going to look at some more basic *HTML*:
+
+```
+
+<html>
+
+  <head>
+  
+  <title>Max' website</title>
+  
+  </head>
+
+
+  <body>
+    
+    <h1>My website</h1>
+    
+    <p>Hello world!</p>
+    
+    <div id = "intro-text" class="my-text-block">
+      <p>
+        These are my favorite websites:
+      </p>
+
+      <ul>
+        <li><a href="https://www.google.com">Google</a></li>
+        <li>Twitter</li>
+      </ul>
+    </div>
+
+    <img src ="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/600px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg"></img>
+
+    <div id = "img-desc" class="my-text-block">
+      <p>
+        In my leasure time, I like to go hiking. My favorite moutains are:
+      </p>
+      <ul>
+        <li>K2</li>
+        <li>Mount Everest</li>
+      </ul>
+    </div>
+
+  
+  </body>
+
+
+</html>
+
+```
+
+OK now that we have a basic understanding of *HTML*, let's get started with web-scraping in `R`.
+We're going to rely on a package called `rvest`.
+
+```{r eval = FALSE}
+
+install.packages('rvest')
+
+library(rvest)
+
+```
+
+
+Let's start out by scraping the page we just created:
+
+
+```{r}
+
+# open up the page
+rvest::read_html('./test.html') %>%
+  html_elements('body') %>%
+  html_text()
+
+
+```
+
+Ok, that seems to work ok. Now what if wanted to get a specific element only, e.g. our intro text. Good think we gave it an id!
+
+```{r}
+
+# select text by id
+rvest::read_html('./test.html') %>%
+  html_elements('[id=intro-text]') %>%
+  html_text()
+
+# select text by class
+rvest::read_html('./test.html') %>%
+  html_elements('[class=my-text-block]') %>%
+  html_text()
+
+
+
+
+```
+
+
+
+
+
+A good way to navigate a website's code is to use your browser's 'Inspect' function. Try to open up your test Website and *right-click > Inspect*. Note that for some browsers you may need to enable a 'Developer mode' or similar. The inspect tool allows us to see what part of the *HTML* corresponds to what part on the website.
+
+Additionally, the tool allows us to get the terms we need to select the right elements on the website with our web-scraper. Select the introdcutionary text in the insepect tool and *right click > copy > copy selector* and paste it into the `html_elements` function:
+
+```{r}
+
+
+# select text by id
+rvest::read_html('./test.html') %>%
+  html_elements('#intro-text') %>%
+  html_text()
+
+# select text by class
+rvest::read_html('./test.html') %>%
+  html_elements('.my-text-block') %>%
+  html_text()
+
+# select text by tag
+rvest::read_html('./test.html') %>%
+  html_elements('p') %>%
+  html_text()
+
+
+```
+
+
+Note that, there are two kinds of 'selectors' we can use: *CSS* selectors and *XPATH.* For now, it's sufficient to remember the two basic examples from above.
+
+As a last example before we get started with the real stuff let's get the URL of the image we used in our website:
+
+```{r}
+
+rvest::read_html('./test.html') %>%
+  html_elements('img') %>%
+  html_text()
+
+# that doesn't see to work, let's try something else
+rvest::read_html('./test.html') %>%
+  html_elements('img') %>%
+  html_attr('src')
+
+
+```
+
+Voila.
+
+
+### Written questions in the Canadian parliament
+
+Now that we've got the basics covered, let's try a real world example: Interventions in the Canadian House of Commons. Interventions are a tool used by coalition partners and oppositions to scrutinize the government. Additionally, they serve as a form of personal representation in personalized electoral systems. For that reason, we are going to investigate which parties use interventions in plenary and in committees to what extent.
+
+
+Luckily, the [House of Commons Website](https://www.ourcommons.ca/Members/en/search) has a full list of MPs from the current legislature with information on them as well as their activities. Take some time to explore the website and get acquainted with its structure.
+
+Our plan is as follows:
+
+- Collect data
+  - Get list of members
+  - For each member, get information on party, activities
+- Analyze data
+
+Ok, so let's get started. Remember the part on reproducibility from the lecture? Let's do this properly: Open up new file and name it `collect_mp_data.R`.
+
+We're going to start out by loading the required packages.
+
+```{r}
+
+# install packages if not installed
+if(!require(tidyverse)){
+  install.packages('tidyverse')
+}
+
+
+if(!require(rvest)){
+  install.packages('rvest')
+}
+
+# load packages
+library(tidyverse)
+library(rvest)
+
+```
+
+Note that we included some code that install the required packages only if they are note installed. This way, our code runs smoothly without aborting due to a missing package.
+
+Now, let's read the list of MPs into `rvext`:
+
+```{r}
+
+# read in mp list
+page_list_mps <- rvest::read_html('https://www.ourcommons.ca/Members/en/search')
+
+
+```
+
+
+Explore the member list page using the inspect tool to figure out which elements we need to scrape in order to get a list of MPs' names, parties and the URL of their profile page...
+
+
+```{r}
+
+# get names
+mp_names <- page_list_mps %>%
+    html_elements("[class='ce-mip-mp-tile']") %>%
+    html_element("[class='ce-mip-mp-name']") %>%
+    html_text()
+
+# get parties
+mp_parties <- page_list_mps %>%
+    html_elements("[class='ce-mip-mp-tile']") %>%
+    html_element("[class='ce-mip-mp-party']") %>%
+    html_text()
+
+# get urls
+mp_url <- page_list_mps %>%
+    html_elements("[class='ce-mip-mp-tile']") %>%
+    html_attr('href')
+
+```
+
+
+We now have all of our information stores in individual vectors. To be able to work with them, we can combine them into a dataframe:
+
+```{r}
+
+# combine into df
+mps <- as.data.frame(cbind(mp_names, mp_parties, mp_url))
+
+```
+
+
+If you look at the `url` variable you will notice that only the last part of the URL excluding the domain is listed there. Therefore, we will need to add it:
+
+```{r}
+
+# add domain to urls
+mps <- mps %>%
+    mutate(mp_url_full = paste0('https://www.ourcommons.ca', mp_url))
+
+```
+
+
+Now, that we've got the URLs to all profile pages of all members, we can collect data from the individual profile pages.
+
+```{r}
+
+# prepare df
+mps <- mps %>%
+    mutate(interventions = NA, interventions_com = NA)
+
+
+```
+
+
+To extract the information from all pages, we need to read in all of them separately. To do this, we are going to use a *loop*. *Loops* are sequences of codes that executed over and over again. In particular, we are going to use a *for loop*. A *for loop* takes a so-called *iterable*, in this case our `mp_url_full` variable and take is an input (similar to a function). Let's look at it quickly:
+
+```{r}
+
+head(mps$mp_url_full)
+
+```
+
+Individually, the `mp_url_full` variable is a vector of URLs. There fore we are going to instruct or *for loop* to *iterate* over the vector of URLs and to extract the information we need and save it to our dataframe for each URL (this will take some time):
+
+**Note:** To better understand loops it often makes sense to go through their individual parts manually before running the full loop.
+
+**Note:** In order to avoid getting banned by the parliament website, we might need to use a random sample of the data, we can obtain that by using `using the sample_n` function or we can add a 1 second wait by including `Sys.sleep(1)`. in our loop.
+
+```{r}
+
+count <- 0
+
+# iterate over MP urls
+for (url in mps$mp_url_full) {
+  
+    count <- count + 1
+  
+    # make loop more informative by printing the current url
+    print(paste0(count, '/', NROW(mps)))
+    print(url)
+
+    # extract the chamber intervention information
+    mp_interventions <- read_html(url) %>%
+        html_element('#chamber-intervention-heading > div > p') %>%
+        html_text()
+    
+    # extract the committee intervention information
+    mp_interventions_com <- read_html(url) %>%
+        html_element('#committee-intervention-heading > div > p') %>%
+        html_text()
+
+    # add it to the dataframe
+    mps <- mps %>%
+      mutate(interventions = replace(interventions, mp_url_full==url, mp_interventions)) %>% # replace the NA value in the interventions variable in the df at the the row where urls match
+      mutate(interventions_com = replace(interventions_com, mp_url_full==url, mp_interventions_com)) # replace NA for interventions_com_variable
+
+}
+
+
+```
+
+
+Now that we have collected our data, let's take a look at it:
+
+```{r}
+
+head(mps)
+
+
+```
+
+```{r eval=FALSE}
+
+View(mps)
+
+
+```
+
+This concludes our data collection file. As a last step, we are going to save the data we collected in a *csv* file so that we can use it for analysis later:
+
+```{r}
+
+write.csv(mps, 'mps.csv')
+
+
+```
+
+Simple as that. Confirm in the file explorer on the lower right (if you're interested in how data is represented in a *csv* file, open it up in the editor) that we have indeed created a file called `meps.csv`. We can now clear our environment using `rm(list=ls())`.
+
+
+For our analysis, we are going to create a new file called `anaylze_mp_interventions.R`. In it, we will first read in the *csv* file we just created:
+
+```{r}
+
+mps <- read.csv('mps.csv', as.is = TRUE)
+
+```
+
+What we want to do now is to create a plot of the number of interventions by party. Let's first look our `interventions` and `interventions_com` variables:
+
+```{r}
+
+head(mps$interventions)
+
+head(mps$interventions_com)
+
+```
+
+As you can see, the number of interventions are stored in a string. That's unfortunate if we want to sum up interventions by party. What we need to do now is to extract the numbers from the string and subsequently conert them to *numeric* values.
+
+```{r}
+
+# extract numbers
+mps <- mps %>%
+    mutate(interventions_num = str_extract(interventions,'^[0-9]+'))
+
+mps <- mps %>%
+    mutate(interventions_com_num = str_extract(interventions_com,'^[0-9]+'))
+
+# convert number strings to numeric values
+mps <- mps %>%
+    mutate(interventions_num = as.numeric(interventions_num))
+
+mps <- mps %>%
+    mutate(interventions_com_num = as.numeric(interventions_com_num))
+
+```
+
+Let's take a look:
+
+```{r}
+
+head(mps$interventions)
+
+head(mps$interventions_num)
+
+```
+
+```{r}
+
+mps %>%
+  group_by(mp_parties) %>%
+  summarise(mean(interventions_num))
+
+```
+
+Looks like we've got a problem with the Conservatives. Let's take a look:
+
+```{r}
+
+View(mps)
+
+```
+
+We need to correct out code from above and replace the `NA`s from our number extraction with `0`:
+
+```{r}
+
+mps <- mps %>%
+  replace_na(list(interventions_num = 0))
+
+mps <- mps %>%
+  replace_na(list(interventions_com_num = 0))
+  
+
+```
+
+Let's take another look:
+
+```{r}
+
+mps %>%
+  group_by(mp_parties) %>%
+  summarise(mean(interventions_num))
+
+```
+
+Now, we can plot the averages asabar plot.
+
+```{r}
+
+
+mps %>%
+    ggplot(aes(x = mp_parties, y = interventions_num)) +
+    geom_bar(stat = "summary", fun = "mean") +
+    xlab('Party') +
+    ylab('Avg. interventions')
+
+
+```
+
+```{r}
+
+mps %>%
+    ggplot(aes(x = mp_parties, y = interventions_com_num)) +
+    geom_bar(stat = "summary", fun = "mean") +
+    xlab('Party') +
+    ylab('Avg. com. interventions')
+
+```
+
+
+Instead of the average number of interventions by party, we can also display the total number of interventions.
+
+```{r}
+
+mps %>%
+    ggplot(aes(x = mp_parties, y = interventions_com_num)) +
+    geom_bar(stat= 'summary', fun='sum') +
+    xlab('Party') +
+    ylab('# interventions')
+
+```
+
+```{r}
+
+mps %>%
+    ggplot(aes(x = mp_parties, y = interventions_num)) +
+    geom_bar(stat= 'summary', fun='sum') +
+    xlab('Party') +
+    ylab('# com. interventions')
+
+```
+
+Wow that looks a lot different. Either the liberals have a lot more members than the greens or there's some real overperformers there. Let's investigate.
+
+```{r}
+
+mps %>%
+  group_by(mp_parties) %>%
+  count()
+
+```
+
+Indeed, the Green party has only two (very active) MPs wheres the Conservative and the Liberal party are the largest party groups in the House of Commons. So we might need to look at the data in a more fine-grained way:
+
+```{r}
+
+mps %>%
+  ggplot(aes(x=mp_parties, y=interventions_num)) +
+  geom_point()
+
+```
+
+Let's look at top 5 MPs from each party and see who those over-performers are.
+
+```{r}
+
+mps %>%
+  arrange(desc(interventions_num)) %>%
+  group_by(mp_parties) %>%
+  select(mp_names, mp_parties, interventions_num, interventions_com_num) %>%
+  slice(1:5) %>%
+  View()
+
+
+```
+
+*
+Lastly, we want to save our plots. We can do this using `ggplot`'s as *png* files. Here's an example:
+
+```{r}
+
+mps %>%
+  ggplot(aes(x=mp_parties, y=interventions_num)) +
+  geom_point()
+ggsave('intervention_point.png')
+
+
+```
+
+
+
+**Note:** To dive deeper into web-scraping with `rvest`, check out https://github.com/yusuzech/r-web-scraping-cheat-sheet and https://rvest.tidyverse.org/articles/rvest.html
+
+
+
+**Bonus**
+
+If we want to plot chamber and committee interventions together, we will need to do some data transformation from *wide* to *long.* You don't need to understand what this mean exactly but it's good to keep this in mind in case you might need to plot something like this.
+
+```{r}
+
+library(reshape2)
+
+mps_long <- melt(mps %>% select(-X)) # transform mps to long format (without X variable as we do not need it)
+
+# plot them stacked
+mps_long %>%
+  ggplot(aes(x = mp_parties, fill = variable)) +
+  geom_bar(fun='mean')
+
+
+```
+
+
+
+```{r}
+
+# Plot them next to each other
+mps_long %>%
+  ggplot(aes(x = mp_parties, fill = variable)) +
+  geom_bar(position = 'dodge')
+
+```
+
+
+
+# Additional exercises
+
+@TODO
+
+https://adam3smith.github.io/web-scraping/
 
 https://bbc.github.io/rcookbook/
