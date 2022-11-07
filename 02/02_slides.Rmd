@@ -61,25 +61,15 @@ header-includes:
 
 **Lecture**
 
-1. Quick recap and overview
-2. Data types, collection and storage
-3. Research design in CSS
-4. Reproducibility
-5. Term papers
+1. Data types
+2. Data collection and storafe
+3. Working with data & reproducbility
 
 **Lab**
 
-@TODO
-
-
-<!--- RECAP ---->
-
-# Recap: What is Computational Social Science?
-
-
-
-
-
+1. Data types in `R`
+2. API
+3. Web-scraping
 
 
 #
@@ -333,7 +323,6 @@ Source: https://www.analyticsvidhya.com/blog/2021/03/grayscale-and-rgb-format-fo
 
 # 'Digital trace data'
 
-@TODO
 
 \smaller
 
@@ -416,80 +405,186 @@ Many types of data are often combined, e.g.
 *A subset of a population, e.g. the students in a particular course, the students you met at the last uni party*
 
 
-# Side note: "Big data"
-
-@TODO see assigned reading paper
-
 
 
 # Ways to collect / obtain "data"?
 
 - Surveys
-- Measure / Annotate (potentially crowdsourced) @TOOD book crowsourced, github overview dings
+- Measure / Annotate (potentially *crowdsourced*)
 - *APIs*
 - *Webscraping*
 - Use already collected data(sets)
 - Simulate data
 
 
+# Crowdsourcing data [@uwe_engel_crowdsourcing_2022]
 
-# APIs
+\smaller
 
-@TODO check vol2 book
+Instead of collecting and annotating data themselves (or to conduct surveys and experiments), researchers increasingly rely on online crowdsourcing platforms where workers can sign up and receive compensation for tasks (e.g. *Amazon MTurk*).
 
+**Pros**
+
+- reduced cost
+- instant recruiting and timely completion
+- more diverse samples than student samples
+
+**Cons**
+
+- workers tend to exhibit certain characteristics
+- data quality (profiles, attrition, responses)
+- workers are used to surveys / experiments and talk to each other
+- ethical aspects (compensation, rejection, privacy)
+
+
+
+# APIs {.allowframebreaks}
+
+\smaller
+
+**Application Programming Interface (API)**: an access point with specific rules and procedures to interact with a program / database
+
+&rarr; commonly used to facilitate exchange between multiple applications / databases
+&rarr; in research: Web APIs
+
+**REST APIs**
+
+*Representational State Transfer (REST)* are a particularly common type of APIs that adhere to a common style. IT can be used to retrieve data (GET), update (PUT), create (POST) and remove (DELETE) data.
+
+&rarr; for research purposes we usually want to retrieve data from an online resource (e.g. Wikipedia, Twitter, Facebook, Parliaments)
+
+&rarr; to retrieve data from an API, it needs to be *requested*
+
+We will learn how to use an API with the help of an `R` package in today's lab!
+
+\framebreak
+
+![](res/api.png)
 
 # Webscraping
 
-@TODO check vol2 book
+**Webscraping**: extracting information from websites using automated tools
+
+&rarr; can relate to any kind of information: texts, images, videos 'data', links, metadata
+
+**Web crawling**: automated and systematic browsing of websites to store relevant information, follow links etc.
 
 
-&rarr; Lab
+**Example workflow**
 
-
-
-
-# Finished datasets available for usage
-
-
-<!----->
+1. 'Request' / open the website
+2. Locate the required information on the website (usually in it's *code*)
+3. Store the information
 
 
 
 
 # Data structures
 
-@TOOD buch intro css
+**Data scructure**: the way in which data is represented or organized
+
+**Value types**
+
+- *integer* / float (numeric values)
+- *strings* (text values)
+- *boolean* (True / False values)
+
+**Structures**
+
+- *Vector / Array* (a series of values with $n$ dimensions, for vectors $n = 1$)
+- *Data frame* (list of vectors &rarr; rows / columns)
+
+*There are many more structures depending on the programming language and use case but these will suffice for now!*
 
 
 # Data storage
 
-@TOOD use examples form syllabus form above, corpus, relational database, simeple dataset etcetc
+There are many ways to store collected data. Often, the type of storage is determined by the type of data and its level of structure.
+
+**Data storage examples**
+
+- Plain files
+- Structured files (e.g. csv)
+- Structured databases (SQL; table-style organization and searchable)
+- Unstructured databases (NoSQL; document-style, organization can vary by document)
 
 
-# "Flat data"
+# Storage of structured data
+
+**Examples**
+
+- Dataset (table) of survey responses
+- Dataset (table) on MPs, their characteristics and their activites
+
+*could be stored as*
+
+- structured Files (e.g. csv)
+- table in an SQL database
 
 
-# Relational data
+# Side note: Flat vs. relational data i {.allowframebreaks}
 
 
-# Unstructured data
+## "Flat data"**
+
+All information is contained in a single table, e.g. MPs and data on their age, party, gender and marital status
+
+
+## Relational data
+
+Information is stored in multiple tables that relate to each other, e.g. one table on MPs and their characteristics and one table on their activities (e.g. speeches)
+
+
+# Side note: Flat vs. relational data ii
+
+![](res/flat_table.png)
+
+# Side note: Flat vs. relational data iii
+
+![](res/rel_table.png)
+
+
+
+# Storage of unstructured data
+
+**Examples**
+
+- News paper articles
+- Raw scraped website HTML
+- Data from ongoing data collection with yet unknown scope
+
+*could be stored in*
+
+- Plain text files
+- Document (NoSQL) Databases
 
 
 <!---->
 
-# Ethical aspects
+# Ethical aspects & data [based on @matthew_j_salganik_bit_nodate]
 
-@TODO https://www.bitbybitbook.com/en/1st-ed/ethics/
+\smaller
+
+When collecting and analyzing data using computational tools, it's very easy to collect a great variety of data. However, just like research without computational tools, there are a few ethical standard to keep in mind when doing so.
+
+**Respect 'do no harm'** e.g.
+
+- Bandwidth and server load when web-scraping &rarr; spread out collection over time
+- Treatments in experiments and (unintended) consequences (mood change due to modified Facebook feed) &rarr; informed consent
 
 
+**Legal aspects** e.g.
 
+- Data privacy &rarr; anonymization
+- Content behind a paywall /restricted access &rarr; read Terms of Service
+- Copyrighted content &rarr; check licensing; do not share raw data
 
 
 <!--- WORKING WITH DATA -->
 
 #
 
-\section{Working with data}
+\section{Using data in research}
 
 
 # Types of analyses [@john_wilder_tukey_exploratory_1977] {.allowframebreaks .c}
@@ -641,9 +736,9 @@ An overview can be found on [dataverse.org](https://dataverse.org/).
 **Next session** Text data
 
 
-# Lab
+#
 
-@TODO
+\section{Lab}
 
 
 # References 
