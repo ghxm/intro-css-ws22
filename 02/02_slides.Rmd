@@ -62,8 +62,8 @@ header-includes:
 **Lecture**
 
 1. Data types
-2. Data collection and storafe
-3. Working with data & reproducbility
+2. Data collection and storage
+3. Working with data & reproducibility
 
 **Lab**
 
