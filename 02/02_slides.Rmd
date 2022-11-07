@@ -690,7 +690,7 @@ In recent decades, many studies have been found to be impossible to reproduce du
 
 - write and store code in a way that is easily understandable for others (within reason)
 - include all parts of code (incl. for figures, tables)
-- document files and code
+- document files, code and your data collection process
 
 **Auditability**
 
