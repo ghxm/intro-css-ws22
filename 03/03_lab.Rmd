@@ -1,9 +1,9 @@
 ---
-title: "Lab 02: Types of data, working with data & collecting data"
+title: "Lab 03: Text analysis"
 author:
     - Maximilian Haag
     - Constantin Kaplaner
-date: "07.11.2022"
+date: "14.11.2022"
 output:
   html_notebook:
     toc: yes
@@ -13,7 +13,18 @@ output:
     toc: yes
 ---
 
-In this lab we will cover some basics of automated text analysis. For this we will rely mostly on the quanteda package:
+
+# Recap: Loops
+
+
+
+
+
+
+
+# Text analysis
+
+In this lab we will cover some basics of automated text analysis. For this we will rely mostly on the `quanteda` package:
 
 `````{R}
 
@@ -28,7 +39,7 @@ library(tidyverse)
 
 ````
 
-Additional to the main package, we also install the quanteda.textplots and quanteda.textmodels packages that include additional functionality. Furthermore, we will load the tidyverse package for some preprocessing and plotting.
+Additional to the main package, we also install the quanteda.textplots and quanteda.textmodels packages that include additional functionality. Furthermore, we will load the `tidyverse` package for some pre-processing and plotting.
 
 In terms of data, we will use a sample of 10.000 speeches from the House of Commons that stems from the ParlSpeech V2 data set from Rauh & Schwalbach (2020). The full dataset can be accessed here:
 
@@ -58,7 +69,7 @@ sample_commons %>%
   geom_col()
 ````
 
-We can also take a quick peak at the distribution of speech length for the two main parties (Conservatives and Labour) by using the filter function.
+We can also take a quick peak at the distribution of speech length for the two main parties (Conservatives and Labour) by using the `filter` function.
 
 ````{R}
 
@@ -70,7 +81,7 @@ sample_commons %>%
 
 We can see that Conservatives tend to have a higher amount of very short speeches, this could be for example an indication that there are more interruptions coming from conservatives MPs.
 
-While this data set already contains a variable indicating the length of the speeches, we could also add this by using the str_count funciton from the stringr package.
+While this data set already contains a variable indicating the length of the speeches, we could also add this by using the `str_count` function from the `stringr` package.
 
 `````{R}
 install.packages("stringr")
@@ -91,17 +102,17 @@ str_count("How long is this sentence?", pattern = "\\w+")
 ````
 
 
-# Preprocessing
+## Preprocessing
 
 For now, we only worked with the data set by itself. While the length of a text is also a textual measure, for further analysis we need to preprocess the text to make it ready.
 
-In quanteda this is done by three steps:
+In `quanteda` this is done in three steps:
 
-1. First we create a so called **corpus**. This contains the original texts, document-level variables, document-level metadata, corpus-level metadata, and default settings for subsequent processing of the corpus.
+1. First we create a so called *corpus*. This contains the original texts, document-level variables, document-level metadata, corpus-level metadata, and default settings for subsequent processing of the corpus.
 
-2. From the corpus we can extract the **tokens**. Essentially, the tokenizer splits a text into singular units, so-called tokens. You can think of this as splitting the text into singular words.
+2. From the corpus we can extract the *tokens*. Essentially, the tokenizer splits a text into singular units, so-called tokens. You can think of this as splitting the text into singular words.
 
-3. Lastly, from the tokens we create a document-feature matrix **dfm**. Essentially this constructs the bag-of-words representation we saw before in class.
+3. Lastly, from the tokens we create a document-feature matrix *dfm*. Essentially this constructs the bag-of-words representation we saw before in class.
 
 ````{R}
 
@@ -154,6 +165,9 @@ dfm_commons <- dfm_trim(dfm_commons,
 textplot_wordcloud(dfm_commons)
 
 ````
+
+
+## Dictionary analysis
 
 First we will do a relatively simple dictionary analysis. For this we can construct a dictionary ourselfs or use a premade dictionary. We will start with making a dictionary manually:
 
@@ -222,7 +236,7 @@ sample_commons %>%
 ````
 
 
-For now we relied on a relatively simple dictionary we constructed ourselves. We can also rely on dictionaries constructed by others. Here we will use that LWIC dictionary that is used for sentiment analysis and is already included in the quanteda package:
+For now we relied on a relatively simple dictionary we constructed ourselves. We can also rely on dictionaries constructed by others. Here we will use that LWIC dictionary that is used for sentiment analysis and is already included in the `quanteda` package:
 
 
 ````{R}
@@ -236,7 +250,7 @@ sample_commons <- merge(sample_commons, sentiment_matches, by="doc_id")
 ````
 
 
-It creates a relatively simply count of negative and positve words. We can convert this into a sentiment score:
+It creates a relatively simply count of negative and positive words. We can convert this into a sentiment score:
 
 ````{R}
 
@@ -258,6 +272,8 @@ sample_commons %>%
 ````
 
 
+## Topic models
+
 While dictionaries classify documents by predefined categories, we can also find categorizations inductively using topic models. Here we will use the stm package. 
 
 ````{r}
@@ -265,13 +281,13 @@ install.packages("stm")
 library(stm)
 ````
 
-Quanteda has the benefit of being compatabile to many other text analysis packages. For example, to use our dfm for stm we can simply convert it to a stm readable format using the convert function and by defining the output as "stm"
+`quanteda` has the benefit of being compatabile to many other text analysis packages. For example, to use our dfm for stm we can simply convert it to a stm readable format using the convert function and by defining the output as "stm"
 
 ````{R}
 stm_input_commons <- convert(dfm_commons, to = "stm")
 ````
 
-stm requires a few inputs that are all contained in the now reated stm_input_commons file. The main choice we have to make is how many topics we expect in the text. These are defined as K in the stm call. Note that topic models might take a while to process depending on the size of the data set.
+stm requires a few inputs that are all contained in the now reated `stm_input_commons` file. The main choice we have to make is how many topics we expect in the text. These are defined as K in the stm call. Note that topic models might take a while to process depending on the size of the data set.
 
 ````{R}
 set.seed(123)
@@ -281,7 +297,7 @@ stm_model_commons <- stm(documents = stm_input_commons$documents,
 
 ````
 
-The output is a stm object. It contains various informations about the result of the model. First, we can look at the topic-word distributions. We can inspect the results using the labelTopics function:
+The output is a `stm` object. It contains various informations about the result of the model. First, we can look at the topic-word distributions. We can inspect the results using the `labelTopics` function:
 
 ````{R}
 labelTopics(stm_model_commons, n=10)
