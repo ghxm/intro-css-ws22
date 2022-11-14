@@ -1,0 +1,333 @@
+---
+title: "Lab 02: Types of data, working with data & collecting data"
+author:
+    - Maximilian Haag
+    - Constantin Kaplaner
+date: "07.11.2022"
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+In this lab we will cover some basics of automated text analysis. For this we will rely mostly on the quanteda package:
+
+`````{R}
+
+install.packages("quanteda")
+install.packages("quanteda.textplots")
+install.packages("quanteda.textmodels")
+
+library(quanteda)
+library(quanteda.textplots)
+library(quanteda.textmodels)
+library(tidyverse)
+
+````
+
+Additional to the main package, we also install the quanteda.textplots and quanteda.textmodels packages that include additional functionality. Furthermore, we will load the tidyverse package for some preprocessing and plotting.
+
+In terms of data, we will use a sample of 10.000 speeches from the House of Commons that stems from the ParlSpeech V2 data set from Rauh & Schwalbach (2020). The full dataset can be accessed here:
+
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/L4OAKN
+
+````{R}
+load("~/intro-css-ws22/03/sample_commons.Rdata")
+
+head(sample_commons)
+
+sample_commons <- sample_commons %>% 
+  rowid_to_column(var="doc_id")
+
+````
+
+The data set includes the agenda of a given speech, information about the speaker, the party of the speaker, how long the speech is (terms) and the speech itself in the text file.
+
+
+We can take a quick look, how many observations per party we have on a yearly basis. For this we will rely on the group_by and count function from the tidyverse package.
+
+````{R}
+sample_commons %>% 
+  mutate(year = lubridate::year(date)) %>% 
+  group_by(party, year) %>% 
+  count() %>% 
+  ggplot(aes(x=year, y=n, fill=party))+
+  geom_col()
+````
+
+We can also take a quick peak at the distribution of speech length for the two main parties (Conservatives and Labour) by using the filter function.
+
+````{R}
+
+sample_commons %>% 
+  filter(party=="Con"| party == "Lab") %>% 
+  ggplot(aes(x=terms, color=party)) + 
+  geom_density()
+````
+
+We can see that Conservatives tend to have a higher amount of very short speeches, this could be for example an indication that there are more interruptions coming from conservatives MPs.
+
+While this data set already contains a variable indicating the length of the speeches, we could also add this by using the str_count funciton from the stringr package.
+
+`````{R}
+install.packages("stringr")
+library(stringr)
+
+````
+
+Using the function without any arguments gives us the number of characters:
+
+````{R}
+str_count("How long is this sentence?")
+````
+
+By specifiying "\\w+" we can tell the function that we are looking for words. \\w in this case is a so called regular expression (regex) that captures word characters. The + symbol indicates that we are looking for at least one match. We won't go into detail regarding regex, but if you continue working with textual data you will stumble upon use cases were you need regex:
+
+````{R}
+str_count("How long is this sentence?", pattern = "\\w+")
+````
+
+
+# Preprocessing
+
+For now, we only worked with the data set by itself. While the length of a text is also a textual measure, for further analysis we need to preprocess the text to make it ready.
+
+In quanteda this is done by three steps:
+
+1. First we create a so called **corpus**. This contains the original texts, document-level variables, document-level metadata, corpus-level metadata, and default settings for subsequent processing of the corpus.
+
+2. From the corpus we can extract the **tokens**. Essentially, the tokenizer splits a text into singular units, so-called tokens. You can think of this as splitting the text into singular words.
+
+3. Lastly, from the tokens we create a document-feature matrix **dfm**. Essentially this constructs the bag-of-words representation we saw before in class.
+
+````{R}
+
+corpus_commons <- corpus(sample_commons, text_field = "text")
+````
+
+For the creation of the corpus, we do not have to make any decisions yet. We only have to specify where quanteda looks for the text. In this case the text is stored in the "text" column.
+
+````{R}
+
+tokens_commons <-  tokens(
+    corpus_commons,
+    split_hyphens = FALSE,
+    remove_numbers = TRUE,
+    remove_punct = TRUE,
+    remove_symbols = TRUE,
+    remove_url = TRUE,
+    include_docvars = TRUE
+  )
+````
+
+When it comes to tokenization we can do some preprocessing. For example, here we tell quanteda that we want to remove numbers, punctuation, symbols, urls etc.
+
+````{R}
+
+tokens_commons[[1]]
+
+````
+
+Finally, we can convert the tokens to a dfm:
+
+`````{R}
+
+dfm_commons <- dfm(tokens_commons)
+
+textplot_wordcloud(dfm_commons)
+````
+
+The dfm is the basis of all the analysis we will do today. We can further preprocess the dfm by removing certain words:
+
+````{R}
+
+dfm_commons <- dfm_trim(dfm_commons,
+                        min_docfreq = 0.01,
+                        max_docfreq = 0.9,
+                        docfreq_type = "prop"
+                        )
+)
+
+textplot_wordcloud(dfm_commons)
+
+````
+
+First we will do a relatively simple dictionary analysis. For this we can construct a dictionary ourselfs or use a premade dictionary. We will start with making a dictionary manually:
+
+````{R}
+dictionary_environment <-
+  dictionary(
+    list(
+      environment = c("environment*",
+                      "green*",
+                      "pollution*",
+                      "animals*",
+                      "co2",
+                      "emissions*")
+    )
+  )
+
+````
+
+We use the dictionary function and define a topic called environment. We then define a vector of words, that are connected to the topic. 
+
+We can use the dfm_lookup function to see if any text match our (simple) dictionary. We directly convert the results to a data frame to make it usable for further analysis:
+
+````{R}
+environment_matches <- dfm_lookup(dfm_commons, 
+                             dictionary = dictionary_environment) %>% 
+                              convert(to="data.frame")
+
+````
+
+We can look at the results by themselves:
+
+`````{R}
+head(environment_matches)
+environment_matches$doc_id <- gsub("text","", environment_matches$doc_id )
+
+head(environment_matches)
+
+````
+
+We removed the "text" from the doc_id to make it equal to the one we created earlier. We can now merge the two data sets:
+
+````{R}
+sample_commons <- merge(sample_commons, environment_matches, by="doc_id")
+
+````
+
+We will convert the environmental variable to a simple binary, it is one when at any point one of the words was mentioned and 0 if it was not mentioned:
+
+````{R}
+sample_commons$environment <- ifelse(sample_commons$environment > 0,
+                                     1,
+                                     0)
+`````
+
+We can now take a look who talks more about environment:
+
+`````{R}
+sample_commons %>% 
+  filter(party == "Con" |
+           party == "Lab") %>% 
+  mutate(year = lubridate::year(date)) %>% 
+  group_by(year, environment,party) %>% 
+  count() %>% 
+  ggplot(aes(x=year, y=n, color=factor(environment)))+
+  geom_smooth()
+````
+
+
+For now we relied on a relatively simple dictionary we constructed ourselves. We can also rely on dictionaries constructed by others. Here we will use that LWIC dictionary that is used for sentiment analysis and is already included in the quanteda package:
+
+
+````{R}
+
+sentiment_matches <- dfm_lookup(dfm_commons, 
+                        dictionary = data_dictionary_LSD2015) %>% 
+                     convert(to="data.frame")
+
+
+sample_commons <- merge(sample_commons, sentiment_matches, by="doc_id")
+````
+
+
+It creates a relatively simply count of negative and positve words. We can convert this into a sentiment score:
+
+````{R}
+
+sample_commons <- sample_commons %>% 
+  group_by(doc_id) %>% 
+  mutate(sentiment_score = (positive - negative) / terms)
+
+````
+
+Here we subtract the negative words from the positive words and divide it by the total number of words in a speech. This can give a rough indication of tone. As before, we can visualize this score over time:
+
+````{R}
+sample_commons %>% 
+  filter(party == "Con" |
+          party == "Lab") %>%
+  ggplot(aes(x=date, y=sentiment_score, color=party))+
+  geom_smooth()
+
+````
+
+
+While dictionaries classify documents by predefined categories, we can also find categorizations inductively using topic models. Here we will use the stm package. 
+
+````{r}
+install.packages("stm")
+library(stm)
+````
+
+Quanteda has the benefit of being compatabile to many other text analysis packages. For example, to use our dfm for stm we can simply convert it to a stm readable format using the convert function and by defining the output as "stm"
+
+````{R}
+stm_input_commons <- convert(dfm_commons, to = "stm")
+````
+
+stm requires a few inputs that are all contained in the now reated stm_input_commons file. The main choice we have to make is how many topics we expect in the text. These are defined as K in the stm call. Note that topic models might take a while to process depending on the size of the data set.
+
+````{R}
+set.seed(123)
+stm_model_commons <- stm(documents = stm_input_commons$documents,
+                         vocab = stm_input_commons$vocab,
+                         K = 25)
+
+````
+
+The output is a stm object. It contains various informations about the result of the model. First, we can look at the topic-word distributions. We can inspect the results using the labelTopics function:
+
+````{R}
+labelTopics(stm_model_commons, n=10)
+````
+
+
+We can now define labels for our topics:
+
+````{R}
+
+labels <-  c(
+  ""
+)
+
+
+````
+
+````{R}
+
+
+theta_commons <- data.frame(stm_model_commons$theta)
+names(theta_commons) <- labels
+sample_commons <- bind_cols(sample_commons, theta_commons)
+
+sample_commons %>%
+  select(party, date, labels, doc_id) %>%
+  filter(party == "Con" |
+           party == "Lab") %>%
+  na.omit() %>%
+  pivot_longer(cols = labels) %>%
+  ggplot(aes(x = date, y = value)) +
+  geom_smooth() +
+  facet_wrap( ~ name)
+
+beta <- data.frame(stm_model_commons$beta)
+names(beta) <- stm_model_commons$vocab
+beta$label <- labels
+
+beta %>% 
+  pivot_longer(cols = !label) %>% 
+  group_by(label) %>% 
+  mutate(exp_value = exp(value)) %>% 
+  arrange(desc(exp_value)) %>% 
+  slice(1:10) %>% 
+  ggplot(aes(x=exp_value, y=name)) +
+  geom_col()+
+  facet_wrap(~label, scales="free")
+
+````
