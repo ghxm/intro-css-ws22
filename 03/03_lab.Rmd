@@ -141,7 +141,7 @@ numbers
 
 In this lab we will cover some basics of automated text analysis. For this we will rely mostly on the `quanteda` package:
 
-````{r}
+````{r echo=TRUE, include=FALSE}
 
 install.packages("quanteda")
 install.packages("quanteda.textplots")
@@ -161,7 +161,7 @@ In terms of data, we will use a sample of 10.000 speeches from the House of Comm
 https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/L4OAKN
 
 ````{r}
-load("~/intro-css-ws22/03/sample_commons.Rdata")
+load("./sample_commons.Rdata")
 
 head(sample_commons)
 
@@ -176,12 +176,14 @@ The data set includes the agenda of a given speech, information about the speake
 We can take a quick look, how many observations per party we have on a yearly basis. For this we will rely on the `group_by` and `count` function from the `tidyvers`e package.
 
 ````{r}
+
 sample_commons %>% 
   mutate(year = lubridate::year(date)) %>% 
   group_by(party, year) %>% 
   count() %>% 
   ggplot(aes(x=year, y=n, fill=party))+
   geom_col()
+
 ````
 
 We can also take a quick peak at the distribution of speech length for the two main parties (Conservatives and Labour) by using the `filter` function.
@@ -192,13 +194,14 @@ sample_commons %>%
   filter(party=="Con"| party == "Lab") %>% 
   ggplot(aes(x=terms, color=party)) + 
   geom_density()
+
 ````
 
 We can see that Conservatives tend to have a higher amount of very short speeches, this could be for example an indication that there are more interruptions coming from conservatives MPs.
 
 While this data set already contains a variable indicating the length of the speeches, we could also add this by using the `str_count` function from the `stringr` package.
 
-````{r}
+````{r echo=TRUE, include=FALSE}
 install.packages("stringr")
 library(stringr)
 
@@ -234,6 +237,7 @@ In `quanteda` this is done in three steps:
 ````{r}
 
 corpus_commons <- corpus(sample_commons, text_field = "text")
+
 ````
 
 For the creation of the corpus, we do not have to make any decisions yet. We only have to specify where quanteda looks for the text. In this case the text is stored in the "text" column.
@@ -249,6 +253,8 @@ tokens_commons <-  tokens(
     remove_url = TRUE,
     include_docvars = TRUE
   )
+
+
 ````
 
 When it comes to tokenization we can do some preprocessing. For example, here we tell quanteda that we want to remove numbers, punctuation, symbols, urls etc.
@@ -261,11 +267,12 @@ tokens_commons[[1]]
 
 Finally, we can convert the tokens to a dfm:
 
-`````{r}
+````{r}
 
 dfm_commons <- dfm(tokens_commons)
 
 textplot_wordcloud(dfm_commons)
+
 ````
 
 The dfm is the basis of all the analysis we will do today. We can further preprocess the dfm by removing certain words:
@@ -277,7 +284,6 @@ dfm_commons <- dfm_trim(dfm_commons,
                         max_docfreq = 0.9,
                         docfreq_type = "prop"
                         )
-)
 
 textplot_wordcloud(dfm_commons)
 
@@ -385,7 +391,7 @@ Here we subtract the negative words from the positive words and divide it by the
 sample_commons %>% 
   filter(party == "Con" |
           party == "Lab") %>%
-  ggplot(aes(x=date, y=sentiment_score, color=party))+
+  ggplot(aes(x=year, y=sentiment_score, color=party))+
   geom_smooth()
 
 ````
@@ -395,7 +401,7 @@ sample_commons %>%
 
 While dictionaries classify documents by predefined categories, we can also find categorizations inductively using topic models. Here we will use the stm package. 
 
-````{r}
+````{r echo=TRUE, include=FALSE}
 install.packages("stm")
 library(stm)
 ````
@@ -403,7 +409,9 @@ library(stm)
 `quanteda` has the benefit of being compatabile to many other text analysis packages. For example, to use our dfm for stm we can simply convert it to a stm readable format using the convert function and by defining the output as "stm"
 
 ````{r}
+
 stm_input_commons <- convert(dfm_commons, to = "stm")
+
 ````
 
 stm requires a few inputs that are all contained in the now reated `stm_input_commons` file. The main choice we have to make is how many topics we expect in the text. These are defined as K in the stm call. Note that topic models might take a while to process depending on the size of the data set.
