@@ -226,13 +226,13 @@ TBA
 
 
 
-### 2023-01-23 Session 7: Based on interest of class
+### 2023-01-23 Session 7: Research design and CSS worklfows
 
 TBA
 
 
 
-### 2023-02-06 Session 8: Research design / term paper presentations and wrap up
+### 2023-02-06 Session 8: Term paper presentations and wrap up
 
 
 
