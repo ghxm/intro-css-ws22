@@ -1,0 +1,477 @@
+---
+knit: (function(input, ...) {
+    rmarkdown::render(
+      '04_slides.Rmd',
+      envir = globalenv()
+    )
+  })
+output:
+    beamer_presentation:
+        keep_tex: yes
+        latex_engine: xelatex
+        template: '../pandoc/templates/slides_template.latex'
+title: "Introduction to Computational Social Science"
+subtitle: "Session 4: Machine learning"
+author:
+    - Maximilian Haag
+    - Constantin Kaplaner
+date: "28.11.2022"
+event: "Room B U103, Tue 14:00--18:00 (bi-weekly)"
+contact: (maximilian.haag@gsi.uni-muenchen.de; constantin.kaplaner@gsi.uni-muenchen.de)
+institute: "Geschwister-Scholl-Institute for Political Science \\newline LMU Munich"
+titlegraphic: null
+fundinggraphic: null
+theme: metropolis
+beamer: yes
+themeoptions: null
+always_allow_html: true
+outerheme: null
+innertheme: circles
+colortheme: dove
+fonttheme: structurebold
+fontthemeoptions: onlylarge
+fontfamily: sourcesanspro
+fontfamilyoptions: null
+mainfont: null
+fontsize: 10
+csl: ../pandoc/apa.csl
+handout: no
+beamercovered:  ''
+link-citations: yes
+citecolor: blue
+colorlinks: yes
+section-titles: yes
+tables: yes
+classoption:
+  #- notes=only
+  - notes=hide
+nocite:
+header-includes:
+- \setbeamertemplate{frame footer}{\insertshortauthor \hspace{1em} -- \hspace{1em}\insertshorttitle \hspace{0.5em} \insertsubtitle}
+- \setbeamerfont{page number in head/foot}{size=\tiny}
+- \setbeamercolor{footline}{fg=darkgray, bg = alabaster}
+- \setbeamercolor{frametitle}{fg=black, bg = alabaster}
+- \setbeamercolor{block title}{bg=alabaster,fg=black}
+- \setbeamercolor{block body}{fg=black, bg=magnolia}
+- \setlength\belowcaptionskip{-0.8em}
+---
+
+---
+
+# I Today's session {.centered}
+
+**Lecture**
+
+1. What is machine learning?
+2. The supervised learning problem
+3. How can machines learn? — The concept of loss
+4. Machine learning error
+5. Assess performance for classification
+6. Quick example
+
+# II Today's session {.centered}
+
+**Lab**
+
+1. ML for classification
+2. ML for regression
+3. Text classification: Measuring polarization
+
+# 
+
+<!--- DATA ---->
+
+\section{What is machine learning?}
+
+# Definition
+
+"Ask five researchers what machine learning is and you will likely get five different answers. Most agree that certain methods—for example, deep neural networks—are machine learning, but other techniques—for example, linear regression and the least absolute shrinkage and selection operator (LASSO)—originate in statistics even if they are taught in nearly all machine learning courses. We argue that machine learning is as much a culture defined by a distinct set of values and tools as it is a set of algorithms."
+
+\footnotesize
+Source: Grimmer, J., Roberts, M. E., & Stewart, B. M. (2021). Machine learning for social science: An agnostic approach. Annual Review of Political Science, 24, 395-419.
+
+# Data versus theory
+
+**In political science context:**
+
+- **Substantive theory** informs model specification 
+- **Statistical theory** informs parametric inference
+
+# Data versus theory
+
+**In machine learning**:
+
+- Focus on outcome $y$ instead of focus on predictor/explanatory variable $\beta$
+- Interest in getting the most accurate prediction of $y$, not necessarily interested in what explains $y$
+
+# Lingo
+
+-   Outcomes/Label = dependent or response variable
+-   Features = independent variables or predictors
+-   Model = defines relationship between features and outcome
+-   Example = particular instance of our data
+
+# 
+
+\section{The supvervised learning problem}
+
+# "Model"
+
+$$y = f(x, \theta)$$
+
+-   $y$ labeled outcome
+-   $x$ vector of features
+-   $f(.)$ function we need to learn from the data, $D=(y,x)$
+-   $\theta$ vector of parameters
+
+# Types of outcome
+
+-   **Classification task**: outcome is a class with 2 or more levels
+
+-   **Regression task:** outcome numeric variable
+
+# Types of parameters
+
+- **Statistical parameters** parameters that can be estimated from the data (think of regression coefficients)
+- **Tuning parameters** influence the behavior of the algorithm, but are not estimated from the data
+
+# Rough outline of a supervised machine learning approach 
+
+1.   Generate **training**, **validation**, and **test** set 
+2.   In the training set, *learn* $f(.)$ and the associated (statistical) parameters
+3.   In validation set, obtain prediction of $f(x,\theta)$ use those to find optimal values of the tuning paramters of $\theta$
+4.   After establishing $\theta$ make predictions for the test set to evaluate performance on unseen data
+    
+#
+
+\section{How can machines learn? — The concept of Loss}
+
+# What is loss?
+
+-   Loss = penalty for a bad prediction
+-   Role in machine learning: 
+
+Training a model means finding $f(x)$ that **minimizes** loss.
+
+# Example for loss: Regression
+
+-   Blue: Prediction
+-   Arrows: Loss
+
+![]("res/LossSideBySide.png")
+
+# Example loss function (regression)
+
+A loss function is the mathematical representation of loss. For example the L2 loss or squared loss function for a single example is:
+
+$$ =  (y_{actual} - y_{predicted})^2 $$
+
+MSE (mean squared error) is the average squared loss per example over the whole dataset. To calculate MSE, sum up all the squared losses for individual examples and then divide by the number of examples:
+
+$$MSE = \frac{1}{N}\sum_{x,y\in D}({y_{actual}-y_{predicted})^2}$$
+
+# Reducing loss
+
+**Challenge**: 
+
+-   How do we reduce loss to generate a good model?
+
+# Concept of iteration for reducing loss
+
+One way of minimizing loss is repeatably trying different parameters until we get the lowest value of loss:
+
+![]("res/iteration.png")
+
+\footnotesize
+Source: https://developers.google.com/machine-learning/crash-course/reducing-loss/an-iterative-approach?hl=en
+
+# Parameter updates?
+
+But how do we find out what values we should try?
+
+![]("res/gradient.png"){width=70%}
+
+\footnotesize
+Source: https://developers.google.com/machine-learning/crash-course/reducing-loss/gradient-descent?hl=en
+
+# Example I
+
+````{r, echo = FALSE, warnings=FALSE, message=FALSE, out.width="80%", fig.align="center"}
+library(tidyverse)
+set.seed(1000)
+
+theta_0 <- 5
+theta_1 <- 2
+n_obs <- 500
+x <- rnorm(n_obs)
+
+y <- theta_1*x + theta_0 + rnorm(n_obs, 0, 3)
+
+rm(theta_0, theta_1)
+
+data <- tibble(x = x, y = y)
+
+ggplot(data, aes(x = x, y = y)) + geom_point(size = 2, alpha=.5, color = "#1C3041") + theme_minimal() + labs(title = 'Simulated Data')
+
+````
+
+
+# Example II
+
+````{r, echo = FALSE, warnings=FALSE, message=FALSE, out.width="80%", fig.align="center"}
+cost_function <- function(theta_0, theta_1, x, y){
+  pred <- theta_1*x + theta_0
+  res_sq <- (y - pred)^2
+  res_ss <- sum(res_sq)
+  return(mean(res_ss))
+}
+
+gradient_desc <- function(theta_0, theta_1, x, y){
+  N = length(x)
+  pred <- theta_1*x + theta_0
+  res <- y - pred
+  delta_theta_0 <- (2/N)*sum(res)
+  delta_theta_1 <- (2/N)*sum(res*x)
+  return(c(delta_theta_0, delta_theta_1))
+}
+
+alpha <- 0.1
+iter <- 100
+
+minimize_function <- function(theta_0, theta_1, x, y, alpha){
+  gd <- gradient_desc(theta_0, theta_1, x, y)
+  d_theta_0 <- gd[1] * alpha
+  d_theta_1 <- gd[2] * alpha
+  new_theta_0 <- theta_0 + d_theta_0
+  new_theta_1 <- theta_1 + d_theta_1
+  return(c(new_theta_0, new_theta_1))
+}
+
+
+res <- list()
+res[[1]] <- c(0, 0)
+
+for (i in 2:iter){
+  res[[i]] <- minimize_function(
+    res[[i-1]][1], res[[i-1]][2], data$x, data$y, alpha
+  )
+}
+
+res <- lapply(res, function(x) as.data.frame(t(x))) %>% bind_rows()
+colnames(res) <- c('theta0', 'theta1')
+
+loss <- res %>% as_tibble() %>% rowwise() %>%
+  summarise(mse = cost_function(theta0, theta1, data$x, data$y))
+
+res <- res %>% bind_cols(loss) %>%
+  mutate(iteration = seq(1, 100)) %>% as_tibble()
+
+ggplot(res, aes(x = iteration, y = mse)) + 
+  geom_point(size = 2, alpha =.5, color = "#1C3041") + 
+  theme_minimal() + geom_line(aes(group = 1), color="#1C3041") 
+````
+
+# Example III
+
+````{r, echo = FALSE, warnings=FALSE, message=FALSE, out.width="80%", fig.align="center"}
+ggplot(data, aes(x = x, y = y)) + 
+  geom_point(size = 2, alpha =.5, color = "#1C3041") + 
+  geom_abline(aes(intercept = theta0, slope = theta1),
+              data = res, size = 0.5, color = '#DB162F', alpha =.5) + 
+  theme_minimal() + 
+  geom_abline(aes(intercept = theta0, slope = theta1), 
+              data = res %>% slice_head(), size = 0.5, color = '#1C3041') + 
+  geom_abline(aes(intercept = theta0, slope = theta1), 
+              data = res %>% slice_tail(), size = 0.5, color = '#1C3738')
+
+````
+
+#
+
+\section{Machine Learning Error}
+
+# Error
+
+-   While loss is optimized within the training portion, error occurs when applying the model to new data
+-   It can be defined as:
+
+$$ Prediction \neq Outcome $$
+
+# Sources of Error
+
+-   Irreducible error
+-   Bias error
+-   Variance error
+
+# Irreducible error
+
+Cannot be reduced!
+
+**Causes:**
+
+-   Missing features
+-   Measurement error in features
+
+**Solution:**
+
+-   Collect more and better data
+
+# Bias error
+
+Predictions are systematically off
+
+**Causes:**
+
+-   Poor data prep
+-   Insufficient features included
+-   Complex relationships not captured
+-   Wrong algorithm for the task
+
+**Solution:**
+
+-   Better data prep 
+-   Adjustment of hyperparameters 
+-   Increased model complexity 
+-   Different algorithm
+
+# Variance error
+
+Error arises when algorithm is applied to new data
+
+**Causes:**
+
+- Overfitting
+
+**Solution:** 
+
+- Dropout layers 
+- Regularization 
+- Validation sets
+
+# Overfitting I
+
+![]("res/GeneralizationA.png"){width=50%}
+
+\footnotesize
+Source: https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting?hl=en
+
+# Overfitting II
+
+![]("res/GeneralizationB.png"){width=50%}
+
+\smaller
+Source: https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting?hl=en
+
+# Overfitting III
+
+![]("res/GeneralizationC.png"){width=50%}
+
+\smaller
+Source: https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting?hl=en
+
+# Bias variance tradeoff
+
+**Problem**:
+
+-   To reduce bias error, we increase model complexity
+-   Increased complexity might induce variance error
+
+**Vice versa**
+
+#
+\section{Assess performance for classification}
+
+# True postive, true negative
+
+-   In classification task we can assess how well our generated model performs by assessing different metrics
+-   For this we look at true/false positives and true/false negatives
+
+# What a true/false postives/negatives
+
+Think of a COVID test:
+
+-   If its positive and you really have COVID that would be a true positive
+-   If its positive but you do not have COVID that would be a false positive
+-   If its negative and you really do not have COVID that would be a true negative
+-   If its negative and you really have COVID that would be a false negative
+
+# Measures
+
+![]("res/positive.png"){width=100%}
+
+
+\footnotesize
+Source: https://medium.com/@m.virk1/classification-metrics-65b79bfdd776
+
+
+#
+\section{Example for machine learning algorithm: Support vector machines}
+
+# Idea
+
+- Find the optimal *hyperplane* which maximes the margins between two classes
+- Hyperplane = plane that spans more than 3 dimensions (in 2d line, in 3d plane)
+- Margins = Distance between the hyperplane and the closest point
+
+# Support vectors
+
+- Support vectors are the data points closest to the decision surface or hyperplane
+- They are the points hardest to classify
+- They directly influence where the optimal hyperplane lays
+
+# 2 dimensional case I
+
+Given following data:
+
+````{r, echo = FALSE, warnings=FALSE, message=FALSE, out.width="70%", fig.align="center"}
+require(palmerpenguins)
+require(tidyverse)
+
+penguins <- palmerpenguins::penguins
+penguins %>% 
+  na.omit() %>% 
+ggplot( 
+       aes(x = flipper_length_mm,
+           y = bill_length_mm)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 3,
+             alpha = 0.7) +
+  #theme_minimal() +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin size, Palmer Station LTER",
+       subtitle = "Flipper length and bill length for Adelie, Chinstrap and Gentoo Penguins",
+       x = "Flipper length (mm)",
+       y = "Bill length (mm)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme_minimal()
+
+````
+
+# 2 dimensional case II
+
+Challenge:
+
+Find the lines that maximize the margins!
+
+# II Example: Classifying penguins
+
+````{r, echo = FALSE, warnings=FALSE, message=FALSE, out.width="80%", fig.align="center"}
+require(e1071)
+
+penguins <- penguins %>% 
+  select(species, flipper_length_mm, bill_length_mm)
+
+# sample training data and fit model
+train <- sample_n(penguins, 200)
+
+# Fit radial-based SVM in kernlab
+fit <- svm(species~bill_length_mm+flipper_length_mm, data = train, cost=1)
+
+plot(fit,train, grid = 100)
+````
+
+
+
+
