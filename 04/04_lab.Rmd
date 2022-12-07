@@ -1,0 +1,389 @@
+---
+title: "Lab 03: Text analysis"
+author:
+    - Maximilian Haag
+    - Constantin Kaplaner
+date: "14.11.2022"
+output:
+  html_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+# Classification using caret
+
+## The  palmerpenguins data set
+
+For our first classification task we gonnna work with the palmer penguins data set. It can be loaded through the `palmerpenguins` package:
+
+````{r}
+#install.packages("palmerpenguins")
+penguins <- palmerpenguins::penguins
+````
+
+First we gonna make a quick visualization of two of the variables contained in the data set. In the previous sessions we mostly used the default colors and themes of ggplot. In this example we use a custom color scale by using `scale_color_manual()`. Here we can define as values the colors we want our points to have. In this example we use build in colors, but you can also supply custom colors as hex codes. One good site to generate custom color scales is: https://coolors.co
+
+````{r}
+require(tidyverse)
+
+penguins %>% 
+ggplot(aes(x = flipper_length_mm,
+           y = bill_length_mm, 
+           color = species,
+           shape = species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin size, Palmer Station LTER",
+       subtitle = "Flipper length and bill length for Adelie, Chinstrap and Gentoo Penguins",
+       x = "Flipper length (mm)",
+       y = "Bill length (mm)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme_minimal()
+
+
+
+````
+
+## The caret package
+
+For most of the "heavy lifting" we gonna use the `caret` package in this lab. Caret contains many functions needed for doing machine learning. All information regarding `caret` can be found here: https://topepo.github.io/caret/
+
+
+````{r}
+#install.packages("caret")
+require(caret)
+````
+
+As we learned in the lecture part, for machine learning we need to divide our data at least in a training and a test set. In most cases it is also advisable to use a validation set. Since we will not optimize any tuning or hyper-parameters in this lab, we will just divide the data in a training and a test set.
+
+## Splitting into training and test set
+
+First we remove observations with missing values with `na.omit()` from our penguins data frame. After that, we create a vector of all rows that will be in the training set. We do this by drawing a sample from a vector containing each row number (a sequence from 1 to 333). The sample size is 80% of the data set size. We can use the `nrow` function for this. `nrow` returns the number of rows in a data frame. Multiplying this number with 0.8 gives us the necessary size of our training set.
+
+````{r}
+penguins <- na.omit(penguins)
+
+set.seed(123)
+train_index <- sample(1:nrow(penguins), 0.8 * nrow(penguins), replace = F)
+````
+
+We can use the `train_index` we created for the creation of our training and test set. For our training set, we filter all rows included in the `train_index` (therefore 80% of our original data frame). For our test set, we filter all rows NOT in the train-index. We can do this by using the - sign before `train_index`.
+
+````{r}
+penguins_train <- penguins[train_index, ]
+penguins_test <- penguins[-train_index, ]
+````
+
+## Quick look at formulas
+
+Now we have everything prepared to train our model. Before being able to apply the algorithm, we have to define a formula. In R, formulas are expressions that describe the relationship between one or more variables. Formulas are typically used in statistical modeling to specify the model that will be fit to a dataset. In general, a formula in R has the following structure:
+
+`DV (outcome) ~ IV (features)`
+
+In our case our outcome is the variable `species` for our features or independent variables we will use all other variables in the data frame. By using `.` after `~` we tell R to use all other variables expect of species as features or independent variables.
+
+## Training classification model
+
+Additional to the formula we have to supply data (`penguins_train`) and the `method`. The `method` defines the specific algorithm or model used. For an overview of available algorithms/models see: https://topepo.github.io/caret/available-models.html
+
+
+We will run a support vector machine by defining `method = "svmLinear3`
+
+````{r}
+svm_fit <- train(species ~ ., 
+                data = penguins_train, 
+                method = "svmLinear3")
+````
+
+
+We can take a look at the results:
+````{r}
+svm_fit
+````
+
+
+## Assesing performance
+We gonna assess the performance by applying the model to the unseen test set. We can do this by using the `predict()` function. We use the estimated model that is stored in `svm_fit` to predict the species in the `penguins_test` set.
+
+
+````{r}
+penguin_predict <- predict(svm_fit, penguins_test)
+````
+
+Finally, we can assess the performance on the test set by comparing the predicted values with the actual values for species. For this, we use the `confusionMatrix()` function in caret: 
+
+````{r}
+confusionMatrix(penguin_predict, penguins_test$species)
+````
+
+
+# Regression using caret
+
+For now we used machine learning for classification. We can also use it for regression. 
+
+## The boston housing data set
+
+For this we will use the Boston housing data set that is contained in the `ml_bench` package. The Boston housing dataset is a well-known dataset used in machine learning and statistics. It contains information on various properties of houses in the suburbs of Boston, including the median value of homes in each area.
+
+````{r}
+#install.packages("mlbench")
+require(mlbench)
+
+data("BostonHousing2")
+boston <- BostonHousing2
+````
+
+First we will take a quick look at the data by plotting a histogram and the density of the cmedv variable (corrected median value of owner occupied housing in Boston). This is the variable we want to predict later on:
+
+````{r}
+ggplot(boston, aes(x = cmedv)) + 
+  geom_histogram(aes(y = ..density..), binwidth = 1,  colour = "black", fill = "grey") + 
+  geom_density(alpha = 0.8, fill = "White") + 
+  labs(title = "Distribution of house prices",
+       subtitle = "Boston housing dataset",
+       x = "Median house price",
+       y = "Density")+
+  theme_minimal()
+````
+
+We can see that there are some outliers above 50. For now we will remove them from the data.
+````{r}
+boston <- boston %>% 
+          filter(cmedv < 50)
+````
+
+The new data looks more uniform in distribution:
+
+````{r}
+ggplot(boston, aes(x = cmedv)) + 
+  geom_histogram(aes(y = ..density..), binwidth = 1,  colour = "black", fill = "grey") + 
+  geom_density(alpha = 0.8, fill = "White") + 
+  labs(title = "Distribution of house prices",
+       subtitle = "Boston housing dataset",
+       x = "Median house price",
+       y = "Density")+
+  theme_minimal()
+````
+
+We should also remove the `medv` variable. It is the uncorrected version of `cmedv`.  We will also remove the town variable because its a factor with a lot of levels that can cause some issues with our models down the line.
+
+````{r}
+boston$medv = NULL
+boston$town = NULL
+```` 
+
+## Alternative to training/test split: (Repeated) K-fold cross validation
+
+Instead of dividing into training and test sets, we gonna use (repeated) k-fold cross validation. K-fold cross-validation is a method for evaluating the performance of a machine learning model by dividing the data set into a specified number of folds (or partitions) and training the model on different combinations of the folds. For example, in 5-fold cross-validation, the data set is divided into 5 folds, and the model is trained and evaluated 5 times, with each fold used as the evaluation set in turn. This allows the model to be trained and evaluated on different subsets of the data, which can provide a more accurate estimate of its performance.
+
+We will go even a step further, by using repeated k-fold cross validation. Here we run the cross validation multiple times and aggregate the results. We can do this by defining our training procedure with the `trainControl` function.
+
+````{r}
+set.seed(123)
+fit.control <- trainControl(method = "repeatedcv", number = 5, repeats = 10, savePredictions = "final")
+````
+
+## Training multiple regression models
+Finally we gonna train some models. Contrary to before, where we only trained one model we gonna train several different models using different algorithms and will compare their performance. We will always use `fit.control` we created before, that specifies that we will use repeated K-fold cross validation:
+
+````{r}
+lm_fit0 <- train(cmedv ~ ., 
+                data = boston, 
+                method = "lasso",
+                trControl = fit.control)
+
+lm_fit1 <- train(cmedv ~ ., 
+                data = boston, 
+                method = "ridge",
+                trControl = fit.control)
+
+lm_fit2 <- train(cmedv ~ ., 
+                data = boston, 
+                method = "svmLinear",
+                trControl = fit.control)
+
+lm_fit3 <- train(cmedv ~ ., 
+                data = boston, 
+                method = "glmnet",
+                trControl = fit.control)
+````
+
+
+## Assessing performance of multiple models
+To analyse, how the models differ in terms of their performance we will look at the R2, RMSE, and MAE values. First we have to use the `resample` function. This acts similarly to the predict function before. You could either do this individually for each model we trained or pass all models as a `list()`.
+
+````{r}
+results_list <- resamples(list(lm_fit0, lm_fit1, lm_fit2, lm_fit3))
+````
+
+We can quickly visualize the performance of the different models using the `dotplot()` function from `caret`:
+
+````{r}
+dotplot(results_list)
+````
+
+## Excurse: Making nicer plots
+
+The resulting plot does not look very appealing. We can make our own results plot by extracting the performance values from the `result_list` object
+
+````{r}
+data_results <- results_list[["values"]] 
+head(data_results)
+````
+
+This gives us a data frame where each metric (RMSE, etc.) for each model is in a separate column. To generate a nice looking plot, we need to convert the data from `wide` to `long` format. Often times when generating plots this step is necessary.
+
+We do this by using the `pivot_longer()` function. in the function we gonna define that we want all columns in long format, except the `Resample` column. 
+
+````{r}
+data_results_long <- data_results %>% 
+                    pivot_longer(!Resample) 
+
+head(data_results_long)
+````
+The resulting data frame has only 3 columns. The `Resample` column stayed from before. The `name` column now contains the former column names as variables. Finally, the `values` column contains the values that formerly have been in the columns that we converted into the `name` column. 
+
+See here for more on long/wide data: https://sebastiansauer.github.io/gather-long-to-wide-format/
+
+To get a similar plot as before, we need to separate the `name` column into two. At the moment it contains two values, the performance metric and the model the performance metric corresponds to. To split the column into two we will use the `separate()` function. `separate` allows us to split columns containing characters into multiple new columns. In the function we define the column we want to separate (`name`) the new columns we want to generate (`into=c("model","metric")`) and where we want to separate the character. In our case at the `~`.
+
+````{r}
+data_results_long <- data_results_long %>% 
+                      separate(col = name,
+                      into = c("model", "metric"),
+                      "~")
+
+head(data_results_long)
+````
+
+Finally we can plot the results. We will use `stat_halfeye()` from the `ggdist` pacakge for this plot.
+
+````{r}
+#install.packages("ggdist")
+
+data_results_long %>%
+  ggplot(aes(
+    y = model,
+    x = value,
+    color = metric,
+    fill = metric
+  )) +
+  ggdist::stat_halfeye(alpha=0.5) +
+  facet_wrap( ~ metric, scales = "free_x") +
+  scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  theme_minimal()+
+  theme(legend.position="none")+
+  labs(x="",
+       y="")
+
+````
+
+
+# Text classification with quanteda
+
+Lastly, we gonna use machine learning for classfying text. We can use the build in functions in `quanteda` for this. 
+
+````{r}
+require(quanteda)
+require(quanteda.textmodels)
+
+load("~/intro-css-ws22/03/sample_commons.Rdata")
+
+sample_commons <- sample_commons %>% 
+  filter(party == "Lab"| party == "Con") %>% 
+  filter(terms > 100)
+````
+
+## Preprocessing and splitting into training and test set.
+Similar to last session, we will create a `corpus` first using our `sample_commons` data set. Since we will be splitting our speeches into a training and test set, we will create a `train_index` as before. Additionally, we will add a `doc_id` variable to our corpus. We will use this later to split our `dfm` into a training and a test set.
+
+````{r}
+corpus_commons <- corpus(sample_commons, text_field = "text")
+
+set.seed(300)
+train_index <- sample(1:nrow(sample_commons), 0.8 * nrow(sample_commons))
+corpus_commons$doc_id <- 1:ndoc(corpus_commons)
+````
+
+Next we can do the same preprocessing steps we did last session:
+
+````{r}
+tokens_commons <-  tokens(
+    corpus_commons,
+    split_hyphens = FALSE,
+    remove_numbers = TRUE,
+    remove_punct = TRUE,
+    remove_symbols = TRUE,
+    remove_url = TRUE,
+    include_docvars = TRUE
+  )
+
+dfm_commons <- dfm(tokens_commons)
+dfm_commons <- dfm_trim(dfm_commons,min_docfreq = 0.1, max_docfreq = 0.7, docfreq_type="prop")
+
+````
+
+
+At this point we can split `dfm_commons` into a training portion and a test portion. 
+
+In R, the `%in%` operator is used to determine whether a value is present in a given vector. It returns a boolean value (true or false) indicating whether the value is found in the vector. For example, if we have a vector x containing the values 1, 2, and 3, we can use the `%in%` operator to check if the value 2 is in the vector as follows:
+
+````{r}
+x <- c(1,2,3)
+
+2 %in% x
+````
+
+
+We will use this for sub-setting our `dfm_commons` using the `dfm_subset()` function with `doc_id %in% train_index` as the sub-setting argument. Essentially, we tell the function to return all rows that are in `train_index`.
+
+````{r}
+dfm_commons_training <- dfm_subset(dfm_commons, doc_id %in% train_index)
+````
+
+
+For the test set, we will use the same approach but we will use `!` in front of the ` doc_id %in% train_index` argument. The `!` operator is used to negate a logical value. This means that if a logical value is `TRUE`, the `!` operator will return `FALSE`, and if a logical value is `FALSE`, the `!` operator will return `TRUE`. Essentially, this gives us all rows that are NOT in `train_index`
+
+````{r}
+dfm_commons_test <- dfm_subset(dfm_commons, !doc_id %in% train_index)
+````
+
+## Training text classification model
+
+Finally we can train or classifier. We will use the build in classifier algorithm in quanteda `textmodel_nb()`. We will use it to predict the party a MP belongs to based on their speeches. 
+
+````{r}
+tmod_nb <- textmodel_nb(dfm_commons_training, dfm_commons_training$party)
+summary(tmod_nb)
+
+````
+
+## Assessing performance
+
+We train the model on speeches in the training set, therefore, the model only can predict things based on the words in the speeches it already "knows". To apply the model to new data, we have to match the vocabulary to the training set:
+
+````{r}
+dfmat_matched <- dfm_match(dfm_commons_test, features = featnames(dfm_commons_training))
+````
+
+Finally, we can apply the model to the test set by using the `predict()` function:
+
+````{r}
+predicted_class <- predict(tmod_nb, newdata = dfmat_matched)
+````
+
+This will generate a vector with a party prediction for each speech. We can compare this to the actual party affiliation to assess the performance of the classifier:
+
+````{r}
+actual_class <- dfmat_matched$party
+tab_class <- table(actual_class, predicted_class)
+confusionMatrix(tab_class)
+````
+
+Peterson & Spirling (2018) use a similar approach to assess polarization based on classification accuracy: https://www.cambridge.org/core/journals/political-analysis/article/classification-accuracy-as-a-substantive-quantity-of-interest-measuring-polarization-in-westminster-systems/45746D999CFCD1CB43E362392D7B2FB4
+
