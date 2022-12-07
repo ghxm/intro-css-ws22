@@ -158,7 +158,7 @@ Training a model means finding $f(x)$ that **minimizes** loss.
 -   Blue: Prediction
 -   Arrows: Loss
 
-![]("LossSideBySide.png")
+![]("res/LossSideBySide.png")
 
 # Example loss function (regression)
 
@@ -180,7 +180,7 @@ $$MSE = \frac{1}{N}\sum_{x,y\in D}({y_{actual}-y_{predicted})^2}$$
 
 One way of minimizing loss is repeatably trying different parameters until we get the lowest value of loss:
 
-![]("iteration.png")
+![]("res/iteration.png")
 
 \footnotesize
 Source: https://developers.google.com/machine-learning/crash-course/reducing-loss/an-iterative-approach?hl=en
@@ -189,7 +189,7 @@ Source: https://developers.google.com/machine-learning/crash-course/reducing-los
 
 But how do we find out what values we should try?
 
-![]("gradient.png"){width=70%}
+![]("res/gradient.png"){width=70%}
 
 \footnotesize
 Source: https://developers.google.com/machine-learning/crash-course/reducing-loss/gradient-descent?hl=en
@@ -350,21 +350,21 @@ Error arises when algorithm is applied to new data
 
 # Overfitting I
 
-![]("GeneralizationA.png"){width=50%}
+![]("res/GeneralizationA.png"){width=50%}
 
 \footnotesize
 Source: https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting?hl=en
 
 # Overfitting II
 
-![]("GeneralizationB.png"){width=50%}
+![]("res/GeneralizationB.png"){width=50%}
 
 \smaller
 Source: https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting?hl=en
 
 # Overfitting III
 
-![]("GeneralizationC.png"){width=50%}
+![]("res/GeneralizationC.png"){width=50%}
 
 \smaller
 Source: https://developers.google.com/machine-learning/crash-course/generalization/peril-of-overfitting?hl=en
@@ -397,7 +397,7 @@ Think of a COVID test:
 
 # Measures
 
-![]("positive.png"){width=100%}
+![]("res/positive.png"){width=100%}
 
 
 \footnotesize
