@@ -6,7 +6,11 @@
 
 *.tex
 
+*_files*
+
+
 *neu_vb_mhck.xlsx
+
 
 *.html
 
