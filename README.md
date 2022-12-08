@@ -208,6 +208,11 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 TBA
 
+#### Literature
+
+- *Borgatti, S. P., Mehra, A., Brass, D. J., & Labianca, G. (2009). Network Analysis in the Social Sciences. Science, 323(5916), 892–895. https://doi.org/10.1126/science.1165821*
+
+
 
 ### 2023-01-09 Session 6: Geo-spatial data
 
