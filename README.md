@@ -199,23 +199,40 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 ### 2023-12-12 Session 5: Network data and analysis
 
-TBA
+#### Learning objectives
 
+- Basic concepts and definitions of network analysis
+- Applications of network analysis in Political Science
+
+#### Lab
+
+TBA
 
 
 ### 2023-01-09 Session 6: Geo-spatial data
 
+*Guest Talk: Franziska Quoß (ETH Zürich) - The impact of political business cycles on the environment*
+
+
+#### Learning objectives
+
+TBA
+
+
+#### Lab
+
 TBA
 
 
 
-### 2023-01-23 Session 7: Based on interest of class
+
+### 2023-01-23 Session 7: Research design and CSS worklfows
 
 TBA
 
 
 
-### 2023-02-06 Session 8: Research design / term paper presentations and wrap up
+### 2023-02-06 Session 8: Term paper presentations and wrap up
 
 
 
