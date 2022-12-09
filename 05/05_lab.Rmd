@@ -1,0 +1,28 @@
+---
+    title: "Lab 05:"
+author:
+    - Maximilian Haag
+    - Constantin Kaplaner
+date: "2022-12-12"
+output:
+    pdf_document:
+    toc: yes
+html_document:
+    toc: yes
+html_notebook:
+    toc: yes
+---
+
+
+
+
+@TODO ChatGPT: can be used to write code
+
+@TODO check out http://konect.cc/ for examples
+
+@TODO check https://datascience.blog.wzb.eu/2019/07/11/a-twitter-network-of-members-of-the-19th-german-bundestag-part-ii/
+
+
+@TODO Munich subway?
+
+
