@@ -18,11 +18,28 @@ html_notebook:
 
 @TODO ChatGPT: can be used to write code
 
+We've already discussed ChatGPT in the lecutre. So let's check it out quickly:
+
+What's cool is that we can also ask it to write `R` code for us.
+
+While this is a and can help us if we get stuck or need to get started, it is important to note that these types of *language models* cannot actually reason or udnerstand things ,they only learn lrealtionships betwen words, so be careful! reason or 
+
+
 @TODO check out http://konect.cc/ for examples
 
 @TODO check https://datascience.blog.wzb.eu/2019/07/11/a-twitter-network-of-members-of-the-19th-german-bundestag-part-ii/
 
+@TODO https://bookdown.org/markhoff/social_network_analysis/your-first-network.html
 
 @TODO Munich subway?
 
+
+@TODO comparison between cetnrality measurs and hoe they perform (how they differ)
+
+
+
+# Visualization
+
+
+@TODO
 
