@@ -1,18 +1,20 @@
 ---
-    title: "Lab 05:"
+title: 'Lab 05: Network data and analysis'
 author:
-    - Maximilian Haag
-    - Constantin Kaplaner
-date: "2022-12-12"
+- Maximilian Haag
+- Constantin Kaplaner
+date: '12.12.2022'
 output:
-    pdf_document:
+  html_notebook:
     toc: yes
-html_document:
+  html_document:
     toc: yes
-html_notebook:
+  pdf_document:
     toc: yes
 ---
 
+
+In this lab session, we will quickly give ChatGPT a try and then dive into network analysis in `R` using the `igraph` package.
 
 
 
@@ -25,21 +27,479 @@ What's cool is that we can also ask it to write `R` code for us.
 While this is a and can help us if we get stuck or need to get started, it is important to note that these types of *language models* cannot actually reason or udnerstand things ,they only learn lrealtionships betwen words, so be careful! reason or 
 
 
-@TODO check out http://konect.cc/ for examples
-
-@TODO check https://datascience.blog.wzb.eu/2019/07/11/a-twitter-network-of-members-of-the-19th-german-bundestag-part-ii/
-
-@TODO https://bookdown.org/markhoff/social_network_analysis/your-first-network.html
-
-@TODO Munich subway?
 
 
-@TODO comparison between cetnrality measurs and hoe they perform (how they differ)
+# Network basics in `igraph`
+
+The `igraph` package provides a comprehensive suite of functions for creating and analyzing complex network data. We will start out by covering the basics of using `igraph` to create and visualize networks, compute important network statistics, and manipulate and analyze network data.
+
+First, let's start by installing and loading the `igraph` package in R:
+
+```{r, eval=FALSE}
+
+install.packages("igraph")
+
+```
+
+
+In addition to `igraph`, we will also load the `magrittr` package which provides the `%>%` pipe^[Note: we could also load the entire `tidyverse` here but since we only need the pipe funcationality, we'll stick to `magrittr`.]
+
+```{r}
+
+library(igraph)
+library(magrittr)
+
+```
 
 
 
-# Visualization
+## Our first network^[Parts of this section are inspired by Mark Hoffman's course '[Methods for Network Analysis](Methods for Network Analysis)' which is also a great resource for network anaylsis in `R`.]
 
 
-@TODO
+Let's consider a network this network of friends.
 
+![](res/friends.png)
+
+
+Next, we can start translating this into code. We will start with a `data.frame` that has two columns to represent the friends.
+
+```{r}
+
+personA <- c("Bob", "Bob", "Aaron", "Aaron", "Mark", "Mark")
+personB <- c("Peter", "Jill", "Jill", "Peter", "Jill", "Peter")
+
+edges <- data.frame(
+  personA,
+  personB
+)
+
+```
+
+
+Let's take a look at the `data.frame` we created:
+
+```{r, eval=FALSE}
+
+View(edges)
+
+```
+
+
+
+
+We can use this list of edges to create a network with the `graph_from_data_frame` function:
+
+```{r}
+
+g <- graph_from_data_frame(edges, directed=FALSE)
+
+```
+
+
+
+Now that we have a network, we can use the `plot` function to visualize it. By default, the `plot` function will use a force-directed layout to arrange the nodes in the network, resulting in a visually pleasing and easy to interpret plot:
+
+```{r}
+
+plot(g)
+
+```
+
+
+Now, let's consider a directed graph. These are the texts the friends sent over the weekend:
+
+
+![](res/friends_messages.png)
+
+A directed edge means that someone reached out to someone over the weekend. Let's start importing this into `R`:
+
+```{r}
+
+sender <- c('Bob',  'Peter', 'Peter', 'Jill', 'Jill', 'Aaron', 'Mark')
+receiver <- c('Peter', 'Bob', 'Mark', 'Mark', 'Bob', 'Mark', 'Jill')
+
+messages <- data.frame(sender, receiver)
+
+gm <- graph_from_data_frame(messages)
+
+plot(gm)
+
+```
+
+
+Alternatively, we can also create a network from an adjacency matrix, which is a matrix that encodes the connections between nodes in a network. To create our network from an adjacency matrix in `igraph`, you can use the following code:
+
+
+```{r}
+
+# Create an adjacency matrix
+adjmat <- matrix(
+  c(0, 1, 0, 0, 0,
+    1, 0, 0, 0, 1,
+    1, 0, 0, 0, 1,
+    0, 0, 0, 0, 1,
+    0, 0, 1, 0, 0),
+  nrow = 5,
+  ncol = 5,
+  dimnames = list(c('Bob', 'Peter', 'Jill', 'Aaron', 'Mark'), # rows
+                  c('Bob', 'Peter', 'Jill', 'Aaron', 'Mark')), # columns
+  byrow = TRUE
+)
+
+# Convert the adjacency matrix to an igraph object
+gm_adj <- graph_from_adjacency_matrix(adjmat,
+                                  mode = 'directed')
+
+# Plot the network
+plot(gm_adj)
+
+```
+
+This code creates an adjacency matrix, which encodes the connections between nodes in the network. The `graph_from_adjacency_matrix` function is then used to convert the adjacency matrix into an `igraph` object. Note that adjacency matrices are actually not that useful for humans (they are for machines, though) and we can get the adjacency matrix of an existing graph using `as_adjacency_matrix()`.
+
+
+
+
+### Network measures
+
+In addition to visualizing networks, igraph also provides a wide range of functions for computing important network statistics. For example, we can use the `degree` function to compute the degree centrality of each node in the network, which represents the number of connections each node has:
+
+```{r}
+
+degree(gm)
+
+
+```
+
+By default, `degree` gives us the number of all edges going in *and* out. We can also get the *in-* and *outdegree*, respectively:
+
+```{r}
+
+degree(gm, mode = 'in')
+degree(gm, mode = 'out')
+
+
+```
+
+
+We can also use the `betweenness` function to compute the betweenness centrality, which measures the importance of a node in terms of the number of shortest paths that pass through it:
+
+
+
+```{r}
+
+betweenness(gm)
+
+```
+
+
+Finally, we can calculate the closeness centrality, a measure for how many steps are required to access every other node from a given node, using the `closeness` function:
+
+```{r}
+
+closeness(gm)
+
+```
+
+Note that the `closeness` values by default represent the *average length* of the shortest paths that go through a node. To get the full number of edges, we need to run:
+
+```{r}
+
+1/closeness(gm)
+
+```
+
+
+Next, let's consider some network characteristics. To get the number of nodes and eges in a network, we can use the `V` and `E` functions^[Note that in `igraph`, just nodes are called vertices (as they usually are in graph theory).], respectively:
+
+```{r}
+
+length(V(gm))
+length(E(gm))
+
+```
+
+
+To calculate the density of the network (actual adges over all possible edges between nodes):
+
+```{r}
+
+edge_density(gm)
+
+```
+
+
+
+### Manipulating the network
+
+Finally, `igraph` also provides a number of functions for manipulating and analyzing network data. For example, we can use the `subgraph` function to extract a subnetwork from the original network, or the `add_vertices`, `delete_vertices`, `add_edges`, `delete_edges` function to add / remove nodes / edges from the network:
+
+
+First, let's extract the relationship between Jill, Mark and Aaron from the graph:
+
+```{r}
+
+subg <- subgraph(gm, v = c('Jill', 'Mark', 'Aaron'))
+plot(subg)
+
+```
+
+Now let's take a deeper look at Mark specifically and find their alters:
+
+
+```{r}
+
+
+mark_ego_size <- ego_size(gm, nodes='Mark') # call the ego_size function to get the number of edges connecting
+
+plot(make_ego_graph(gm, nodes='Mark')[[1]]) # call the make_ego_graph_function to extract mark and alters from the graph
+
+```
+
+To add / remove, use:
+
+
+
+```{r}
+
+gm <- delete_vertices(g, v = c("Mark"))
+plot(gm)
+
+gm <- gm %>%
+    add_vertices(nv = 1, attr=list('name'= c('Mark'))) %>% # add mark
+    add_edges(c('Mark', 'Jill')) # add edges to the graph
+
+plot(gm)
+
+```
+
+
+# Analyzing preferential trade agreements^[Note: This section is based on [Markus Konrad's analysis](https://datascience.blog.wzb.eu/2019/07/11/a-twitter-network-of-members-of-the-19th-german-bundestag-part-ii/)]
+
+To test our newly learned skills and add some more, we will now analyze trade agreements between countries to see whether @TODO
+
+We will rely on data from the [DESTA project](https://www.designoftradeagreements.org/downloads/) which collects data on trade agreements. Let's start by loading our trusted `tidyverse` package as well as the DESTA dataset directly from the url(!)
+
+```{r}
+
+library(tidyverse)
+
+
+mps <- read.csv('./deputies_twitter_20190702.csv', as.is=TRUE)
+friends <- readRDS('~/Downloads/deputies_twitter_friends_full_20190702.RDS')
+
+# a few NAs for "screen_name"; remove those observations
+friends <- filter(friends, !is.na(screen_name))
+mp_accounts <- unique(friends$user)   # Twitter handles of deputies
+
+# only retain "friends" that are deputies
+mp_friends <- filter(friends, screen_name %in% dep_accounts) 
+
+# deputy Twitter handles and their party
+mp_accounts_parties <- select(mps, twitter_name, party)
+
+# make two joins to create a data frame with edges defined by 
+# "from_account", "from_party" and "to_account", "to_party"
+mp_edges <- select(mp_friends,
+    from_account = user, to_account = screen_name) %>%
+    left_join(mp_accounts_parties,
+              by = c('from_account' = 'twitter_name')) %>%
+    rename(from_party = party) %>%
+    left_join(mp_accounts_parties,
+              by = c('to_account' = 'twitter_name')) %>%
+    rename(to_party = party)
+
+```
+
+We'll start from two dataset that has been pre-processed (see https://datascience.blog.wzb.eu/2019/07/11/a-twitter-network-of-members-of-the-19th-german-bundestag-part-ii/). Let's take a quick look at the data.
+
+@TODO add mp_edges and mp_accounts read in
+
+```{r}
+
+head(mp_edges)
+
+```
+
+We can see that just as before we have a from and a to list representing follows on Twitter.
+
+We can take a first descriptive look:
+
+```{r}
+
+# edges per party
+mp_edges %>%
+    group_by(from_party) %>%
+    count()
+
+```
+
+```{r}
+
+# mps per party
+mp_edges %>%
+    distinct(from_account, from_party) %>%
+    group_by(from_party) %>%
+    count()
+
+```
+ 
+Now we can get started. Let's create our graph using `igraph`. We'll supply the edge list and some additional information using the `vertices` argument.
+
+ 
+```{r}
+
+# get party information
+party_information <- unique(mp_accounts_parties)
+party_information <- party_information %>%
+    drop_na()
+
+# remove unconnected mps
+accounts_connected <- unique(c(mp_edges$from_account, mp_edges$to_account))
+
+party_information <- party_information %>%
+    filter(twitter_name %in% accounts_connected)
+
+    
+
+
+
+# create grpahs
+mpg <- graph_from_data_frame(mp_edges,
+                             vertices = party_information,
+                             directed=TRUE)
+
+```
+ 
+ 
+Let's try and plot this.
+ 
+```{r}
+
+
+plot(mpg)
+
+```
+
+Well, that doesn't tell us much. So, let's try and find out some of the properties of the network first.
+
+
+**How big is our network?**
+
+```{r}
+
+# number of mps
+length(V(mpg))
+
+
+# number of follows in the network
+length(E(mpg))
+
+
+```
+
+**Centrality**
+
+Which follows the most MPs?
+
+```{r}
+
+
+mp_degree <- degree(mpg)
+
+mp_degree <- data.frame(mp_name = names(mp_degree), degree=mp_degree)
+
+# now we can work with it
+mp_degree %>%
+    arrange(desc(degree))
+    
+
+```
+
+
+@TODO repeat for all other scores
+@TOOD make combined table (check blog post/github)
+
+
+@TODO density, ties per und so, some measure form lecutr eoder alle
+
+
+To better distinguish the parties on our network plot, we'll define some colors.
+
+```{r}
+party_colors <- c(
+     'SPD' = '#CC0000',
+     'CDU' = '#000000',
+     'DIE GRÜNEN' = '#33D633',
+     'DIE LINKE' = '#800080',
+     'FDP' = '#EEEE00',
+     'AfD' = '#0000ED',
+     'CSU' = '#ADD8E6'
+)
+# add transparency as hex code (25% transparency)
+party_colors_semitransp <- paste0(party_colors, '40')   
+names(party_colors_semitransp) <- names(party_colors)
+
+```
+
+```{r}
+
+V(mpg)$color <- party_colors[V(mpg)$party]
+E(mpg)$color <- party_colors_semitransp[E(mpg)$from_party]
+
+```
+
+
+Now, let's try to take another look at the data. Because of the @TODO nature of the data, we will need to rely on a layout algorithm provided by `igraph`. @TODO explanation
+
+```{r}
+mpg_layout <- layout_with_drl(mpg, options=list(simmer.attraction=0))
+
+```
+
+Now, we cann pass this to the plot function.
+
+```{r}
+
+plot(mpg, layout = mpg_layout)
+
+```
+
+
+```{r}
+
+plot(mpg, layout = mpg_layout,
+      vertex.size = 2, vertex.label.cex = 0.7,
+      vertex.label.color = 'black', vertex.label.family = 'arial',
+      vertex.label.dist = 0.5, vertex.frame.color = 'white',
+      edge.arrow.size = 0.2, edge.curved = TRUE)
+title('Twitter network of members of the German Bundestag',
+      cex = 1.2, line = -0.5)
+legend('topright', legend = names(party_colors), col = party_colors,
+       pch = 15, bty = "n",  pt.cex = 1.25, cex = 0.8,
+       text.col = "black", horiz = FALSE)
+
+```
+
+
+
+
+@TODO interactive plot from https://datascience.blog.wzb.eu/2019/07/11/a-twitter-network-of-members-of-the-19th-german-bundestag-part-ii/
+
+@TODO https://bookdown.org/markhoff/social_network_analysis/network-visualization-and-aesthetics.html#layouts
+
+
+
+@TODO clustering etc from https://rpubs.com/chanyap/intro_SNA
+
+
+@TODO check how this performs on cloud
+
+
+Using the information from this network, e.g. centrality measures, we could check whether Twitter centrality reflects, e.g. intra- / inter-party voting behavior or addressees in Bundestag speeches.
+
+
+
+# Further resources
+
+The `igraph` package has a lot more functionalities than just those that we explored here. Check out Mark Hoffman's course '[Methods for Network Analysis](Methods for Network Analysis)' which is also a great resource for network anaylsis in `R`.] and the [igraph documentation](https://igraph.org/r/) for more.
