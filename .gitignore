@@ -12,7 +12,11 @@
 *neu_vb_mhck.xlsx
 
 
+# ignore all html files
+*.html
 
+# except files ending in lab_html
+!*_lab.html
 
 *.Rproj.user
 *.Rhistory
