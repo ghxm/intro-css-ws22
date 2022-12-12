@@ -38,7 +38,7 @@ install.packages("igraph")
 ```
 
 
-In addition to `igraph`, we will also load the `dplyr`package.^[Note: we could also load the entire `tidyverse` here but since we only need some funcationality, so we'll stick to `magrittr`.]
+In addition to `igraph`, we will also load the `dplyr`package.^[Note: we could also load the entire `tidyverse` here but since we only need some functionality, so we'll stick to `dplyr`.]
 
 ```{r}
 
