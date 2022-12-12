@@ -206,7 +206,8 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 #### Lab
 
-TBA
+- How to create a graph in R using `igraph`
+- Example: Bundestag MPs on Twitter
 
 #### Literature
 
