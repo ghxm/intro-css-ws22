@@ -197,7 +197,25 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 #### Literature
 - *Peterson, A., & Spirling, A. (2018). Classification Accuracy as a Substantive Quantity of Interest: Measuring Polarization in Westminster Systems. Political Analysis, 26(1), 120-128. doi:10.1017/pan.2017.39*
 
-### 2023-12-12 Session 5: Network data and analysis
+
+
+### 2023-01-09 Session 5: Geo-spatial data
+
+*Guest Talk: Franziska Quoß (ETH Zürich) - The impact of political business cycles on the environment*
+
+
+#### Learning objectives
+
+TBA
+
+
+#### Lab
+
+TBA
+
+
+
+### 2023-01-16 Session 6: Network data and analysis
 
 #### Learning objectives
 
@@ -215,24 +233,9 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 
 
-### 2023-01-09 Session 6: Geo-spatial data
-
-*Guest Talk: Franziska Quoß (ETH Zürich) - The impact of political business cycles on the environment*
 
 
-#### Learning objectives
-
-TBA
-
-
-#### Lab
-
-TBA
-
-
-
-
-### 2023-01-23 Session 7: Research design and CSS worklfows
+### 2023-01-23 Session 7: Research design and CSS workflows
 
 TBA
 
