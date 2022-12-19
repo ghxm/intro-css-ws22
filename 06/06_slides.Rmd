@@ -1,7 +1,7 @@
 ---
 knit: (function(input, ...) {
     rmarkdown::render(
-        '05_slides.Rmd',
+        '06_slides.Rmd',
         envir = globalenv()
     )
     })
@@ -14,11 +14,11 @@ output:
 latex_engine: xelatex
 template: '../pandoc/templates/slides_template.latex'
 title: "Introduction to Computational Social Science"
-subtitle: "Session 5: Network data and analysis"
+subtitle: "Session 6: Network data and analysis"
 author:
 - Maximilian Haag
 - Constantin Kaplaner
-date: "12.12.2022"
+date: "16.01.2023"
 event: "Room B U103, Tue 14:00--18:00 (bi-weekly)"
 contact: (maximilian.haag@gsi.uni-muenchen.de; constantin.kaplaner@gsi.uni-muenchen.de)
 institute: "Geschwister-Scholl-Institute for Political Science \\newline LMU Munich"
@@ -1198,7 +1198,7 @@ Today's reading [@borgatti_network_2009] can be found in the literature folder.
 
 \vspace{2em}
 
-**Next session** 10 Jan 2023: Geo-spatial data
+**Next session** 23 Jan 2023: Research design & workflow
 
 
 \vspace{1em}
