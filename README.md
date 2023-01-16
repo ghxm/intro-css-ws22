@@ -43,6 +43,10 @@ Grades for the seminar will consist of the following elements:
 - 50 % term paper
 - 50 % presentation in class
 
+**Term paper deadline:** 13.03.2023
+
+
+
 ### Additional information
 
 At the end of some session's coding exercise you will find additional exercises and homeworks for yourself to try out and engage further with the material. These exercises are completely voluntary. If you decide to do them, you can hand them in to the lecturers to receive comments and feedback.
@@ -62,7 +66,8 @@ Students are encouraged to visit the instructors' office hours for help with und
 If possible, please write an e-mail beforehand if you plan to attend the office hours to allow for better scheduling.
 
 - C. Kaplaner: Room GU105, Tue 15:00 - 16:00 or by arrangement (via e-mail)
-- M. Haag: Room GU 102, Wed 12:00-13:00 and by arrangement (via e-mail)
+- M. Haag: Room GU102, Wed 12:00-13:00 and by arrangement (via e-mail)
+
 
 
 **Online (via Zoom)**

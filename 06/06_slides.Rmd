@@ -124,7 +124,7 @@ Generative transformer based (deep learning) text model (GPT-3.5) combined with 
 
 
 - No independent reasoning
-- Massive in size and probably not be free to use for long
+- Massive in size (expensive!) and probably not be free to use for long
 - No open source code
 
 See also https://openai.com/blog/chatgpt/
@@ -512,7 +512,7 @@ It can be shown that in a random network of friendships between 6 billion people
 ::: {.centering data-latex=""}
 
 
-![](res/level_network.png){height=80%}
+![](res/level_dyad.png){height=80%}
 
 :::
 
@@ -653,7 +653,7 @@ In surveys / interviews, we can ask respondents about their connections and rela
 
 - ask *open* or *closed* format questions \pause
 - ask whether or not a relation exists \pause
-- ask about the strength of relations \pause
+- ask about the strength of relations
 
 # Surveys / Interviews ii
 
@@ -909,7 +909,8 @@ Depending on the level of analysis, we might be interested in different properti
 **Note: levels / measures are not mutually exclusive**
 
 
-# Structural holes
+# Structural holes (based on Fig. 4 @borgatti_network_2009)
+
 
 
 **Structural holes** describe the absence of connections between two nodes that are connected through other nodes
@@ -940,15 +941,11 @@ Depending on the level of analysis, we might be interested in different properti
 
 ::::::::::::::
 
-\smaller
-
-based on Fig. 4 from @borgatti_network_2009
-
-\larger
-
 \pause
 
-\vspace{0.3em}
+\vspace{-0.5em}
+
+\smaller
 
 &rarr; can be used to infer, e.g. informational advantages of certain actors
 
@@ -1194,16 +1191,36 @@ There are many concepts and aspects of (social) network analysis not covered in 
 Today's reading [@borgatti_network_2009] can be found in the literature folder.
 
 
+# Term papers: timeline
+
+**2023-01-23 (next week)** Research design & CSS workflow session
+
+**2023-02-06 (in 3 weeks)** Student presentations of term paper ideas
+
+&rarr; *Pro tip: make use of the office hours!*
+
+
+\vspace{1em}
+
+**2023-03-13** Term paper submission deadline
+
+
+# Term papers
+
+You can choose to either
+
+1. write a **research design** for a CSS paper &rarr; theory + concept focused (~ 20,000 characters, all in)
+
+2. conduct an **analysis** using the techniques covered in the course &rarr; code focused (~ 10,000 description + code)
+
+
+
 # Next session
 
 \vspace{2em}
 
 **Next session** 23 Jan 2023: Research design & workflow
 
-
-\vspace{1em}
-
-*Guest lecture: Franziska Quoß -- The impact of political business cycles on the environment*
 
 
 #

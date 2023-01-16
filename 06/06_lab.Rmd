@@ -1,9 +1,9 @@
 ---
-title: 'Lab 05: Network data and analysis'
+title: 'Lab 06: Network data and analysis'
 author:
 - Maximilian Haag
 - Constantin Kaplaner
-date: '12.12.2022'
+date: '16.01.2022'
 output:
   html_document:
     toc: yes
