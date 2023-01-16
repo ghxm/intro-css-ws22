@@ -43,6 +43,10 @@ Grades for the seminar will consist of the following elements:
 - 50 % term paper
 - 50 % presentation in class
 
+**Term paper deadline:** 13.03.2023
+
+
+
 ### Additional information
 
 At the end of some session's coding exercise you will find additional exercises and homeworks for yourself to try out and engage further with the material. These exercises are completely voluntary. If you decide to do them, you can hand them in to the lecturers to receive comments and feedback.
