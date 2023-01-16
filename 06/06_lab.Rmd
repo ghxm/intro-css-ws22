@@ -325,6 +325,9 @@ tkplot(gm, vertex.size=30, vertex.color="tomato", vertex.frame.color = NA,
 
 ```{r}
 
+install.packages('rgl')
+
+
 rglplot(gm, vertex.size=30, vertex.color="tomato", vertex.frame.color = NA,
      vertex.label.cex = .7, vertex.label.color = "black",
      edge.curved = 0.5)
