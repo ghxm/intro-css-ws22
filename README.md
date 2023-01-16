@@ -69,6 +69,7 @@ If possible, please write an e-mail beforehand if you plan to attend the office 
 - M. Haag: Room GU102, Wed 12:00-13:00 and by arrangement (via e-mail)
 
 
+
 **Online (via Zoom)**
 
 Please schedule a meeting via e-mail.
