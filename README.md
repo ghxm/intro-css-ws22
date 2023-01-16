@@ -62,7 +62,7 @@ Students are encouraged to visit the instructors' office hours for help with und
 If possible, please write an e-mail beforehand if you plan to attend the office hours to allow for better scheduling.
 
 - C. Kaplaner: Room GU105, Tue 15:00 - 16:00 or by arrangement (via e-mail)
-- M. Haag: Room XYZ, Wed 12:00-13:00 and by arrangement (via e-mail)
+- M. Haag: Room GU102, Wed 12:00-13:00 and by arrangement (via e-mail)
 
 
 **Online (via Zoom)**

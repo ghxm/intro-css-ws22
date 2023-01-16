@@ -636,7 +636,7 @@ When collecting and analyzing data using computational tools, it's very easy to 
 - Test what characteristics make people more likely to vote for the ruling party
 
 
-**Predicitve:** Use the reading / comment / click statistics of NYT articles to recommend articles to readers that they might also find interesting
+**Predictive:** Use the reading / comment / click statistics of NYT articles to recommend articles to readers that they might also find interesting
 
 
 
