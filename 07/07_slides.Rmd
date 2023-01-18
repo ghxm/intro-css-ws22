@@ -1,0 +1,353 @@
+---
+knit: (function(input, ...) {
+    rmarkdown::render(
+        '07_slides.Rmd',
+        envir = globalenv()
+    )
+    })
+output:
+    beamer_presentation:
+        keep_tex: yes
+        latex_engine: xelatex
+        template: '../pandoc/templates/slides_template.latex'
+        fig_caption: yes
+latex_engine: xelatex
+template: '../pandoc/templates/slides_template.latex'
+title: "Introduction to Computational Social Science"
+subtitle: "Session 7: Research design & workflows"
+author:
+- Maximilian Haag
+- Constantin Kaplaner
+date: "23.01.2023"
+event: "Room B U103, Tue 14:00--18:00 (bi-weekly)"
+contact: (maximilian.haag@gsi.uni-muenchen.de; constantin.kaplaner@gsi.uni-muenchen.de)
+institute: "Geschwister-Scholl-Institute for Political Science \\newline LMU Munich"
+titlegraphic: null
+fundinggraphic: null
+theme: metropolis
+beamer: yes
+themeoptions: null
+outerheme: null
+innertheme: circles
+colortheme: dove
+fonttheme: structurebold
+fontthemeoptions: onlylarge
+fontfamily: sourcesanspro
+fontfamilyoptions: null
+mainfont: null
+fontsize: 10
+bibliography: ../pandoc/css-intro-ba.bib
+csl: ../pandoc/apa.csl
+handout: no
+beamercovered:  ''
+link-citations: yes
+citecolor: blue
+colorlinks: yes
+section-titles: yes
+tables: yes
+classoption:
+#- notes=only
+- notes=hide
+nocite:
+header-includes:
+- \setbeamertemplate{frame footer}{\insertshortauthor \hspace{1em} -- \hspace{1em}\insertshorttitle \hspace{0.5em} \insertsubtitle}
+- \setbeamerfont{page number in head/foot}{size=\tiny}
+- \setbeamercolor{footline}{fg=darkgray, bg = alabaster}
+- \setbeamercolor{frametitle}{fg=black, bg = alabaster}
+- \setbeamercolor{block title}{bg=alabaster,fg=black}
+- \setbeamercolor{block body}{fg=black, bg=magnolia}
+- \setlength\belowcaptionskip{-0.8em}
+- \usepackage{caption}
+- \captionsetup[figure]{labelformat=empty}
+---
+
+
+
+# Today's session {.centered}
+
+**Lecture**
+
+1. Presentations + term papers
+2. Research design basics
+3. Research in CSS
+4. CSS Workflows: best practices & possibilities
+
+
+
+#
+
+\section{Presentations \& term papers}
+
+
+# Term papers: timeline
+
+**2023-01-23 (this session)** Research design & CSS workflow session
+
+**2023-02-06 (in 2 weeks)** Student presentations of term paper ideas
+
+...
+
+**2023-03-13** Term paper submission deadline
+
+
+# Grading {.c}
+
+\larger
+
+
+Per the study regulations, your final grade is composed of your **presentation grade** (50%) + **term paper grade** (50%).
+
+
+# Term papers {.allowframebreaks}
+
+You can choose to either
+
+1. write a **research design** for a CSS paper &rarr; theory + concept focused
+
+2. conduct an **analysis** using the techniques covered in the course &rarr; code focused
+
+\vspace{1em}
+
+Feel free to make use of RStudio cloud &rarr; will stay open until the end of March 2023
+
+\framebreak
+
+\smaller
+\smaller
+
+::: columns
+
+:::: column
+
+**Option: Research design**
+
+\vspace{0.2em}
+
+
+*Write up a research design for a potential study in the realm of CSS. This includes an introduction, research question, embedding of the question into the literature, theory and research design part.*
+
+\vspace{0.8em}
+
+***Requirements***
+
+- ~ 20,000 characters (incl. spaces and references)
+- PDF format
+- No special formatting requirements but make it readable
+
+\vspace{0.8em}
+
+&rarr; See research design paper template! @TODO link
+
+::::
+
+:::: column
+
+**Option: Analysis / Coding project**
+
+\vspace{0.2em}
+
+*Create a CSS coding project using (one of) the techniques covered in the course. This may include a data collection effort, an analysis or similar (see later slides). Describe your efforts and present your results in a short text.*
+
+\vspace{0.6em}
+
+
+***Requirements***
+
+- ~ 10,000 characters (incl. spaces and references) + code
+- PDF format write-up and `R` code
+- No special formatting requirements but make it readable
+- Make sure to produce reproducible and commented code
+
+\vspace{0.8em}
+
+
+&rarr; See coding project template! @TODO link
+
+
+
+::::
+
+:::
+
+\larger
+
+*Make sure you visit the office hours to discuss your term paper with us!*
+
+
+# Presentations
+
+\smaller
+
+**Task**
+
+\vspace{-0.5em}
+
+
+Present the idea for your term paper.
+
+\vspace{0.2em}
+
+**Requirements**
+
+\vspace{-0.5em}
+
+
+~ 10 min. presentation with slides
+
+\vspace{0.4em}
+
+- Focus on identifying a clear research question / the goal of your paper
+- Describe the methodology / data you intend to use
+- Present your efforts so far
+- Make sure to include your open questions and issues as well
+
+\vspace{0.4em}
+
+\pause
+
+*Feel free to visit the office hours before your presentation and / or send us a proposal for your term paper to receive feedback in advance!*
+
+
+
+# Office hours
+
+
+Make use of the office hours to receive feedback and get help if you get stuck with your paper! This can include but is not limited to 
+
+- coding problems
+- research design questions
+- theoretical questions
+- methodological questions
+- presentation of your results
+
+\vspace{0.2em}
+
+&rarr; *Write us an e-mail describing your problem / general topic of inquiry and we will schedule an in-person meeting / Zoom call or, depending on the issue, handle your problem via e-mail.*
+
+
+# 
+
+\section{Research design basics}
+
+
+
+
+
+# 
+
+\section{Research in CSS}
+
+
+
+# Types of research in CSS
+
+\smaller
+
+
+**Exploratory:** Collecting 5000 newspaper articles from the New York Times to get an idea of how long it takes to collect them, what we can infer from the texts (topics? number of authors? positioning?)
+
+
+**Descriptive:**
+
+- Collecting all newspaper articles (e.g. from the Politics section) from the NYT and summarize how many are published per quarter on average, what the most written about topic is by year
+- Evaluating the responses to a vote intention survey by household income or education to get an overview of how voting preferences are distributed among the respondents
+
+
+**Confirmatory:**
+
+- Use data on all NYT Politics articles to test your hypothesis about a bias in political reporting during election time
+- Test what characteristics make people more likely to vote for the ruling party
+
+
+**Predictive:** Use the reading / comment / click statistics of NYT articles to recommend articles to readers that they might also find interesting
+
+
+
+# Types of analyses in Political Science {.c}
+
+&rarr; When working with newly obtained or unstructured data, it is often helpful to engage in descriptive and exploratory analysis first to get a feel for the data and the ways in which you might be able to use them
+
+&rarr; Most Political Science research is focused on confirmatory analysis; however *good exploratory and descriptive analysis* is often helpful in making data accessible and generating ideas for yourself and other researchers!
+
+&rarr; *Data collection or methodolgical application efforts* are just as important as explanatory research
+
+
+
+# 
+
+\section{CSS workflows: Best practices \& possibilities}
+
+
+# Overview
+
+@TODO
+
+
+
+
+# Reproducibility
+
+@TODO see session 2
+
+
+
+# Reproducible & interactive documents
+
+@TODO
+
+# Version control
+
+@TODO
+
+
+# Computation
+
+**Problem**
+
+Computational analysis or data collection often takes time and resources &rarr; can render your computer unusable for a couple hours/days/weeks
+
+**Solution**
+
+@TODO
+
+@TODO servers etc
+
+
+# Literature management
+
+@TODO
+
+
+
+
+# Next session
+
+\vspace{2em}
+
+**Next session** 06 Feb 2023: Presentation of your term paper idea
+
+
+&rarr; Don't hesitate to make use of the office hours before and after the session!
+
+
+\vspace{1em}
+
+
+#
+
+\section{Lab}
+
+
+# References  {.allowframebreaks}
+
+\begingroup
+
+\footnotesize
+::: {#refs}
+:::
+\endgroup
+
+
+
+# Appendix {.allowframebreaks}
+
