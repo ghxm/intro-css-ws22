@@ -313,7 +313,7 @@ plot(gm, vertex.size=30, vertex.color="tomato", vertex.frame.color = NA,
 
 If we want our graph to be a bit more interactive, we can also use another plotting method by using the `tkplot` function...
 
-```{r}
+```{r eval=FALSE}
 
 tkplot(gm, vertex.size=30, vertex.color="tomato", vertex.frame.color = NA,
      vertex.label.cex = .7, vertex.label.color = "black",
@@ -327,10 +327,13 @@ tkplot(gm, vertex.size=30, vertex.color="tomato", vertex.frame.color = NA,
 
 install.packages('rgl')
 
+library(rgl)
+
 
 rglplot(gm, vertex.size=30, vertex.color="tomato", vertex.frame.color = NA,
      vertex.label.cex = .7, vertex.label.color = "black",
      edge.curved = 0.5)
+
 
 ```
 
@@ -383,12 +386,13 @@ We'll start from two dataset that have been pre-processed (see https://datascien
 ```{r}
 
 library(tidyr)
+library(tidyverse)
 
 # read in the datasets and remove the X columnd automatically added by the read.csv function
-mp_edges <- read.csv('./mp_edges.csv', as.is=TRUE) %>%
+mp_edges <- read.csv('06/mp_edges.csv', as.is=TRUE) %>%
   select(-X)
 
-mp_info <-  read.csv('./mp_info.csv', as.is=TRUE) %>%
+mp_info <-  read.csv('06/mp_info.csv', as.is=TRUE) %>%
   select(-X)
 
 ```
