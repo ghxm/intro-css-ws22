@@ -136,7 +136,7 @@ Feel free to make use of RStudio cloud &rarr; will stay open until the end of Ma
 
 \vspace{0.8em}
 
-&rarr; See research design paper template! @TODO link
+&rarr; See [research design paper template](https://github.com/ghxm/intro-css-ws22/blob/main/template_research_design.md)!
 
 ::::
 
@@ -161,7 +161,7 @@ Feel free to make use of RStudio cloud &rarr; will stay open until the end of Ma
 \vspace{0.8em}
 
 
-&rarr; See coding project template! @TODO link
+&rarr; See [coding project template](https://github.com/ghxm/intro-css-ws22/blob/main/template_analysis.md)!
 
 
 
