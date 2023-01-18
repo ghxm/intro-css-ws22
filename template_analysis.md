@@ -38,11 +38,11 @@ Can, but need not include:
 
 - What do you intend to do?
 - What data will you be using? How did you obtain the data?
-- What is your *level of analysis* (what does one obervation / row in your data represent?)?
+- What is your *level of analysis* (what does one observation / row in your data represent?)?
 - How do you *operationalize* your variables of interest, i.e. how do you intend to measure your phenomenon of interest?
 - How will you analyze the data? 
 - What are possible limitations of your approach?
-- Describe your data: How many observations do you have? Is there a timeframe?
+- Describe your data: How many observations do you have? Is there a time frame?
 
 
 Not necessary, but might be helpful:

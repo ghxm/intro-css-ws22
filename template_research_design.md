@@ -46,7 +46,7 @@ output: pdf_document
 - What perspective do you approach your topic from?
 - What are the key assumptions of the approach you take?
 - Given your theory, what do you expect to observe? 
-- What is the argument behind your expectations? Why would you expect to observe a given outome?
+- What is the argument behind your expectations? Why would you expect to observe a given outcome?
 
 Not necessary, but might be helpful:
 
@@ -58,7 +58,7 @@ Not necessary, but might be helpful:
 *This section is the 'recipe' for your paper. The research design section should specify how you intend to answer your research question / test your expectations in details. This means, you need to specify what kind of data you will be using to perform your analysis, how you plan to obtain your data and why your data is suited to answer your research question. Additionally, depending on the scope / goal of your research, you will need to specify how you plan to analyze your data once you have obtained it and how this analysis will help you answer your research question / test your expectations.*
 
 - What is your approach to answering your research questions? How do you intend to do it?
-- What data will you be using? How will you obtain the data? Is there a timeframe to your data collection?
+- What data will you be using? How will you obtain the data? Is there a time frame to your data collection?
 - What is your *level of analysis* (what does one observation / row in your data represent?)?
 - How do you *operationalize* your (theoretical) variables of interest, i.e. how do you intend to measure your phenomenon of interest / your explanatory factors from your data?
 - How will you analyze the data? 
