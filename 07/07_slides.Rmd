@@ -132,7 +132,6 @@ Feel free to make use of RStudio cloud &rarr; will stay open until the end of Ma
 
 - ~ 20,000 characters (incl. spaces and references)
 - PDF format
-- No special formatting requirements but make it readable
 
 \vspace{0.8em}
 
@@ -155,10 +154,10 @@ Feel free to make use of RStudio cloud &rarr; will stay open until the end of Ma
 
 - ~ 10,000 characters (incl. spaces and references) + code
 - PDF format write-up and `R` code
-- No special formatting requirements but make it readable
 - Make sure to produce reproducible and commented code
 
 \vspace{0.8em}
+
 
 
 &rarr; See [coding project template](https://github.com/ghxm/intro-css-ws22/blob/main/template_analysis.md)!
@@ -169,7 +168,12 @@ Feel free to make use of RStudio cloud &rarr; will stay open until the end of Ma
 
 :::
 
-\larger
+\vspace{-0.8em}
+
+
+
+There are no special formatting requirements for the papers but please make them readable (e.g. 11pt font size, 1.4 spacing, serif font) and use a consistent citation style.
+
 
 *Make sure you visit the office hours to discuss your term paper with us!*
 
@@ -225,22 +229,38 @@ Make use of the office hours to receive feedback and get help if you get stuck w
 &rarr; *Write us an e-mail describing your problem / general topic of inquiry and we will schedule an in-person meeting / Zoom call or, depending on the issue, handle your problem via e-mail.*
 
 
+# Finding a topic for your paper
+
+\smaller
+
+
+**Sources of inspiration**
+
+- interest in a particular technique
+- interest in a particular substantive topic
+- existing research papers (&rarr; use Google scholar and tools like elicit.org)
+- @TODO
+
+
+
+**Possible ways of interacting with existing research**
+
+- replicate an approach in another context
+- how can an existing argument be tested using CSS data / techniques?
+- apply new techniques to existing data (&rarr; take look at data repositories like [Harvard Dataverse](https://dataverse.harvard.edu/))
+- @TODO
+
+
+
 # 
 
 \section{Research design basics}
 
 
 
-
-
-# 
-
-\section{Research in CSS}
-
-
-
 # Types of research in CSS
 
+\smaller
 \smaller
 
 
@@ -249,11 +269,16 @@ Make use of the office hours to receive feedback and get help if you get stuck w
 
 **Descriptive:**
 
+\vspace{-0.8em}
+
 - Collecting all newspaper articles (e.g. from the Politics section) from the NYT and summarize how many are published per quarter on average, what the most written about topic is by year
 - Evaluating the responses to a vote intention survey by household income or education to get an overview of how voting preferences are distributed among the respondents
 
 
 **Confirmatory:**
+
+\vspace{-0.8em}
+
 
 - Use data on all NYT Politics articles to test your hypothesis about a bias in political reporting during election time
 - Test what characteristics make people more likely to vote for the ruling party
@@ -273,6 +298,19 @@ Make use of the office hours to receive feedback and get help if you get stuck w
 
 
 
+# What to include
+
+@TODO
+Describe in detail how you plan to
+
+- obtain data
+- analyze the data
+- operationalize your variables of interest
+
+It is also advisable to outline the advantages and disadvantages your approach might have compared to others.
+
+
+
 # 
 
 \section{CSS workflows: Best practices \& possibilities}
@@ -280,24 +318,164 @@ Make use of the office hours to receive feedback and get help if you get stuck w
 
 # Overview
 
-@TODO
+In CSS and research, there a range of tools an techniques that can help us simplify and standardize certain processes, this includes
+
+- writing **reproducible code** so that your analysis can be replicated by others (see also session #02)
+- writing **markup languages** to write your paper in an easily reproducible and interactive documents
+- using **literature management** software to keep track of your literature and citations
+- using **version control** to track changes to your code
+- using servers for resource intense **computation**
 
 
 
 
-# Reproducibility
 
-@TODO see session 2
+# Reproducbility: core principles [@p_ball_task_2016; @p_ball_principled_2016; @uwe_engel_reproducbility_2022]
+
+1. **Transparency:** Analysis parts are complete and sufficiently documents
+2. **Auditability:** Analysis can be executed by other researchers or on different platforms
+3. **Reproducbility:** Results are the same for anyone running the analysis using the same code and data
+4. *Scalability*: Code can handle other inputs and outputs than those used in the specific project
 
 
 
-# Reproducible & interactive documents
+# Reproducibility: What does this mean for us? {.allowframebreaks}
 
-@TODO
+\smaller
 
-# Version control
+***Share your full code and data +***
 
-@TODO
+\smaller
+
+
+**&rarr; Transparency**
+
+\vspace{-1em}
+
+- write and store code in a way that is easily understandable for others (within reason)
+- include all parts of code (incl. for figures, tables)
+- document files, code and your data collection process
+
+**&rarr; Auditability**
+
+\vspace{-1em}
+
+
+- include every step of the process (package dependencies, environment settings) in your code
+- make sure the analysis can be run in a newly set up environment
+
+**&rarr; Reproducibility**
+
+\vspace{-0.8em}
+
+taking **transparency** and **auditability** into account, make sure your results remain stable when re-running your analysis
+
+**&rarr; Scalability** (within reason and your own ability)
+
+\vspace{-1.5em}
+
+try to write generalized rather than highly specific code
+
+
+
+# Reproducible & interactive documents {.allowframebreaks}
+
+\smaller
+
+Markup languages separate text and formatting. This way you can write your paper without constantly worrying what it will look like. Popular choices in research include
+
+- \LaTeX{}  &rarr; [Overleaf](https://www.overleaf.com/)
+- `pandoc` / Rmarkdown (&rarr; check out the lab files ending in `.Rmd` from our sessions)
+
+While markup languages have many advantages (e.g. figure and table numbering / referencing, easy and consistent citing and much more), they also require some time to get used to and have a bit of a learning curve. *However, it can be useful to get now to be prepared for later challenges (e.g. your Bachelor thesis).*
+
+
+
+\framebreak
+
+\larger
+
+There are many resources to get you started and Google and StackOverflow are your friend!
+
+\vspace{0.8em}
+
+::: columns
+
+:::: column
+
+\LaTeX{}
+
+\vspace{0.5em}
+
+- [Overleaf LaTeX guide](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes)
+- [latex-tutorial.com](https://latex-tutorial.com/tutorials/)
+- [Blog post: LaTeX for the humanities](https://www.overleaf.com/blog/636-guest-blog-post-latex-for-the-humanities)
+
+::::
+
+:::: column
+
+`pandoc` **/ Rmarkdown**
+
+\vspace{0.5em}
+
+- [RStduio introduction to Rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html)
+- [Getting started with `pandoc`](https://pandoc.org/getting-started.html)
+
+
+::::
+
+:::
+
+\vspace{0.8em}
+
+
+Fun fact: These slides are written in Markdown and typeset in \LaTeX{} using `pandoc` / Rmarkdown.
+
+
+
+# Literature management
+
+\smaller
+
+Keep track of the literature you need for your research using literature management software. It can help you
+
+- organize and sort through the literature you have saved
+- save papers straight from your browser
+- easily cite research in your own paper using various citation styles
+
+Popular software includes
+
+- [Zotero](https://www.zotero.org/) (free & open source!)
+- [EndNote](https://endnote.com/)
+
+Wikipedia also has a large [list of reference mangement software](https://en.wikipedia.org/wiki/Comparison_of_reference_management_software).
+
+
+# Version control using `git` and GitHub {.shrink}
+
+\smaller
+
+**`git`**
+
+-   Version control system (VCS): a system used to manage and track changes to your documents
+-   allows for easy collaboration on coding projects
+
+\vspace{-0.2em}
+
+
+It may take some time to work with a VCS, but there are [`git` quickstart tutorial](https://rogerdudler.github.io/git-guide/)s on the internet to help you ease in.
+
+**GitHub**
+
+-   an online version of `git`
+-   you can easily make your projects public
+-   and invite others to contribute to your project
+
+\vspace{-0.2em}
+
+As a student, you can [set up a free GitHub account](https://github.com/signup) with all the features of a pro account!
+
 
 
 # Computation
@@ -308,14 +486,8 @@ Computational analysis or data collection often takes time and resources &rarr; 
 
 **Solution**
 
-@TODO
-
 @TODO servers etc
 
-
-# Literature management
-
-@TODO
 
 
 
@@ -332,10 +504,6 @@ Computational analysis or data collection often takes time and resources &rarr; 
 
 \vspace{1em}
 
-
-#
-
-\section{Lab}
 
 
 # References  {.allowframebreaks}
