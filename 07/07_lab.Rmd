@@ -14,7 +14,7 @@ output:
 ---
 
 
-This session will introduce some features and `R` packages that can help you write your term paper. This lab file is written in RMarkdown, which in itself is a technique you can use to produce paper in a veriety of output formats. We will first take a look at RMarkdown and how you can create your own documents. Many times you will use tables and plots to visualize your results and give the reader a better understanding of what's going on. That's what we will be looking at for the remainder of the lab session.
+This session will introduce some features and `R` packages that can help you write your term paper. This lab file is written in RMarkdown, which in itself is a technique you can use to produce paper in a variety of output formats. We will first take a look at RMarkdown and how you can create your own documents. Many times you will use tables and plots to visualize your results and give the reader a better understanding of what's going on. That's what we will be looking at for the remainder of the lab session.
 
 # RMarkdown
 
@@ -27,16 +27,16 @@ This allows us to keep both our data presentation and our writing process in one
 
 We will look at how we can create a RMarkdown document in RStudio, how we can edit it and create polished documents. Finally,  we will look at some tips and best practices. We will only be able to cover a small part of the RMarkdown functionality in this lab. Thus, make sure to check out [RStudio's introduction to RMarkdown](https://rmarkdown.rstudio.com/lesson-1.html) as well as [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) for  more detailed look. Also make sure to check out the [RMarkdown cheat sheet](https://github.com/rstudio/cheatsheets/raw/main/rmarkdown-2.0.pdf) for a quick and easy reference of the basics.
 
-Getting started with RMarkdown can take some time and might be confusing at first, but once you have your workflow figured out it will make it signnificantly easier to create good looking, professional documents for your research and term papers.
+Getting started with RMarkdown can take some time and might be confusing at first, but once you have your workflow figured out it will make it significantly easier to create good looking, professional documents for your research and term papers.
 
 ## How to create a RMarkdown document in  RStudio
 
-RStudio allows you to create a new RMarkdownn document straight from the user interface by navigating to `File > New File > R Markdown...` in the menu. The opening dialog will allow you to select a document type (you can also create presentations amongst other things), set a title and an author name. Once you confirm the dialog window, you will be presented with an automatically generated template.
+RStudio allows you to create a new RMarkdown document straight from the user interface by navigating to `File > New File > R Markdown...` in the menu. The opening dialog will allow you to select a document type (you can also create presentations amongst other things), set a title and an author name. Once you confirm the dialog window, you will be presented with an automatically generated template.
 
 
 ## Basics: Editing RMarkdown documents
 
-RMarkdown files consists of a 'header' and the content. The header is demarked by `---` and contains information in [YAML](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started) format. Contained in the header are the 'settings' of the document. Here's an example:
+RMarkdown files consists of a 'header' and the content. The header is marked by `---` and contains information in [YAML](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started) format. Contained in the header are the 'settings' of the document. Here's an example:
 
 ```
 
@@ -54,24 +54,52 @@ This YAML header specifies that we want the title of our document to be 'My pape
 The other part of the RMarkdown document is our content. As you can see, RStudio has also created some content for us already. The content can consist of text and regular `R` code. Code is contained in the grey boxes that start with <code>&grave;&grave;&grave;{r}&grave;&grave;&grave;</code> and end with <code>&grave;&grave;&grave;</code>. The code goes right in between: To execute these "code chunks" you can either click the little green 'play' button in the upper right hand corner of every chunk.
 In an RMarkdown document, code chunks are often used to display tables and plots (see below for more on that).
 
-Next, compare your created RMarkdown file with the prodcued output file. You will notice that not all code chunks show up in the output document and others have created additional content. This is controlled by additional argument in the line where we define or 'openn' the code chunk, e.g. `include=FALSE` hides a code chunk for when we only want to perform an action that we might need throughout the document but is not relevant to the reader, such as loading data or defining a function. By default, the code chunkt and its output will be printed. Sometimes we only want to include the output as with the plot in the example (`echo=FALSE`) or only the code (`echo=TRUE, results='hide'`). You can find and overview of the available code chunk options [here](https://bookdown.org/yihui/rmarkdown/r-code.html).
+Next, compare your created RMarkdown file with the produced output file. You will notice that not all code chunks show up in the output document and others have created additional content. This is controlled by additional argument in the line where we define or 'open' the code chunk, e.g. `include=FALSE` hides a code chunk for when we only want to perform an action that we might need throughout the document but is not relevant to the reader, such as loading data or defining a function. By default, the code chunk and its output will be printed. Sometimes we only want to include the output as with the plot in the example (`echo=FALSE`) or only the code (`echo=TRUE, results='hide'`). You can find and overview of the available code chunk options [here](https://bookdown.org/yihui/rmarkdown/r-code.html).
+
+Code chunks behave just like a normal R script would. E.g., you can create variables and use them throughout the document. This means you could, e.g., load some data in none code chunk and then use it in another. The code chunks have access to the same environment, meaning your variables and data can be shared between code chunks.
 
 
-Looking at the text surrounding the codechunks, you will notice that it looks different from what you see in Word and similar text processors. This is because we use Markdown to format our text. Markdown is what we call a *markup* (confusing, I know) language. Markup languages allow us to structure and format written text using additional statements (remember HTML?). For example, you can demark a (first-level) headline in Markdown by typing `# Title of your headline` and a second level sub-headline with `## This is the title of your headline`. This allows us to create a clearly structured document and formatted document without worrying about styling. Take a look at this [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) to get familiar with the Markdown *syntax*.
+Looking at the text surrounding the code chunks, you will notice that it looks different from what you see in Word and similar text processors. This is because we use Markdown to format our text. Markdown is what we call a *markup* (confusing, I know) language. Markup languages allow us to structure and format written text using additional statements (remember HTML?). For example, you can mark a (first-level) headline in Markdown by typing `# Title of your headline` and a second level sub-headline with `## This is the title of your headline`. This allows us to create a clearly structured document and formatted document without worrying about styling. Take a look at this [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) to get familiar with the Markdown *syntax*.
 
 
 
 ## Producing documents
 
-As already mentioned, RMarkdown can produce output (mainly documents and presentations) in a variety of formats You alter the look and formatting of these document by providing additional options in the YAML header. A comprehensive overview for documents and the available options by format can be found [here](https://bookdown.org/yihui/rmarkdown/documents.html) (navigate to your output formatof choice in the menubar).
+As already mentioned, RMarkdown can produce output (mainly documents and presentations) in a variety of formats You alter the look and formatting of these document by providing additional options in the YAML header. A comprehensive overview for documents and the available options by format can be found [here](https://bookdown.org/yihui/rmarkdown/documents.html) (navigate to your output format of choice in the menu bar).
 
-Take some time to play aorund with the different formats and options.
+Take some time to play around with the different formats and options.
 
 ## Best practices and advanced techniques
 
-@TODO keep data analysis separate from presentation
+### Keep your data an andalysis presentation separate
 
-@TODO referncing
+When writing papers using RMarkdown it is generally advisable to *separate your concerns*, i.e. your data analysis and your write up or presentation of your results. Nevertheless, we can profit from using RMarkdown as it allows us to still access our results. Say, e.g., you have created a dataset that you want to showcase using tables an plots. You'll want to compile your dataset in a separate file and save the dataset to your disk, e.g. in `.csv` format. You can then load this data in your RMarkdown document (using `read.csv()` as we have already done many times) and work with the data throughout the document.
+
+If you have, e.g., ran a regression analysis and wanted to showcase the results in a regression table, you could perform the analysis in a separate file, e.g. `analysis.R`, complete with loading the data and running your commands in this file. To be able to access the results you produce in this file, you can 'load' the script into your RMarkdown document by using the `source()` function in a code chunk, like so:
+
+```{r, eval=FALSE}
+
+source('path/to/analysis.R')
+
+```
+
+You can then access all variables and objects you create in `analysis.R` in your RMarkdown document.
+
+Note: Sourcing files is only advisable if the actions performed in the sourced file are not extensive and resource-intensive as this will significantly increase the time it takes to render your document. For large analysis it is best to go with the route mentioned above and same intermediary states in files. For file structures that exceed the simple two dimensional structure of a flat dataset table, you can use [`.Rdata` files](https://bookdown.org/ndphillips/YaRrr/rdata-files.html).
+
+
+<!--- Exclude bc Problem: this requires the bookdown package and things will get too complex
+### Referencing tables and figures
+
+One of the best things about using code chunks to create plots and tables is that we can reference them directly in RMarkdown. To do so, we need to label the code chunk we want to reference. In the example file, you can see that the code chunk that produces the plot is labelled 'pressure' like this `&grave;&grave;&grave;{r pressure}`. If we now want to 
+
+--->
+
+### Referencing and citing literature
+
+Similarly to how we can reference tables and figures in our text, we can also cite literature in RMarkdown. For this you will need to export your library (i.e. the records of the texts you want to cite) into a `.bib` file (you can do this in most literature management programs), which we specify in the YAML header. Once we have done that, we can reference literature using *citekeys*. RMarkdown will then automatically translate these citekeys into citations in your preferred citation format and, depending on said format, add them to your reference list for the document. For more on the setup and how to cite, see the [RMarkdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
+
+
 
 
 # Tables
@@ -90,10 +118,8 @@ install.packages('flextable')
 
 ```{r, eval=FALSE}
 
-
 # load the package
 library(flextable)
-
 
 ```
 
