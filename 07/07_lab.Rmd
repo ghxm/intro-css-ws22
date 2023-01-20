@@ -1,0 +1,103 @@
+---
+title: 'Lab 07: `R` tools for writing research papers'
+author:
+- Maximilian Haag
+- Constantin Kaplaner
+date: '16.01.2022'
+output:
+  html_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+
+This session will introduce some features and `R` packages that can help you write your term paper. This lab file is written in RMarkdown, which in itself is a technique you can use to produce paper in a veriety of output formats. We will first take a look at RMarkdown and how you can create your own documents. Many times you will use tables and plots to visualize your results and give the reader a better understanding of what's going on. That's what we will be looking at for the remainder of the lab session.
+
+# RMarkdown
+
+RMarkdown documents are a type of document that allow us to
+
+1. combine text and code, resp. data visualizations, into a single file when writing papers
+2. can produce a variety of different output formats from that file
+
+This allows us to keep both our data presentation and our writing process in one place.
+
+We will look at how we can create a RMarkdown document in RStudio, how we can edit it and create polished documents. Finally,  we will look at some tips and best practices. We will only be able to cover a small part of the RMarkdown functionality in this lab. Thus, make sure to check out [RStudio's introduction to RMarkdown](https://rmarkdown.rstudio.com/lesson-1.html) as well as [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) for  more detailed look. Also make sure to check out the [RMarkdown cheat sheet](https://github.com/rstudio/cheatsheets/raw/main/rmarkdown-2.0.pdf) for a quick and easy reference of the basics.
+
+## How to create a RMarkdown document in  RStudio
+
+RStudio allows you to create a new RMarkdownn document straight from the user interface by navigating to `File > New File > R Markdown...` in the menu. The opening dialog will allow you to select a document type (you can also create presentations amongst other things), set a title and an author name. Once you confirm the dialog window, you will be presented with an automatically generated template.
+
+
+## Basics: Editing RMarkdown documents
+
+RMarkdown files consists of a 'header' and the content. The header is demarked by `---` and contains information in [YAML](https://www.cloudbees.com/blog/yaml-tutorial-everything-you-need-get-started) format. Contained in the header are the 'settings' of the document. Here's an example:
+
+```
+
+---
+title: "My paper"
+author: "Maximilian Haag"
+date: "1/20/2023"
+output: pdf_document
+---
+
+```
+
+This YAML header specifies that we want the title of our document to be 'My paper'. 'Maximilian Haag' is the author of the document and the document date is "1/20/2023". Finally, `output` specifies that we want a PDF document for our finished document. You can test what this will result in right away by clicking on the `Knit` button on top of the editor (you will need to save your document first). Take some time to check out the produced document.
+
+THe other part of the RMarkdown document 
+
+-   The code in this notebook is contained in the grey boxes that start with "`{r}"" and end with "`". The code goes right in between.
+
+(The following only applies if you open the `.Rmd` file notebook in RStudio, not to the compiled `.pdf` version)
+
+-   To execute these "code chunks" you can either click the little green 'play' button in the upper right hand corner of every chunk
+-   or you can select the code you want to execute and press Ctrl+Enter (Windows/Linux) or cmd+Enter (Mac)
+-   If you put your cursor in a line of code without selecting anything, the commands above will simply execute that line of code
+
+If you want to know more about markdown and its formatting options, you can take a look at the [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
+
+
+
+## Producing documents
+
+
+
+
+## Best practices
+
+@TODO keep data analysis separate from presentation
+
+
+# Tables
+
+Unlike other statistical suites, such as STATA, there is no unified way of creating tables in `R`. However, there are many packages available for almost any kind of need you have with regards to the input and the output format. This means that, depending on _what_ you would like to show in a table and where you want to use it (think Word, LaTeX or even html formats), you might use different packages. Here, we will focus on the `flextable` package since it can handle a variety of different output formats (HTML, Word, PDF via LaTeX and PowerPoint), can be used with the pipe (`%>%`) operator and can be integrated in an RMarkdown document.
+
+The package author provides a comprehensive [user documentation](https://ardata-fr.github.io/flextable-book/) that you can refer to in case you want to look up a particular use case.
+
+```{r}
+
+# install the package
+install.packages('flextable')
+
+# load the package
+library(flextable)
+
+
+```
+
+
+@TODO
+
+# Some more plotting
+
+@TODO
+
+# Further resources
+
+@TODO
+
