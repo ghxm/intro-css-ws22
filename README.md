@@ -1,13 +1,14 @@
 ---
-title: Syllabus
+title: "Introduction to Computational Social Science"
 course: Introduction to Computational Social Science [WP 7.1]
-authors:
-    - Maximilian Haag
-    - Constantin Kaplaner
+output: pdf_document
 term: Winter 2022
+authors:
+- Maximilian Haag
+- Constantin Kaplaner
 ---
 
-# Introduction to Computational Social Science - Syllabus
+# Syllabus
 
 **Instructors**
 
@@ -127,7 +128,7 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 #### Literature
 
-- *Lazer et al. (2009) Computational Social Science. Science 323 (5915), 721-723. DOI: 10.1126/science.1167742.*
+- *Lazer et al. (2009) Computational Social Science. Science 323 (5915), 721-723. DOI: 10.1126/science.1167742*
 
 
 
@@ -152,7 +153,7 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 #### Literature
 
-- *Hox, J. J. (2017). Computational Social Science Methodology, Anyone? Methodology, 13(Supplement 1), 3–12. https://doi.org/10.1027/1614-2241/a000127*
+- *Hox, J. J. (2017). Computational Social Science Methodology, Anyone? Methodology, 13(Supplement 1), 3–12. DOI: 10.1027/1614-2241/a000127*
 
 
 
@@ -200,7 +201,8 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
   - How polarized are MPs in the german Bundestag?
 
 #### Literature
-- *Peterson, A., & Spirling, A. (2018). Classification Accuracy as a Substantive Quantity of Interest: Measuring Polarization in Westminster Systems. Political Analysis, 26(1), 120-128. doi:10.1017/pan.2017.39*
+
+- *Peterson, A., & Spirling, A. (2018). Classification Accuracy as a Substantive Quantity of Interest: Measuring Polarization in Westminster Systems. Political Analysis, 26(1), 120-128. DOI: 10.1017/pan.2017.39*
 
 
 
@@ -211,12 +213,14 @@ Please note: We will not be able to provide access to our RStudio Cloud workspac
 
 #### Learning objectives
 
-TBA
+-  Introduction to geospatial data
+-  Data acquisition and preparation
+-  Spatial Analysis
 
 
 #### Lab
 
-TBA
+- Examples from applid research (F. Quoß guest lecture)
 
 
 
@@ -234,7 +238,7 @@ TBA
 
 #### Literature
 
-- *Borgatti, S. P., Mehra, A., Brass, D. J., & Labianca, G. (2009). Network Analysis in the Social Sciences. Science, 323(5916), 892–895. https://doi.org/10.1126/science.1165821*
+- *Borgatti, S. P., Mehra, A., Brass, D. J., & Labianca, G. (2009). Network Analysis in the Social Sciences. Science, 323(5916), 892–895. DOI: 10.1126/science.1165821*
 
 
 
@@ -242,7 +246,15 @@ TBA
 
 ### 2023-01-23 Session 7: Research design and CSS workflows
 
-TBA
+#### Learning objectives
+
+- Research design basics
+- Research in CSS
+- CSS Workflows: best practices & possibilities
+
+#### Lab
+
+- Writing term papers with RMarkdown
 
 
 
