@@ -71,7 +71,7 @@ Take some time to play around with the different formats and options.
 
 ## Best practices and advanced techniques
 
-### Keep your data an andalysis presentation separate
+### Keep your data an and analysis presentation separate
 
 When writing papers using RMarkdown it is generally advisable to *separate your concerns*, i.e. your data analysis and your write up or presentation of your results. Nevertheless, we can profit from using RMarkdown as it allows us to still access our results. Say, e.g., you have created a dataset that you want to showcase using tables an plots. You'll want to compile your dataset in a separate file and save the dataset to your disk, e.g. in `.csv` format. You can then load this data in your RMarkdown document (using `read.csv()` as we have already done many times) and work with the data throughout the document.
 
@@ -87,20 +87,20 @@ You can then access all variables and objects you create in `analysis.R` in your
 
 Note: Sourcing files is only advisable if the actions performed in the sourced file are not extensive and resource-intensive as this will significantly increase the time it takes to render your document. For large analysis it is best to go with the route mentioned above and same intermediary states in files. For file structures that exceed the simple two dimensional structure of a flat dataset table, you can use [`.Rdata` files](https://bookdown.org/ndphillips/YaRrr/rdata-files.html).
 
-
-<!--- Exclude bc Problem: this requires the bookdown package and things will get too complex
-### Referencing tables and figures
-
-One of the best things about using code chunks to create plots and tables is that we can reference them directly in RMarkdown. To do so, we need to label the code chunk we want to reference. In the example file, you can see that the code chunk that produces the plot is labelled 'pressure' like this `&grave;&grave;&grave;{r pressure}`. If we now want to 
-
 --->
 
 ### Referencing and citing literature
 
 Similarly to how we can reference tables and figures in our text, we can also cite literature in RMarkdown. For this you will need to export your library (i.e. the records of the texts you want to cite) into a `.bib` file (you can do this in most literature management programs), which we specify in the YAML header. Once we have done that, we can reference literature using *citekeys*. RMarkdown will then automatically translate these citekeys into citations in your preferred citation format and, depending on said format, add them to your reference list for the document. For more on the setup and how to cite, see the [RMarkdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
 
+If you use Zotero you can use following code to automatically create a references file based on the papers you selected in Zotero:
 
+```{r, eval=FALSE}
+remotes::install_github("paleolimbot/rbbt")
+bib <- rbbt::bbt_bib_selected(translator = "biblatex", .action = bbt_print)
 
+cat(bib, file = "references.bib")
+```
 
 # Tables
 
@@ -115,24 +115,148 @@ install.packages('flextable')
 
 ```
 
+## Creating tables
 
-```{r, eval=FALSE}
+We gonna create a simple example for an regression table. For this, we will use the `penguins` data set and the `lm` function to estimate a linear model.
+
+```{r, eval=TRUE, message=FALSE}
 
 # load the package
+library(tidyverse)
+library(tidymodels)
 library(flextable)
+
+pen <- palmerpenguins::penguins
+lm_pen <- lm(bill_length_mm ~ body_mass_g + island, data = pen)
 
 ```
 
 
-@TODO
+`flextable` uses normal data frames as inputs. To get a nice output from our model, we use the `tidy()` function from the `tidymodels` package. 
+ 
+```{r, eval=TRUE}
 
-# Some more plotting
+lm_pen %>% 
+  tidy() 
+```
 
-We have already used plots throughout the course. Here are some additional... @TODO
 
-@TODO
+This gives us a tidy data frame of our regression model that we can use to create our table. To create a table we simply have to use the `flextable` function.
 
-# Further resources
 
-@TODO
+```{r, eval=TRUE}
+lm_pen %>% 
+  tidy() %>% 
+  flextable()
 
+```
+
+While this creates a first table, there are some things we can do better. First off, we often report only the first two decimals for our values. We can use the `round()` function to round our values. One problem when using `round()` for creating tables is, that it cut offs decimals when they end in 0. See the example below:
+
+```{r}
+round(1.100, digits = 2)
+```
+
+Here 1.100 gets rounded to 1.1. In tables, we normally aim to report all values with the same amount of decimals. To solve this problem, we can use the `format()` function and fix the decimals to 2 by defining `nsmall = 2`:
+
+```{r}
+format(round(1.100, digits = 2), nsmall = 2)
+
+```
+
+If we apply this to our table we get the following:
+
+```{r}
+lm_pen %>% 
+  tidy() %>% 
+  select(term, estimate, std.error, p.value) %>% 
+  mutate(estimate = format(round(estimate, 2),nsmall = 2),
+         std.error = format(round(std.error, 2),nsmall = 2),
+         p.value = format(round(p.value, 2),nsmall = 2)) %>% 
+  flextable()
+```
+
+We can do some further adjustments by adding stars to mark significant results, renaming the columns to our desired names and setting a caption.
+
+```{r}
+lm_pen %>% 
+  tidy() %>% 
+  select(term, estimate, std.error, p.value) %>% 
+  mutate(estimate = format(round(estimate, 2),nsmall = 2),
+         std.error = format(round(std.error, 2),nsmall = 2),
+         p.value = format(round(p.value, 2),nsmall = 2)) %>% 
+  mutate(p.value = if_else(p.value <= 0.01, paste0(p.value, "***"), p.value)) %>% 
+  rename(` ` = term,
+         coefficient = estimate,
+         se = std.error,
+         `p-value` = p.value) %>% 
+  flextable() %>% 
+  autofit() %>% 
+  set_caption("Regression table")
+```
+
+To include the table in your term paper you can simple put the code into a code chunk in your Rmardkown file.
+
+## Referencing tables
+
+You should give every table you are creating a unique label To do so, you have to pass a name to the code chunk where you create the table. This would look like this: `{r name_of_table}`
+
+To references the table simply write `\@ref(tab:name_of_table)` in text where you want to reference your table.
+
+# Figures
+
+There are two ways you can include figures in your markdown file. You could plot it directly in the Rmarkdown file, or you could save it in your script and include it as an image.
+
+## Creating figures
+First, you can include them directly through code. We keep with our regression output from before, and we will create a coefficient plot. Again we use the `tidy` function but this time we also want confidence intervals so we can plot them in our coefficient plot. 
+
+For the plot itself we will use `geom_pointrange()`. This creates a point plot with error bars. For the error bars, we set a `xmin` and `xmax` value that correspond to our confidence intervals. 
+
+```{r}
+lm_pen %>% 
+  tidy(conf.int = T, conf.level = .95) %>% 
+  filter(term != "(Intercept)") %>% 
+  ggplot(aes(x=estimate, y=term,
+             xmin = conf.low,
+             xmax = conf.high))+
+  geom_vline(xintercept = 0, linetype = 2)+
+  geom_pointrange()+
+  theme_minimal()+
+  xlab("Coefficient")+
+  ylab("")
+```
+
+Including this code directly in our Rmarkdown would render our plot. Alternatively we can save the plot as `pdf` and include the pdf. When using `ggplot` we can use `ggsave` for this. First we save our plot to the object `coef_plot_pen`, then we save it with `ggsave()`
+
+```{r, eval=FALSE}
+coef_plot_pen <- lm_pen %>% 
+  tidy(conf.int = T, conf.level = .95) %>% 
+  filter(term != "(Intercept)") %>% 
+  ggplot(aes(x=estimate, y=term,
+             xmin = conf.low,
+             xmax = conf.high))+
+  geom_vline(xintercept = 0, linetype = 2)+
+  geom_pointrange()+
+  theme_minimal()+
+  xlab("Coefficient")+
+  ylab("")
+
+ggsave(coef_plot_pen, filename = "coef_plot_pen.pdf", width = 5, height = 5)
+
+```
+
+We can then include the plot by using the `include_graphics()` function in the `knitr` package:
+
+```{r, eval=FALSE}
+knitr::include_graphics("coef_plot_pen.pdf")
+```
+
+## Referencing plots
+
+Similar to tables, we should also name our plots in the code chunk: `{r name_of_figure}`
+
+Additionally, we need to include the figure caption in the code chunk instead of in the code as we did with flextable:
+
+`{r name_of_figure, fig.cap="Caption for our plot"}`.
+
+You can now reference the figure similar to a table by using: `\@ref(fig:name_of_figure)`.
