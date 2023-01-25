@@ -1,0 +1,121 @@
+---
+title: "Paper title"
+author: "Paper author"
+date: "`r Sys.Date()`"
+params:
+  input_file: false
+output:
+  bookdown::pdf_document2:
+    toc: no
+    keep_tex: no
+geometry:
+  - left=2.5cm
+  - right=2.5cm
+  - top=2.5cm
+  - bottom=3cm
+indent: true
+latex_engine: xelatex
+numbersections: false
+papersize: a4
+fontsize: 11pt
+linestretch: 1.5
+cite-method: citeproc # citeproc, natbib, or biblatex
+citeproc: true # use pandoc-citeproc for citation rendering
+# csl: # set a custom csl file here to change the citation style when using citeproc
+bibliography: library.bib
+# biblio-style: apalike # for use with natbib or bibtex
+link-citations: yes
+nocite: | # Place any citations that should appear in the bilbiography but are not cited in the text here in a list format
+abstract: |
+  Place your abstract here.
+---
+
+```{r, setup, include=FALSE}
+# This is a setup code chunk. It is recommended to load your necessary data et al here.
+
+
+# load the required packages for our document
+library(flextable)
+library(dplyr)
+
+
+
+# here, we set some global options for all chunks
+# we can overwrite these for individual chunks 
+knitr::opts_chunk$set(
+    warning = FALSE, # this prevents warnings from being printed in out output document (beware: make sure your code works correctly!)
+    fig.pos = 'H' # this tries to place all figure and tables exactly where we put them in our markdown, see https://bookdown.org/yihui/rmarkdown-cookbook/figure-placement.html#force-floats-forward for more
+)
+
+```
+
+
+\clearpage <!-- this raw latex command introduces a new page in many output formats! -->
+
+# Introduction
+
+This is a sentence. We can reference literature [@smit54]. We can also cite it in-text if we talk about a text by @smit54. Of course, we can also cite multiple papers [@smit54; @gree00]. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+```{r mytable, echo=FALSE}
+
+flextable(cars[1:10,],) %>%
+    set_caption('Rows 1 to 10 of the built-in `cars` dataset.') %>%
+    autofit()
+
+
+```
+
+
+
+We can now reference table \ref{tab:mytable} in our text. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+# The second section
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+
+```{r myplot, echo=FALSE, fig.cap='A plot of temparature and pressure from the built-in `pressure` dataset.'}
+
+plot(pressure)
+
+```
+
+
+We can now reference figure \ref{fig:myplot} in our text. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+# Further information
+
+Did you know we can also write equations and formulas?
+
+$$
+
+a + b c + \dfrac{1}{b}
+
+$$
+
+For more information, see the [Rmarkdown cookbook](https://bookdown.org/yihui/rmarkdown-cookbook) and the [bookdown manual](https://bookdown.org/yihui/bookdown/).
+
+
+
+\clearpage
+
+# References
+
+<!--- The Bibliography will be placed here. If you don't include the code below, it will automatically be placed at the end of the document.
+
+This is a comment in Markdown, by the way!
+
+-->
+
+::: {#refs}
+:::
+
+
+\newpage <!-- this raw latex command introduces a new page in many output formats! -->
+
+# Appendix
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
