@@ -36,8 +36,6 @@ fontfamily: sourcesanspro
 fontfamilyoptions: null
 mainfont: null
 fontsize: 10
-bibliography: ../pandoc/css-intro-ba.bib
-csl: ../pandoc/apa.csl
 handout: no
 beamercovered:  ''
 link-citations: yes
@@ -229,34 +227,21 @@ Make use of the office hours to receive feedback and get help if you get stuck w
 &rarr; *Write us an e-mail describing your problem / general topic of inquiry and we will schedule an in-person meeting / Zoom call or, depending on the issue, handle your problem via e-mail.*
 
 
-# Finding a topic for your paper
-
-\smaller
-
-
-**Sources of inspiration**
-
-- interest in a particular technique
-- interest in a particular substantive topic
-- existing research papers (&rarr; use Google scholar and tools like elicit.org)
-- @TODO
-
-
-
-**Possible ways of interacting with existing research**
-
-- replicate an approach in another context
-- how can an existing argument be tested using CSS data / techniques?
-- apply new techniques to existing data (&rarr; take look at data repositories like [Harvard Dataverse](https://dataverse.harvard.edu/))
-- @TODO
-
-
-
 # 
 
 \section{Research design basics}
 
+# Types of research in CSS
 
+We can roughly distinguish 3 types of research designs:
+
+- Exploratory
+- Descriptive
+- Confirmatory
+
+# Types of research in CSS
+
+Given you would like to write about political polarization, how would the different approaches look like?
 
 # Types of research in CSS
 
@@ -264,28 +249,28 @@ Make use of the office hours to receive feedback and get help if you get stuck w
 \smaller
 
 
-**Exploratory:** Collecting 5000 newspaper articles from the New York Times to get an idea of how long it takes to collect them, what we can infer from the texts (topics? number of authors? positioning?)
-
+**Exploratory:** 
+RQ: How is political polarization written about in the media in the US?
+RD: Collect a sample of newspaper articles from the New York Times that mention polarization, try to infer something from your exploration (e.g. a new measurement how to find polarization in news paper articels, a new theory of when polarization is mentioned)
 
 **Descriptive:**
 
 \vspace{-0.8em}
 
-- Collecting all newspaper articles (e.g. from the Politics section) from the NYT and summarize how many are published per quarter on average, what the most written about topic is by year
-- Evaluating the responses to a vote intention survey by household income or education to get an overview of how voting preferences are distributed among the respondents
+RQ: How has the salience of political polarization evolved over the last 30 years in the US?
+RD: Collect all newspaper from the New York times, identify articles with a connection to polarization, map out and describe the temporal developments / trends.
 
 
 **Confirmatory:**
 
 \vspace{-0.8em}
 
+RQ: Do Violent Protests Affect Expressions of Party Identity? Evidence from the Capitol Insurrection (Eady et al., 2022)
 
-- Use data on all NYT Politics articles to test your hypothesis about a bias in political reporting during election time
-- Test what characteristics make people more likely to vote for the ruling party
+RD: 
+Collected daily twitter data of 3.4 million twitter users located in the US, identified their political affiliation, test if Republicans changed their affiliation more compared to Democrats (Difference-in-Differences) after Janaury 6th
 
-
-**Predictive:** Use the reading / comment / click statistics of NYT articles to recommend articles to readers that they might also find interesting
-
+https://www.cambridge.org/core/journals/american-political-science-review/article/do-violent-protests-affect-expressions-of-party-identity-evidence-from-the-capitol-insurrection/76D0502E7C5A83D3900DE42C5FDCA8EE
 
 
 # Types of analyses in Political Science {.c}
@@ -296,20 +281,98 @@ Make use of the office hours to receive feedback and get help if you get stuck w
 
 &rarr; *Data collection or methodolgical application efforts* are just as important as explanatory research
 
+# 
+
+\section{Research process}
+
+# Finding a topic for your paper
+
+\smaller
 
 
-# What to include
+**Sources of inspiration**
 
-@TODO
-Describe in detail how you plan to
-
-- obtain data
-- analyze the data
-- operationalize your variables of interest
-
-It is also advisable to outline the advantages and disadvantages your approach might have compared to others.
+- interest in a particular technique
+- interest in a particular substantive topic
+- existing research papers (&rarr; use Google scholar and tools like elicit.org)
 
 
+**Possible ways of interacting with existing research**
+
+- replicate an approach in another context
+- how can an existing argument be tested using CSS data / techniques?
+- apply new techniques to existing data (&rarr; take look at data repositories like [Harvard Dataverse](https://dataverse.harvard.edu/))
+
+
+# Define a research question
+
+\smaller
+
+**RQ:**
+
+- once you have a rough topic you should think about your research question
+- the research question is the central part of your paper!
+- it lays out what you are trying to answer
+- it also defines what *type* of research you are conducting!
+
+**ask yourself:** 
+
+- what might be missing in the literature about a topic? 
+- how can I add to that or how can I fill the gap?
+
+# Time for theory
+
+\smaller
+\smaller
+
+once you have a research question you can start working on theory
+
+**Exploratory analysis**
+
+- When doing exploratory analysis we often lack an existing theory or framework
+- Show why we are missing that or why current theory might not apply
+- Descripe what we might have to do gain a better insight
+
+**Descriptive analysis:**
+
+- What concept am I trying to describe?
+- What *is* the thing I am studying?
+
+**Confirmatory analysis:**
+
+- How might x influence y?
+- What is the causal path? 
+- What *causes* x to influence y? 
+- Formulate hypothesis
+
+
+# Specify your research design
+
+After defining your research design and gaining an understanding of the underlying theory it is time to define your research design. Questions to answer:
+
+- **Case selection:** What case am I looking at and why? (e.g. which country, which organisation...)
+- **Data:** What steps do I take to collect my data? What is included what not (be precise!)
+- **Operationalization/Measurement:** How do I translate my concept into concrete variables? How  can I measure those?
+- **Model specification:** (In confirmatory analysis) what model do I use to test my hypothesis?
+
+# Do it
+
+Now you should collect your data and conduct your analysis!
+
+# Present results
+
+After doing the analysis present your results. You should include:
+
+- Descriptive data
+- Results from your analysis (e.g. plots of time trends, regression results ...)
+- Describe what results you retrieved
+
+# Conclusion / Discussion
+
+- Briefly summarize what you found
+- What are the limitations of your research?
+- How do these results fit into the broader research landscape?
+- What are avenues for future research?
 
 # 
 
@@ -479,6 +542,7 @@ As a student, you can [set up a free GitHub account](https://github.com/signup) 
 
 
 # Computation
+\smaller
 
 **Problem**
 
@@ -486,11 +550,9 @@ Computational analysis or data collection often takes time and resources &rarr; 
 
 **Solution**
 
-@TODO servers etc
+Rstudio Server can be installed on server instances of cloud computing operators (AWS, Google Cloud).
 
-
-
-
+Google also offers Google Colab (https://colab.research.google.com). While focused on Python, you can also run R code in the colab environment (https://towardsdatascience.com/how-to-use-r-in-google-colab-b6e02d736497)
 
 # Next session
 
@@ -503,7 +565,6 @@ Computational analysis or data collection often takes time and resources &rarr; 
 
 
 \vspace{1em}
-
 
 
 # References  {.allowframebreaks}
