@@ -36,6 +36,7 @@ fontfamily: sourcesanspro
 fontfamilyoptions: null
 mainfont: null
 fontsize: 10
+bibliography: ../pandoc/css-intro-ba.bib
 handout: no
 beamercovered:  ''
 link-citations: yes
@@ -279,7 +280,7 @@ https://www.cambridge.org/core/journals/american-political-science-review/articl
 
 &rarr; Most Political Science research is focused on confirmatory analysis; however *good exploratory and descriptive analysis* is often helpful in making data accessible and generating ideas for yourself and other researchers!
 
-&rarr; *Data collection or methodolgical application efforts* are just as important as explanatory research
+&rarr; *Data collection or methodological application efforts* are just as important as explanatory research
 
 # 
 
