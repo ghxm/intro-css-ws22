@@ -1,0 +1,583 @@
+---
+knit: (function(input, ...) {
+    rmarkdown::render(
+        '07_slides.Rmd',
+        envir = globalenv()
+    )
+    })
+output:
+    beamer_presentation:
+        keep_tex: yes
+        latex_engine: xelatex
+        template: '../pandoc/templates/slides_template.latex'
+        fig_caption: yes
+latex_engine: xelatex
+template: '../pandoc/templates/slides_template.latex'
+title: "Introduction to Computational Social Science"
+subtitle: "Session 7: Research design & workflows"
+author:
+- Maximilian Haag
+- Constantin Kaplaner
+date: "23.01.2023"
+event: "Room B U103, Tue 14:00--18:00 (bi-weekly)"
+contact: (maximilian.haag@gsi.uni-muenchen.de; constantin.kaplaner@gsi.uni-muenchen.de)
+institute: "Geschwister-Scholl-Institute for Political Science \\newline LMU Munich"
+titlegraphic: null
+fundinggraphic: null
+theme: metropolis
+beamer: yes
+themeoptions: null
+outerheme: null
+innertheme: circles
+colortheme: dove
+fonttheme: structurebold
+fontthemeoptions: onlylarge
+fontfamily: sourcesanspro
+fontfamilyoptions: null
+mainfont: null
+fontsize: 10
+bibliography: ../pandoc/css-intro-ba.bib
+handout: no
+beamercovered:  ''
+link-citations: yes
+citecolor: blue
+colorlinks: yes
+section-titles: yes
+tables: yes
+classoption:
+#- notes=only
+- notes=hide
+nocite:
+header-includes:
+- \setbeamertemplate{frame footer}{\insertshortauthor \hspace{1em} -- \hspace{1em}\insertshorttitle \hspace{0.5em} \insertsubtitle}
+- \setbeamerfont{page number in head/foot}{size=\tiny}
+- \setbeamercolor{footline}{fg=darkgray, bg = alabaster}
+- \setbeamercolor{frametitle}{fg=black, bg = alabaster}
+- \setbeamercolor{block title}{bg=alabaster,fg=black}
+- \setbeamercolor{block body}{fg=black, bg=magnolia}
+- \setlength\belowcaptionskip{-0.8em}
+- \usepackage{caption}
+- \captionsetup[figure]{labelformat=empty}
+---
+
+
+
+# Today's session {.centered}
+
+**Lecture**
+
+1. Presentations + term papers
+2. Research design basics
+3. Research in CSS
+4. CSS Workflows: best practices & possibilities
+
+
+
+#
+
+\section{Presentations \& term papers}
+
+
+# Term papers: timeline
+
+**2023-01-23 (this session)** Research design & CSS workflow session
+
+**2023-02-06 (in 2 weeks)** Student presentations of term paper ideas
+
+...
+
+**2023-03-13** Term paper submission deadline
+
+
+# Grading {.c}
+
+\larger
+
+
+Per the study regulations, your final grade is composed of your **presentation grade** (50%) + **term paper grade** (50%).
+
+
+# Term papers {.allowframebreaks}
+
+You can choose to either
+
+1. write a **research design** for a CSS paper &rarr; theory + concept focused
+
+2. conduct an **analysis** using the techniques covered in the course &rarr; code focused
+
+\vspace{1em}
+
+Feel free to make use of RStudio cloud &rarr; will stay open until the end of March 2023
+
+\framebreak
+
+\smaller
+\smaller
+
+::: columns
+
+:::: column
+
+**Option: Research design**
+
+\vspace{0.2em}
+
+
+*Write up a research design for a potential study in the realm of CSS. This includes an introduction, research question, embedding of the question into the literature, theory and research design part.*
+
+\vspace{0.8em}
+
+***Requirements***
+
+- ~ 20,000 characters (incl. spaces and references)
+- PDF format
+
+\vspace{0.8em}
+
+&rarr; See [research design paper template](https://github.com/ghxm/intro-css-ws22/blob/main/template_research_design.md)!
+
+::::
+
+:::: column
+
+**Option: Analysis / Coding project**
+
+\vspace{0.2em}
+
+*Create a CSS coding project using (one of) the techniques covered in the course. This may include a data collection effort, an analysis or similar (see later slides). Describe your efforts and present your results in a short text.*
+
+\vspace{0.6em}
+
+
+***Requirements***
+
+- ~ 10,000 characters (incl. spaces and references) + code
+- PDF format write-up and `R` code
+- Make sure to produce reproducible and commented code
+
+\vspace{0.8em}
+
+
+
+&rarr; See [coding project template](https://github.com/ghxm/intro-css-ws22/blob/main/template_analysis.md)!
+
+
+
+::::
+
+:::
+
+\vspace{-0.8em}
+
+
+
+There are no special formatting requirements for the papers but please make them readable (e.g. 11pt font size, 1.4 spacing, serif font) and use a consistent citation style.
+
+
+*Make sure you visit the office hours to discuss your term paper with us!*
+
+
+# Presentations
+
+\smaller
+
+**Task**
+
+\vspace{-0.5em}
+
+
+Present the idea for your term paper.
+
+\vspace{0.2em}
+
+**Requirements**
+
+\vspace{-0.5em}
+
+
+~ 10 min. presentation with slides
+
+\vspace{0.4em}
+
+- Focus on identifying a clear research question / the goal of your paper
+- Describe the methodology / data you intend to use
+- Present your efforts so far
+- Make sure to include your open questions and issues as well
+
+\vspace{0.4em}
+
+\pause
+
+*Feel free to visit the office hours before your presentation and / or send us a proposal for your term paper to receive feedback in advance!*
+
+
+
+# Office hours
+
+
+Make use of the office hours to receive feedback and get help if you get stuck with your paper! This can include but is not limited to 
+
+- coding problems
+- research design questions
+- theoretical questions
+- methodological questions
+- presentation of your results
+
+\vspace{0.2em}
+
+&rarr; *Write us an e-mail describing your problem / general topic of inquiry and we will schedule an in-person meeting / Zoom call or, depending on the issue, handle your problem via e-mail.*
+
+
+# 
+
+\section{Research design basics}
+
+# Types of research in CSS
+
+We can roughly distinguish 3 types of research designs:
+
+- Exploratory
+- Descriptive
+- Confirmatory
+
+# Types of research in CSS
+
+Given you would like to write about political polarization, how would the different approaches look like?
+
+# Types of research in CSS
+
+\smaller
+\smaller
+
+
+**Exploratory:** 
+RQ: How is political polarization written about in the media in the US?
+RD: Collect a sample of newspaper articles from the New York Times that mention polarization, try to infer something from your exploration (e.g. a new measurement how to find polarization in news paper articels, a new theory of when polarization is mentioned)
+
+**Descriptive:**
+
+\vspace{-0.8em}
+
+RQ: How has the salience of political polarization evolved over the last 30 years in the US?
+RD: Collect all newspaper from the New York times, identify articles with a connection to polarization, map out and describe the temporal developments / trends.
+
+
+**Confirmatory:**
+
+\vspace{-0.8em}
+
+RQ: Do Violent Protests Affect Expressions of Party Identity? Evidence from the Capitol Insurrection (Eady et al., 2022)
+
+RD: 
+Collected daily twitter data of 3.4 million twitter users located in the US, identified their political affiliation, test if Republicans changed their affiliation more compared to Democrats (Difference-in-Differences) after Janaury 6th
+
+https://www.cambridge.org/core/journals/american-political-science-review/article/do-violent-protests-affect-expressions-of-party-identity-evidence-from-the-capitol-insurrection/76D0502E7C5A83D3900DE42C5FDCA8EE
+
+
+# Types of analyses in Political Science {.c}
+
+&rarr; When working with newly obtained or unstructured data, it is often helpful to engage in descriptive and exploratory analysis first to get a feel for the data and the ways in which you might be able to use them
+
+&rarr; Most Political Science research is focused on confirmatory analysis; however *good exploratory and descriptive analysis* is often helpful in making data accessible and generating ideas for yourself and other researchers!
+
+&rarr; *Data collection or methodological application efforts* are just as important as explanatory research
+
+# 
+
+\section{Research process}
+
+# Finding a topic for your paper
+
+\smaller
+
+
+**Sources of inspiration**
+
+- interest in a particular technique
+- interest in a particular substantive topic
+- existing research papers (&rarr; use Google scholar and tools like elicit.org)
+
+
+**Possible ways of interacting with existing research**
+
+- replicate an approach in another context
+- how can an existing argument be tested using CSS data / techniques?
+- apply new techniques to existing data (&rarr; take look at data repositories like [Harvard Dataverse](https://dataverse.harvard.edu/))
+
+
+# Define a research question
+
+\smaller
+
+**RQ:**
+
+- once you have a rough topic you should think about your research question
+- the research question is the central part of your paper!
+- it lays out what you are trying to answer
+- it also defines what *type* of research you are conducting!
+
+**ask yourself:** 
+
+- what might be missing in the literature about a topic? 
+- how can I add to that or how can I fill the gap?
+
+# Time for theory
+
+\smaller
+\smaller
+
+once you have a research question you can start working on theory
+
+**Exploratory analysis**
+
+- When doing exploratory analysis we often lack an existing theory or framework
+- Show why we are missing that or why current theory might not apply
+- Descripe what we might have to do gain a better insight
+
+**Descriptive analysis:**
+
+- What concept am I trying to describe?
+- What *is* the thing I am studying?
+
+**Confirmatory analysis:**
+
+- How might x influence y?
+- What is the causal path? 
+- What *causes* x to influence y? 
+- Formulate hypothesis
+
+
+# Specify your research design
+
+After defining your research design and gaining an understanding of the underlying theory it is time to define your research design. Questions to answer:
+
+- **Case selection:** What case am I looking at and why? (e.g. which country, which organisation...)
+- **Data:** What steps do I take to collect my data? What is included what not (be precise!)
+- **Operationalization/Measurement:** How do I translate my concept into concrete variables? How  can I measure those?
+- **Model specification:** (In confirmatory analysis) what model do I use to test my hypothesis?
+
+# Do it
+
+Now you should collect your data and conduct your analysis!
+
+# Present results
+
+After doing the analysis present your results. You should include:
+
+- Descriptive data
+- Results from your analysis (e.g. plots of time trends, regression results ...)
+- Describe what results you retrieved
+
+# Conclusion / Discussion
+
+- Briefly summarize what you found
+- What are the limitations of your research?
+- How do these results fit into the broader research landscape?
+- What are avenues for future research?
+
+# 
+
+\section{CSS workflows: Best practices \& possibilities}
+
+
+# Overview
+
+In CSS and research, there a range of tools an techniques that can help us simplify and standardize certain processes, this includes
+
+- writing **reproducible code** so that your analysis can be replicated by others (see also session #02)
+- writing **markup languages** to write your paper in an easily reproducible and interactive documents
+- using **literature management** software to keep track of your literature and citations
+- using **version control** to track changes to your code
+- using servers for resource intense **computation**
+
+
+
+
+
+# Reproducbility: core principles [@p_ball_task_2016; @p_ball_principled_2016; @uwe_engel_reproducbility_2022]
+
+1. **Transparency:** Analysis parts are complete and sufficiently documents
+2. **Auditability:** Analysis can be executed by other researchers or on different platforms
+3. **Reproducbility:** Results are the same for anyone running the analysis using the same code and data
+4. *Scalability*: Code can handle other inputs and outputs than those used in the specific project
+
+
+
+# Reproducibility: What does this mean for us? {.allowframebreaks}
+
+\smaller
+
+***Share your full code and data +***
+
+\smaller
+
+
+**&rarr; Transparency**
+
+\vspace{-1em}
+
+- write and store code in a way that is easily understandable for others (within reason)
+- include all parts of code (incl. for figures, tables)
+- document files, code and your data collection process
+
+**&rarr; Auditability**
+
+\vspace{-1em}
+
+
+- include every step of the process (package dependencies, environment settings) in your code
+- make sure the analysis can be run in a newly set up environment
+
+**&rarr; Reproducibility**
+
+\vspace{-0.8em}
+
+taking **transparency** and **auditability** into account, make sure your results remain stable when re-running your analysis
+
+**&rarr; Scalability** (within reason and your own ability)
+
+\vspace{-1.5em}
+
+try to write generalized rather than highly specific code
+
+
+
+# Reproducible & interactive documents {.allowframebreaks}
+
+\smaller
+
+Markup languages separate text and formatting. This way you can write your paper without constantly worrying what it will look like. Popular choices in research include
+
+- \LaTeX{}  &rarr; [Overleaf](https://www.overleaf.com/)
+- `pandoc` / Rmarkdown (&rarr; check out the lab files ending in `.Rmd` from our sessions)
+
+While markup languages have many advantages (e.g. figure and table numbering / referencing, easy and consistent citing and much more), they also require some time to get used to and have a bit of a learning curve. *However, it can be useful to get now to be prepared for later challenges (e.g. your Bachelor thesis).*
+
+
+
+\framebreak
+
+\larger
+
+There are many resources to get you started and Google and StackOverflow are your friend!
+
+\vspace{0.8em}
+
+::: columns
+
+:::: column
+
+\LaTeX{}
+
+\vspace{0.5em}
+
+- [Overleaf LaTeX guide](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes)
+- [latex-tutorial.com](https://latex-tutorial.com/tutorials/)
+- [Blog post: LaTeX for the humanities](https://www.overleaf.com/blog/636-guest-blog-post-latex-for-the-humanities)
+
+::::
+
+:::: column
+
+`pandoc` **/ Rmarkdown**
+
+\vspace{0.5em}
+
+- [RStduio introduction to Rmarkdown](https://rmarkdown.rstudio.com/lesson-1.html)
+- [Getting started with `pandoc`](https://pandoc.org/getting-started.html)
+
+
+::::
+
+:::
+
+\vspace{0.8em}
+
+
+Fun fact: These slides are written in Markdown and typeset in \LaTeX{} using `pandoc` / Rmarkdown.
+
+
+
+# Literature management
+
+\smaller
+
+Keep track of the literature you need for your research using literature management software. It can help you
+
+- organize and sort through the literature you have saved
+- save papers straight from your browser
+- easily cite research in your own paper using various citation styles
+
+Popular software includes
+
+- [Zotero](https://www.zotero.org/) (free & open source!)
+- [EndNote](https://endnote.com/)
+
+Wikipedia also has a large [list of reference mangement software](https://en.wikipedia.org/wiki/Comparison_of_reference_management_software).
+
+
+# Version control using `git` and GitHub {.shrink}
+
+\smaller
+
+**`git`**
+
+-   Version control system (VCS): a system used to manage and track changes to your documents
+-   allows for easy collaboration on coding projects
+
+\vspace{-0.2em}
+
+
+It may take some time to work with a VCS, but there are [`git` quickstart tutorial](https://rogerdudler.github.io/git-guide/)s on the internet to help you ease in.
+
+**GitHub**
+
+-   an online version of `git`
+-   you can easily make your projects public
+-   and invite others to contribute to your project
+
+\vspace{-0.2em}
+
+As a student, you can [set up a free GitHub account](https://github.com/signup) with all the features of a pro account!
+
+
+
+# Computation
+\smaller
+
+**Problem**
+
+Computational analysis or data collection often takes time and resources &rarr; can render your computer unusable for a couple hours/days/weeks
+
+**Solution**
+
+Rstudio Server can be installed on server instances of cloud computing operators (AWS, Google Cloud).
+
+Google also offers Google Colab (https://colab.research.google.com). While focused on Python, you can also run R code in the colab environment (https://towardsdatascience.com/how-to-use-r-in-google-colab-b6e02d736497)
+
+# Next session
+
+\vspace{2em}
+
+**Next session** 06 Feb 2023: Presentation of your term paper idea
+
+
+&rarr; Don't hesitate to make use of the office hours before and after the session!
+
+
+\vspace{1em}
+
+
+# References  {.allowframebreaks}
+
+\begingroup
+
+\footnotesize
+::: {#refs}
+:::
+\endgroup
+
+
+
+# Appendix {.allowframebreaks}
+
